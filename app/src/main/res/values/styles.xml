@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="h3_text_style" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:padding">@dimen/padding_8dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="h4_text_style" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:padding">@dimen/padding_8dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="search_text_style" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size_12sp</item>
+        <item name="android:padding">@dimen/padding_8dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@android:color/white</item>
+    </style>
+</resources>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Margin Size -->
+    <dimen name="margin_32dp">32dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+
+    <!-- Padding Size -->
+    <dimen name="padding_8dp">8dp</dimen>
+
+    <!-- Height Size -->
+    <dimen name="height_100dp">100dp</dimen>
+    <dimen name="height_32dp">32dp</dimen>
+    <dimen name="height_350dp">350dp</dimen>
+    <dimen name="height_92dp">92dp</dimen>
+
+    <!-- Width Size -->
+    <dimen name="width_1dp">1dp</dimen>
+    <dimen name="width_32dp">32dp</dimen>
+    <dimen name="width_92dp">92dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
+
+    <!-- Radius Size -->
+    <dimen name="radius_8dp">8dp</dimen>
+
+</resources>

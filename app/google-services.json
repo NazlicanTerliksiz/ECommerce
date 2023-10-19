@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "445751287276",
+    "project_id": "ecommerce-d359c",
+    "storage_bucket": "ecommerce-d359c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445751287276:android:54d613745a017ce397b4c9",
+        "android_client_info": {
+          "package_name": "com.nazlican.ecommerce"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvaoVlh9W6DnGWMcJOgZNjXAUJNH0zOZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

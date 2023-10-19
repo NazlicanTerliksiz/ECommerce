@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.databinding.FragmentProductDetailBinding
 import com.nazlican.sisterslabproject.common.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 
+@AndroidEntryPoint
 class ProductDetailFragment : Fragment() {
 
     private val binding by viewBinding(FragmentProductDetailBinding::bind)
