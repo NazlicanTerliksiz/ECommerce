@@ -14,22 +14,36 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
-    private lateinit var adapter: MainProductsAdapter
+    private lateinit var mainProductsAdapter: MainProductsAdapter
+    private lateinit var saleProductsAdapter: SaleProductsAdapter
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getProducts()
-        observe()
+        viewModel.getSaleProducts()
+        mainProductObserve()
+        saleProductObserve()
     }
 
-    private fun observe() {
+    private fun mainProductObserve() {
         viewModel.productsLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
-                adapter = MainProductsAdapter(it)
-                binding.productRv.adapter = adapter
-                adapter.notifyDataSetChanged()
+                mainProductsAdapter = MainProductsAdapter(it)
+                binding.productRv.adapter = mainProductsAdapter
+                mainProductsAdapter.notifyDataSetChanged()
+            } else {
+                Snackbar.make(requireView(), "liste boş", Snackbar.LENGTH_LONG).show()
+            }
+        }
+    }
+    private fun saleProductObserve(){
+        viewModel.saleProductsLiveData.observe(viewLifecycleOwner){
+            if (it != null) {
+                saleProductsAdapter = SaleProductsAdapter(it)
+                binding.saleProductRv.adapter = saleProductsAdapter
+                saleProductsAdapter.notifyDataSetChanged()
             } else {
                 Snackbar.make(requireView(), "liste boş", Snackbar.LENGTH_LONG).show()
             }

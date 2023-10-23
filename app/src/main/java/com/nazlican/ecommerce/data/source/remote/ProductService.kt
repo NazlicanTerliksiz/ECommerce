@@ -13,4 +13,7 @@ interface ProductService {
     suspend fun getProductDetail(
         @Query("id") id:Int
     )
+
+    @GET("get_sale_products.php")
+    suspend fun getSaleProducts() : Response<ProductsResponse>
 }

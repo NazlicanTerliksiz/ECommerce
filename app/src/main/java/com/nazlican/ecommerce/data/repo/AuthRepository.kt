@@ -1,4 +1,6 @@
 package com.nazlican.ecommerce.data.repo
 
-class AuthRepository {
+import com.google.firebase.auth.FirebaseAuth
+
+class AuthRepository(private val firebaseAuth: FirebaseAuth) {
 }

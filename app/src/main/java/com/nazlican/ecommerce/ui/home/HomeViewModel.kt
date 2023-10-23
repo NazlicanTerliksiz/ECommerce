@@ -14,12 +14,20 @@ class HomeViewModel @Inject constructor(private val productRepository: HomeRepos
     private var _productsLiveData = MutableLiveData<List<Product>?>()
     val productsLiveData: LiveData<List<Product>?> get() = _productsLiveData
 
+    private var _saleProductsLiveData = MutableLiveData<List<Product>?>()
+    val saleProductsLiveData: LiveData<List<Product>?> get() = _saleProductsLiveData
+
     init {
         _productsLiveData = productRepository.productsLiveData
+        _saleProductsLiveData = productRepository.saleProductsLiveData
     }
 
     fun getProducts(){
         productRepository.getProducts()
+    }
+
+    fun getSaleProducts(){
+        productRepository.getSaleProducts()
     }
 
 }

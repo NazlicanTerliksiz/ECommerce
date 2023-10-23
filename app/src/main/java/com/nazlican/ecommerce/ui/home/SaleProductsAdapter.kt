@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nazlican.ecommerce.data.model.Product
 import com.nazlican.ecommerce.databinding.ItemViewSaleProductsBinding
+import com.nazlican.ecommerce.util.downloadFromUrl
 
 class SaleProductsAdapter(
     private val saleProductList: List<Product>,
@@ -18,7 +19,7 @@ class SaleProductsAdapter(
             binding.apply {
                 saleProductTv.text = product.title
                 salePriceTv.text = product.price.toString()
-                //              productIv.downloadFromUrl(product.imageOne)
+                product.imageOne?.let { saleProductIv.downloadFromUrl(it) }
 //                root.setOnClickListener {
 //                    onItemClickListener.invoke(product.id)
 //                }
