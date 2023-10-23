@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/signInImage"
-        android:layout_width="243dp"
-        android:layout_height="201dp"
+        android:layout_width="220dp"
+        android:layout_height="180dp"
         android:layout_marginTop="80dp"
         android:src="@drawable/cake"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,15 +18,15 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="66dp" />
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signInEmail"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="@dimen/margin_32dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/card_corners"
+        android:background="@drawable/button_card_corners"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInImage"
@@ -36,34 +36,40 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signInEmail2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:background="@color/bej"
             android:hint="E-mail"
+            android:textSize="16sp"
+            android:textColor="@color/coffe"
             android:textColorHint="@color/coffe" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signInPassword"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="@dimen/margin_8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/card_corners"
+        android:background="@drawable/button_card_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInEmail"
         app:startIconDrawable="@drawable/lock"
-        app:startIconTint="@color/coffe">
+        app:startIconTint="@color/coffe"
+        android:padding="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signInPassword2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:background="@color/bej"
+            android:textSize="16sp"
             android:hint="Password"
-            android:textColorHint="@color/coffe" />
+            android:textColorHint="@color/coffe"
+            android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/signInButton"
@@ -73,6 +79,7 @@
         android:layout_marginTop="@dimen/margin_32dp"
         android:layout_marginEnd="32dp"
         android:backgroundTint="@color/bej"
+        android:drawableLeft="@drawable/baseline_cake_24"
         android:text="Sing In"
         android:textAllCaps="false"
         android:textColor="@color/coffe"
@@ -80,37 +87,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signInPassword"
-        android:drawableLeft="@drawable/baseline_cake_24"
         app:strokeColor="@color/coffe"
         app:strokeWidth="@dimen/width_1dp" />
-
-    <TextView
-        android:id="@+id/signInText"
-        android:layout_width="67dp"
-        android:layout_height="23dp"
-
-        android:layout_marginEnd="94dp"
-        android:layout_marginBottom="182dp"
-        android:text="Sign Up"
-        android:textColor="@color/coffe"
-        android:textSize="@dimen/text_size_16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signInButton" />
 
     <TextView
         android:id="@+id/signInInfo"
         android:layout_width="179dp"
         android:layout_height="25dp"
-        android:layout_marginStart="71dp"
-        android:layout_marginBottom="180dp"
+        android:layout_marginStart="72dp"
         android:text="Didn’t have an account?"
         android:textColor="@color/coffe"
         android:textSize="@dimen/text_size_16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/signInText"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/signInButton" />
+
+    <TextView
+        android:id="@+id/signInText"
+        android:layout_width="67dp"
+        android:layout_height="23dp"
+        android:text="Sign Up"
+        android:textColor="@color/coffe"
+        android:textSize="@dimen/text_size_16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/signInButton"
+        app:layout_constraintStart_toEndOf="@id/signInInfo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

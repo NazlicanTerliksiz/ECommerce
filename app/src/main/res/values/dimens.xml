@@ -8,7 +8,7 @@
     <dimen name="padding_8dp">8dp</dimen>
 
     <!-- Height Size -->
-    <dimen name="height_100dp">100dp</dimen>
+    <dimen name="height_150dp">150dp</dimen>
     <dimen name="height_32dp">32dp</dimen>
     <dimen name="height_350dp">350dp</dimen>
     <dimen name="height_92dp">92dp</dimen>
@@ -17,6 +17,7 @@
     <dimen name="width_1dp">1dp</dimen>
     <dimen name="width_32dp">32dp</dimen>
     <dimen name="width_92dp">92dp</dimen>
+    <dimen name="width_150dp">150dp</dimen>
 
     <!-- Text Size -->
     <dimen name="text_size_16sp">16sp</dimen>

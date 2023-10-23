@@ -28,6 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment"
         app:menu="@menu/bottom_bar_menu"
+        android:background="@color/bej"
         app:itemIconTint="@drawable/icon_tint_selector"
         app:itemTextColor="@drawable/icon_tint_selector"
         app:itemActiveIndicatorStyle="@android:color/transparent" />

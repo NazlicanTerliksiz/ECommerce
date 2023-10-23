@@ -18,5 +18,9 @@
         android:id="@+id/cartFragment"
         android:icon="@drawable/shopping_cart"
         android:title="Cart" />
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/person"
+        android:title="My Account" />
 
 </menu>
