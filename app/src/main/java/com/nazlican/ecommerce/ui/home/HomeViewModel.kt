@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val productRepository: HomeRepository):ViewModel() {
+class HomeViewModel @Inject constructor(private val homeRepository: HomeRepository):ViewModel() {
 
     private var _productsLiveData = MutableLiveData<List<Product>?>()
     val productsLiveData: LiveData<List<Product>?> get() = _productsLiveData
@@ -18,16 +18,16 @@ class HomeViewModel @Inject constructor(private val productRepository: HomeRepos
     val saleProductsLiveData: LiveData<List<Product>?> get() = _saleProductsLiveData
 
     init {
-        _productsLiveData = productRepository.productsLiveData
-        _saleProductsLiveData = productRepository.saleProductsLiveData
+        _productsLiveData = homeRepository.productsLiveData
+        _saleProductsLiveData = homeRepository.saleProductsLiveData
     }
 
     fun getProducts(){
-        productRepository.getProducts()
+        homeRepository.getProducts()
     }
 
     fun getSaleProducts(){
-        productRepository.getSaleProducts()
+        homeRepository.getSaleProducts()
     }
 
 }

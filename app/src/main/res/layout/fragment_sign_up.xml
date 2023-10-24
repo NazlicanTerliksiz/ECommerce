@@ -22,7 +22,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signUpEmail"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="@dimen/margin_32dp"
         android:layout_marginEnd="32dp"
@@ -31,13 +31,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpImage"
         app:startIconDrawable="@drawable/email"
-        android:padding="@dimen/padding_8dp"
+        android:padding="5dp"
         app:startIconTint="@color/coffe">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUpEmail2"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:background="@color/bej"
             android:hint="E-mail"
             android:textColorHint="@color/coffe" />
@@ -46,7 +46,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/signUpPassword"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
@@ -55,13 +55,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpEmail"
         app:startIconDrawable="@drawable/lock"
-        android:padding="@dimen/padding_8dp"
+        android:padding="5dp"
         app:startIconTint="@color/coffe">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUpPassword2"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:background="@color/bej"
             android:hint="Password"
             android:textColorHint="@color/coffe"

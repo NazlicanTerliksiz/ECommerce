@@ -19,6 +19,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
     private val viewModel: SignUpViewModel by viewModels()
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -32,7 +33,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
                 if (checkFields(email, password)) {
                     viewModel.signUpToFirebase(email, password, {
-                        findNavController().navigate(R.id.action_signUpFragment_to_signInFragment)
+                        findNavController().popBackStack()
                     }, { errorMessage ->
                         Snackbar.make(requireView(), errorMessage, 2000).show()
                     })

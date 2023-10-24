@@ -34,4 +34,5 @@ class SignUpViewModel:ViewModel() {
             onFailure.invoke(it.localizedMessage.orEmpty())
         }
     }
+
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.databinding.FragmentHomeBinding
@@ -30,7 +31,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun mainProductObserve() {
         viewModel.productsLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
-                mainProductsAdapter = MainProductsAdapter(it)
+                mainProductsAdapter = MainProductsAdapter(it, ::homeToDetail)
                 binding.productRv.adapter = mainProductsAdapter
                 mainProductsAdapter.notifyDataSetChanged()
             } else {
@@ -48,6 +49,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 Snackbar.make(requireView(), "liste boş", Snackbar.LENGTH_LONG).show()
             }
         }
+    }
+
+    private fun homeToDetail(id: Int) {
+        val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(id)
+        findNavController().navigate(action)
     }
 
 }

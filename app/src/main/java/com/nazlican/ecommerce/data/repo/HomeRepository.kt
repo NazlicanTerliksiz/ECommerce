@@ -1,6 +1,7 @@
 package com.nazlican.ecommerce.data.repo
 
 import androidx.lifecycle.MutableLiveData
+import com.nazlican.ecommerce.data.model.DetailResponse
 import com.nazlican.ecommerce.data.model.Product
 import com.nazlican.ecommerce.data.source.remote.ProductService
 import kotlinx.coroutines.CoroutineScope
@@ -13,6 +14,7 @@ class HomeRepository(private val productService: ProductService) {
     private var job: Job? = null
     var productsLiveData = MutableLiveData<List<Product>?>()
     var saleProductsLiveData = MutableLiveData<List<Product>?>()
+    var detailProductLiveData = MutableLiveData<DetailResponse?>()
 
     fun getProducts() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -42,4 +44,15 @@ class HomeRepository(private val productService: ProductService) {
         }
     }
 
+    fun getDetailProducts(id:Int){
+        job = CoroutineScope(Dispatchers.IO).launch{
+            val result = productService.detailProduct(id)
+            if (result.isSuccessful){
+               result.body()?.let {detailProduct->
+                   detailProductLiveData.postValue(detailProduct.product)
+               }
+            }else
+                detailProductLiveData.postValue(null)
+        }
+    }
 }

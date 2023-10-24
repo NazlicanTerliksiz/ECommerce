@@ -1,5 +1,6 @@
 package com.nazlican.ecommerce.data.source.remote
 
+import com.nazlican.ecommerce.data.model.Detail
 import com.nazlican.ecommerce.data.model.ProductsResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -10,9 +11,9 @@ interface ProductService {
     suspend fun getMainProducts(): Response<ProductsResponse>
 
     @GET("get_product_detail.php")
-    suspend fun getProductDetail(
-        @Query("id") id:Int
-    )
+    suspend fun detailProduct(
+        @Query("id") id: Int
+    ): Response<Detail>
 
     @GET("get_sale_products.php")
     suspend fun getSaleProducts() : Response<ProductsResponse>

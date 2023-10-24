@@ -5,7 +5,7 @@ data class DetailResponse(
     val count: Int?,
     val description: String?,
     val id: Int?,
-    val imageOne: String?,
+    val imageOne: String,
     val imageThree: String?,
     val imageTwo: String?,
     val price: Double?,
