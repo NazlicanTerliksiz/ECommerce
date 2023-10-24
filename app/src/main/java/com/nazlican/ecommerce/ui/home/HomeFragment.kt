@@ -42,7 +42,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun saleProductObserve(){
         viewModel.saleProductsLiveData.observe(viewLifecycleOwner){
             if (it != null) {
-                saleProductsAdapter = SaleProductsAdapter(it)
+                saleProductsAdapter = SaleProductsAdapter(it, ::homeToDetail)
                 binding.saleProductRv.adapter = saleProductsAdapter
                 saleProductsAdapter.notifyDataSetChanged()
             } else {

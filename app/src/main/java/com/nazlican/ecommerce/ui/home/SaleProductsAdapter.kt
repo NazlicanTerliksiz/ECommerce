@@ -9,7 +9,7 @@ import com.nazlican.ecommerce.util.downloadFromUrl
 
 class SaleProductsAdapter(
     private val saleProductList: List<Product>,
-    //private val onItemClickListener: (Int) -> Unit
+    private val onItemClickListener: (Int) -> Unit
 ) :
     RecyclerView.Adapter<SaleProductsAdapter.RowHolder>() {
 
@@ -20,9 +20,9 @@ class SaleProductsAdapter(
                 saleProductTv.text = product.title
                 salePriceTv.text = product.price.toString()
                 product.imageOne?.let { saleProductIv.downloadFromUrl(it) }
-//                root.setOnClickListener {
-//                    onItemClickListener.invoke(product.id)
-//                }
+                root.setOnClickListener {
+                    onItemClickListener.invoke(product.id)
+               }
             }
         }
     }

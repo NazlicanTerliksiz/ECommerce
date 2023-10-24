@@ -32,6 +32,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
             if (it != null) {
                 binding.productDetailtv.text = it.title
                 binding.descriptionTv.text = it.description
+                binding.ratingBar.tag= it.rate
                 binding.priceTv.text = it.price.toString()
                 binding.productDetailIv.downloadFromUrl(it.imageOne)
             } else {
