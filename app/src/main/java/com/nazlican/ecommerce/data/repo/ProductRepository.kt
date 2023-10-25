@@ -9,12 +9,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class HomeRepository(private val productService: ProductService) {
+class ProductRepository(private val productService: ProductService) {
 
     private var job: Job? = null
     var productsLiveData = MutableLiveData<List<Product>?>()
     var saleProductsLiveData = MutableLiveData<List<Product>?>()
     var detailProductLiveData = MutableLiveData<DetailResponse?>()
+    var categoryLiveData = MutableLiveData<List<Product?>>()
 
     fun getProducts() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -44,15 +45,29 @@ class HomeRepository(private val productService: ProductService) {
         }
     }
 
-    fun getDetailProducts(id:Int){
-        job = CoroutineScope(Dispatchers.IO).launch{
+    fun getDetailProducts(id: Int) {
+        job = CoroutineScope(Dispatchers.IO).launch {
             val result = productService.detailProduct(id)
-            if (result.isSuccessful){
-               result.body()?.let {detailProduct->
-                   detailProductLiveData.postValue(detailProduct.product)
-               }
-            }else
+            if (result.isSuccessful) {
+                result.body()?.let { detailProduct ->
+                    detailProductLiveData.postValue(detailProduct.product)
+                }
+            } else {
                 detailProductLiveData.postValue(null)
+            }
+        }
+    }
+
+    fun getProductsByCategory(category: String) {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val result = productService.getProductsByCategory(category)
+            if (result.isSuccessful) {
+                result.body()?.let { byCategory ->
+                    categoryLiveData.postValue(byCategory.products.orEmpty())
+                }
+            } else {
+                detailProductLiveData.postValue(null)
+            }
         }
     }
 }

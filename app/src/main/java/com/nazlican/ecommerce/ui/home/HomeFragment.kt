@@ -50,6 +50,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
+    private fun productByCategory(category:String){
+        viewModel.categoryLiveData.observe(viewLifecycleOwner){
+
+        }
+    }
 
     private fun homeToDetail(id: Int) {
         val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(id)

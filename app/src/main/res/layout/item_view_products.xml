@@ -26,7 +26,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background"
-                android:layout_marginTop="@dimen/margin_32dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="@dimen/margin_32dp"/>
 
             <TextView

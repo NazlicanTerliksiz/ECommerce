@@ -1,6 +1,8 @@
 package com.nazlican.ecommerce.di
 
-import com.nazlican.ecommerce.data.repo.HomeRepository
+import com.nazlican.ecommerce.data.repo.CartRepository
+import com.nazlican.ecommerce.data.repo.ProductRepository
+import com.nazlican.ecommerce.data.repo.SearchRepository
 import com.nazlican.ecommerce.data.source.remote.ProductService
 import dagger.Module
 import dagger.Provides
@@ -14,5 +16,10 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideProductsRepository(productService: ProductService) = HomeRepository(productService)
+    fun provideProductsRepository(productService: ProductService) = ProductRepository(productService)
+
+    @Provides
+    @Singleton
+    fun provideCartRepository(productService: ProductService) = CartRepository(productService)
+
 }
