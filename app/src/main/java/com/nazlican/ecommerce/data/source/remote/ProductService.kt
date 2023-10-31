@@ -1,9 +1,9 @@
 package com.nazlican.ecommerce.data.source.remote
 
 import com.nazlican.ecommerce.data.model.AddToCart
+import com.nazlican.ecommerce.data.model.Categories
 import com.nazlican.ecommerce.data.model.DeleteFromCart
 import com.nazlican.ecommerce.data.model.Detail
-import com.nazlican.ecommerce.data.model.Product
 import com.nazlican.ecommerce.data.model.ProductsResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -25,8 +25,13 @@ interface ProductService {
         @Query("category") category: String
     ) : Response<ProductsResponse>
 
-    @GET("get_cart_products.php?userId=b3sa6dj721312ssadas21d")
-    suspend fun getCartProduct(): Response<ProductsResponse>
+    @GET("get_categories.php")
+    suspend fun getCategoryName(): Response<Categories>
+
+    @GET("get_cart_products.php")
+    suspend fun getCartProducts(
+        @Query("userId") userId:String
+    ): Response<ProductsResponse>
 
     @POST("add_to_cart.php")
     suspend fun addToCart(
@@ -41,5 +46,5 @@ interface ProductService {
     @GET("search_product.php")
     suspend fun searchFromProduct(
         @Query("query") query: String
-    ): Response<Product>
+    ): Response<ProductsResponse>
 }

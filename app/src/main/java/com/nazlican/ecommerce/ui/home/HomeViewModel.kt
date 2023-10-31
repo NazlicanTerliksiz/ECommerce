@@ -7,7 +7,6 @@ import com.nazlican.ecommerce.data.model.Product
 import com.nazlican.ecommerce.data.repo.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val homeRepository: ProductRepository):ViewModel() {
 
@@ -20,9 +19,14 @@ class HomeViewModel @Inject constructor(private val homeRepository: ProductRepos
     private var _categoryLiveData = MutableLiveData<List<Product>?>()
     val categoryLiveData : LiveData<List<Product>?> get() = _categoryLiveData
 
+    private var _categoryNameLiveData = MutableLiveData<List<String>?>()
+    val categoryNameLiveData : LiveData<List<String>?> get() = _categoryNameLiveData
+
     init {
         _productsLiveData = homeRepository.productsLiveData
         _saleProductsLiveData = homeRepository.saleProductsLiveData
+        _categoryLiveData = homeRepository.categoryLiveData
+        _categoryNameLiveData = homeRepository.categoryNameLiveData
     }
     fun getProducts(){
         homeRepository.getProducts()
@@ -30,8 +34,12 @@ class HomeViewModel @Inject constructor(private val homeRepository: ProductRepos
     fun getSaleProducts(){
         homeRepository.getSaleProducts()
     }
-    fun getProductsByCategory(category:String){
+    fun getProductsByCategory(category: String){
+        if(category == "All") return getProducts()
         homeRepository.getProductsByCategory(category)
     }
 
+    fun getCategoryName(){
+        homeRepository.getCategoryName()
+    }
 }

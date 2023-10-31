@@ -3,7 +3,6 @@ package com.nazlican.ecommerce.ui.cart
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.nazlican.ecommerce.data.model.AddToCart
 import com.nazlican.ecommerce.data.model.DeleteFromCart
 import com.nazlican.ecommerce.data.model.Product
 import com.nazlican.ecommerce.data.repo.CartRepository
@@ -24,8 +23,8 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         _deleteProductsLiveData = cartRepository.deleteProductsLiveData
     }
 
-    fun getCartProduct(){
-        cartRepository.cartProducts()
+    fun getCartProduct(userId: String){
+        cartRepository.cartProducts(userId)
     }
 
     fun deleteFromCart(deleteFromCart: DeleteFromCart){

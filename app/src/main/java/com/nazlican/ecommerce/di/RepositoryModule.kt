@@ -22,4 +22,8 @@ object RepositoryModule {
     @Singleton
     fun provideCartRepository(productService: ProductService) = CartRepository(productService)
 
+    @Provides
+    @Singleton
+    fun provideSearchRepository(productService: ProductService) = SearchRepository(productService)
+
 }

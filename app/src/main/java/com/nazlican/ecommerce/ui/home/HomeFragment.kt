@@ -17,6 +17,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val binding by viewBinding(FragmentHomeBinding::bind)
     private lateinit var mainProductsAdapter: MainProductsAdapter
     private lateinit var saleProductsAdapter: SaleProductsAdapter
+    private lateinit var categoryAdapter: CategoryAdapter
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -24,8 +25,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         viewModel.getProducts()
         viewModel.getSaleProducts()
+        viewModel.getCategoryName()
         mainProductObserve()
         saleProductObserve()
+        categoryNameObserve()
+
+        categoryAdapter = CategoryAdapter(::getCategory)
+        binding.categoryRv.adapter = categoryAdapter
+
+        productByCategoryObserve()
     }
 
     private fun mainProductObserve() {
@@ -50,15 +58,37 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
-    private fun productByCategory(category:String){
-        viewModel.categoryLiveData.observe(viewLifecycleOwner){
 
+    private fun categoryNameObserve(){
+        viewModel.categoryNameLiveData.observe(viewLifecycleOwner){
+            if(it != null){
+                val addCategory: MutableList<String> = mutableListOf()
+                addCategory.add("All")
+                addCategory.addAll(it)
+                categoryAdapter.updateList(addCategory)
+            }
+        }
+    }
+
+    private fun productByCategoryObserve(){
+        viewModel.categoryLiveData.observe(viewLifecycleOwner){
+            if (it != null) {
+                mainProductsAdapter = MainProductsAdapter(it, ::homeToDetail)
+                binding.productRv.adapter = mainProductsAdapter
+                mainProductsAdapter.notifyDataSetChanged()
+            } else {
+                Snackbar.make(requireView(), "liste boş", Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 
     private fun homeToDetail(id: Int) {
         val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(id)
         findNavController().navigate(action)
+    }
+
+    private fun getCategory(category: String) {
+        viewModel.getProductsByCategory(category)
     }
 
 }

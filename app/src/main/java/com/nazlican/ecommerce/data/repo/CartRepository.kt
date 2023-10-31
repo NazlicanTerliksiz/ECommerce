@@ -1,6 +1,7 @@
 package com.nazlican.ecommerce.data.repo
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.data.model.AddToCart
 import com.nazlican.ecommerce.data.model.DeleteFromCart
 import com.nazlican.ecommerce.data.model.Product
@@ -19,9 +20,9 @@ class CartRepository(private val productService: ProductService) {
     var addToCartLiveData = MutableLiveData<AddToCart?>()
 
 
-    fun cartProducts() {
+    fun cartProducts(userId: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val result =productService.getCartProduct()
+            val result =productService.getCartProducts(userId)
             if (result.isSuccessful) {
                 result.body()?.let {cartProductList ->
                     cartProductsLiveData.postValue(cartProductList.products)
@@ -46,11 +47,12 @@ class CartRepository(private val productService: ProductService) {
     }
 
     fun deleteFromCart(deleteFromCart: DeleteFromCart) {
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
         job = CoroutineScope(Dispatchers.IO).launch {
             val result =productService.deleteFromCart(deleteFromCart)
             if (result.isSuccessful) {
                 result.body()?.let {cartProductList ->
-                    cartProducts()
+                    cartProducts(userId)
                     deleteProductsLiveData.postValue(result.body())
                 }
             }else{

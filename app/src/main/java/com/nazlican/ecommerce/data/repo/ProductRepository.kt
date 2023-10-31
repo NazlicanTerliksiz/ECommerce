@@ -15,7 +15,8 @@ class ProductRepository(private val productService: ProductService) {
     var productsLiveData = MutableLiveData<List<Product>?>()
     var saleProductsLiveData = MutableLiveData<List<Product>?>()
     var detailProductLiveData = MutableLiveData<DetailResponse?>()
-    var categoryLiveData = MutableLiveData<List<Product?>>()
+    var categoryLiveData = MutableLiveData<List<Product>?>()
+    var categoryNameLiveData = MutableLiveData<List<String>?>()
 
     fun getProducts() {
         job = CoroutineScope(Dispatchers.IO).launch {
@@ -58,6 +59,18 @@ class ProductRepository(private val productService: ProductService) {
         }
     }
 
+    fun getCategoryName() {
+        job = CoroutineScope(Dispatchers.IO).launch {
+            val result = productService.getCategoryName()
+            if (result.isSuccessful) {
+                result.body()?.let { categoryName ->
+                    categoryNameLiveData.postValue(categoryName.categories)
+                }
+            } else {
+                categoryNameLiveData.postValue(null)
+            }
+        }
+    }
     fun getProductsByCategory(category: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
             val result = productService.getProductsByCategory(category)

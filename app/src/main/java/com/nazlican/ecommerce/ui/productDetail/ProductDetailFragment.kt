@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.data.model.AddToCart
 import com.nazlican.ecommerce.databinding.FragmentProductDetailBinding
@@ -27,9 +28,10 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         val id = args.id
         viewModel.getDetailProduct(id)
         detailProductObserve()
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
         binding.AddToCartbutton.setOnClickListener {
-            viewModel.AddToCartProduct(AddToCart("b3sa6dj721312ssadas21d" ,id))
+            viewModel.AddToCartProduct(AddToCart(userId, id))
             addToCartProductObserve()
         }
     }
@@ -39,7 +41,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
             if (it != null) {
                 binding.productDetailtv.text = it.title
                 binding.descriptionTv.text = it.description
-                binding.ratingBar.tag= it.rate
+                binding.ratingBar.rating= it.rate?.toFloat() ?: 4.2f
                 binding.priceTv.text = it.price.toString()
                 binding.productDetailIv.downloadFromUrl(it.imageOne)
             } else {
