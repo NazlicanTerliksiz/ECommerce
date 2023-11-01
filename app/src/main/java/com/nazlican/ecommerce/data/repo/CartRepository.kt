@@ -19,7 +19,6 @@ class CartRepository(private val productService: ProductService) {
     val deleteProductsLiveData = MutableLiveData<DeleteFromCart?>()
     var addToCartLiveData = MutableLiveData<AddToCart?>()
 
-
     fun cartProducts(userId: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
             val result =productService.getCartProducts(userId)
