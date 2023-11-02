@@ -10,10 +10,9 @@
 
     <ImageView
         android:id="@+id/productDetailIv"
-        android:layout_width="392dp"
-        android:layout_height="346dp"
-        android:layout_margin="@dimen/margin_8dp"
-        android:padding="@dimen/padding_8dp"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_launcher_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

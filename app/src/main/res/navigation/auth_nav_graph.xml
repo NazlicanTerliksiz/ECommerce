@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_nav_graph"
-    app:startDestination="@id/signInFragment2">
+    app:startDestination="@id/signInFragment">
 
     <fragment
-        android:id="@+id/signInFragment2"
+        android:id="@+id/signInFragment"
         android:name="com.nazlican.ecommerce.ui.signIn.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" >
         <action
-            android:id="@+id/action_signInFragment2_to_signUpFragment2"
-            app:destination="@id/signUpFragment2" />
+            android:id="@+id/signInToSignUp"
+            app:destination="@id/signUpFragment" />
         <action
-            android:id="@+id/action_signInFragment2_to_main_nav_graph"
+            android:id="@+id/signInToMainGraph"
             app:destination="@id/main_nav_graph" />
     </fragment>
     <fragment
-        android:id="@+id/signUpFragment2"
+        android:id="@+id/signUpFragment"
         android:name="com.nazlican.ecommerce.ui.signUp.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />

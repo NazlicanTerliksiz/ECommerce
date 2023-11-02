@@ -29,8 +29,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryRv"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginStart="16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@+id/productRv"
         app:layout_constraintEnd_toEndOf="parent"

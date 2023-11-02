@@ -19,6 +19,7 @@
         style="@style/search_text_style"
         app:queryBackground="@color/white"
         app:closeIcon="@drawable/close"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productRv"
         android:layout_width="0dp"

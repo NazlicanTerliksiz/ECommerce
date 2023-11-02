@@ -11,7 +11,6 @@ import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.databinding.FragmentSearchBinding
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
 

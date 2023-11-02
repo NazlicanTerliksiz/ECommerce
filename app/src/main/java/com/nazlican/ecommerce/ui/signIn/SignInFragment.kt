@@ -24,7 +24,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         auth = FirebaseAuth.getInstance()
 
        auth.currentUser?.let {
-            findNavController().navigate(R.id.action_signInFragment2_to_main_nav_graph)
+            findNavController().navigate(R.id.signInToMainGraph)
         }
 
 
@@ -36,14 +36,14 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
                 if (checkFields(email, password)) {
                     viewModel.loginToFirebase(email, password, {
-                        findNavController().navigate(R.id.action_signInFragment2_to_main_nav_graph)
+                        findNavController().navigate(R.id.signInToMainGraph)
                     }, { errorMessage ->
                         Snackbar.make(requireView(), errorMessage, 2000).show()
                     })
                 }
             }
             signInText.setOnClickListener {
-                findNavController().navigate(R.id.action_signInFragment2_to_signUpFragment2)
+                findNavController().navigate(R.id.signInToSignUp)
             }
         }
     }

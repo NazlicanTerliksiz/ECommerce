@@ -28,7 +28,6 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         binding.cartProductRv.adapter = cartProductAdapter
 
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-
         viewModel.getCartProduct(userId)
         cartProductbserve()
         deleteFromCartObserve()

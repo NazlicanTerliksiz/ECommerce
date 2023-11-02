@@ -3,6 +3,7 @@ package com.nazlican.ecommerce.ui.profile
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nazlican.ecommerce.R
@@ -20,29 +21,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         db = FirebaseFirestore.getInstance()
         listenUsers()
+
+        binding.logOut.setOnClickListener {
+            findNavController().setGraph(R.navigation.auth_nav_graph)
+            val firebaseAuth = FirebaseAuth.getInstance()
+            firebaseAuth.signOut()
+        }
     }
 
     private fun listenUsers(){
-       /* db.collection("users").addSnapshotListener{snapshot, error ->
-            if (error != null) {
-                Snackbar.make(requireView(), "Error", 2000).show()
-                return@addSnapshotListener
-            }
-            val userList = mutableListOf<User>()
-            snapshot?.forEach {
-                userList.add(
-                    User(
-                        userId = it.id,
-                        email = it.get("email") as String
-                    )
-                )
-            }
-            val userText = StringBuilder()
-            userList.forEach {
-                userText.append("${it.email}")
-            }
-            binding.EmailInfoText.text = userText.toString()
-        }*/
         val uid = FirebaseAuth.getInstance().currentUser!!.uid
         db.collection("users").document("${uid}").get().addOnSuccessListener {
             if(it!=null){
