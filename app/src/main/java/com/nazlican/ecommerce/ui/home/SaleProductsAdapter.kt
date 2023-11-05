@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nazlican.ecommerce.data.model.Product
 import com.nazlican.ecommerce.databinding.ItemViewSaleProductsBinding
-import com.nazlican.ecommerce.util.downloadFromUrl
+import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 
 class SaleProductsAdapter(
-    private val saleProductList: List<Product>,
     private val onItemClickListener: (Int) -> Unit
 ) :
     RecyclerView.Adapter<SaleProductsAdapter.RowHolder>() {
+    private val saleProductList = ArrayList<Product>()
 
     inner class RowHolder(private val binding: ItemViewSaleProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -40,6 +40,10 @@ class SaleProductsAdapter(
     override fun onBindViewHolder(holder: RowHolder, position: Int) {
         val product = saleProductList[position]
         holder.bind(product)
-
+    }
+    fun updateList(updateList:List<Product>){
+        saleProductList.clear()
+        saleProductList.addAll(updateList)
+        notifyDataSetChanged()
     }
 }
