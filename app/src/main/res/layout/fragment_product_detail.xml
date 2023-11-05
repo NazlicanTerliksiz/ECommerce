@@ -8,84 +8,133 @@
     tools:context=".ui.productDetail.ProductDetailFragment"
     android:background="@color/bej">
 
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:id="@+id/productDetailConstraintLayout"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent">
+
+       <ImageView
+           android:id="@+id/productDetailIv"
+           android:layout_width="match_parent"
+           android:layout_height="350dp"
+           android:scaleType="centerCrop"
+           android:src="@drawable/ic_launcher_background"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+
+       <TextView
+           android:id="@+id/productDetailtv"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="32dp"
+           android:layout_marginTop="16dp"
+           android:layout_marginEnd="32dp"
+           android:text="@string/product"
+           android:textAlignment="center"
+           android:textSize="20sp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/productDetailIv" />
+
+       <TextView
+           android:id="@+id/descriptionTv"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="32dp"
+           android:layout_marginEnd="32dp"
+           android:layout_marginTop="16dp"
+           android:text="description"
+           android:textAlignment="textStart"
+           android:textSize="@dimen/text_size_16sp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/productDetailtv" />
+
+       <RatingBar
+           android:id="@+id/ratingBar"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="32dp"
+           android:numStars="5"
+           android:progressTint="@color/yellow"
+           android:secondaryProgressTint="#00000000"
+           android:stepSize="0.1"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/descriptionTv" />
+
+       <TextView
+           android:id="@+id/priceTv"
+           android:layout_width="144dp"
+           android:layout_height="40dp"
+           android:layout_marginStart="32dp"
+           android:layout_marginTop="@dimen/margin_8dp"
+           android:text="@string/price"
+           android:textSize="@dimen/text_size_16sp"
+           app:layout_constraintEnd_toStartOf="@id/AddToCartbutton"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent" />
+
+       <Button
+           android:id="@+id/AddToCartbutton"
+           android:layout_width="160dp"
+           android:layout_height="40dp"
+           android:layout_marginTop="8dp"
+           android:layout_marginEnd="32dp"
+           android:backgroundTint="@color/darkbej"
+           android:text="@string/add_to_cart"
+           android:textColor="@color/darkcoffe"
+           app:cornerRadius="8dp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toEndOf="@id/priceTv"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:strokeColor="@color/darkcoffe"
+           app:strokeWidth="1dp" />
+   </androidx.constraintlayout.widget.ConstraintLayout>
     <ImageView
-        android:id="@+id/productDetailIv"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background"
+        android:id="@+id/iv_empty"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/tv_empty"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/ic_warning" />
 
     <TextView
-        android:id="@+id/productDetailtv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/product"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/productDetailIv" />
-
-    <TextView
-        android:id="@+id/descriptionTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
-        android:text="description"
-        android:textAlignment="textStart"
-        android:textSize="@dimen/text_size_16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productDetailtv" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
+        android:id="@+id/tv_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:numStars="5"
-        android:progressTint="@color/yellow"
-        android:secondaryProgressTint="#00000000"
-        android:stepSize="0.1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/descriptionTv" />
-
-    <TextView
-        android:id="@+id/priceTv"
-        android:layout_width="144dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="@dimen/margin_8dp"
-        android:text="@string/price"
-        android:textSize="@dimen/text_size_16sp"
-        app:layout_constraintEnd_toStartOf="@id/AddToCartbutton"
-        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintBottom_toBottomOf="parent" />
-
-    <Button
-        android:id="@+id/AddToCartbutton"
-        android:layout_width="160dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/darkbej"
-        android:text="@string/add_to_cart"
-        android:textColor="@color/darkcoffe"
-        app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/priceTv"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:strokeColor="@color/darkcoffe"
-        app:strokeWidth="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_empty" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginEnd="180dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
