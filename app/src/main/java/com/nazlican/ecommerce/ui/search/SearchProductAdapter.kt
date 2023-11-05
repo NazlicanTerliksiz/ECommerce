@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.nazlican.ecommerce.data.model.Product
 import com.nazlican.ecommerce.databinding.ItemViewSearchProductsBinding
-import com.nazlican.ecommerce.util.downloadFromUrl
+import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 
 class SearchProductsAdapter(
     private val onItemClickListener: (Int) -> Unit

@@ -1,6 +1,7 @@
 package com.nazlican.ecommerce.data.repo
 
 import androidx.lifecycle.MutableLiveData
+import com.nazlican.ecommerce.common.Resource
 import com.nazlican.ecommerce.data.model.DetailResponse
 import com.nazlican.ecommerce.data.model.Product
 import com.nazlican.ecommerce.data.source.remote.ProductService
@@ -8,54 +9,54 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProductRepository(private val productService: ProductService) {
 
     private var job: Job? = null
-    var productsLiveData = MutableLiveData<List<Product>?>()
-    var saleProductsLiveData = MutableLiveData<List<Product>?>()
-    var detailProductLiveData = MutableLiveData<DetailResponse?>()
     var categoryLiveData = MutableLiveData<List<Product>?>()
     var categoryNameLiveData = MutableLiveData<List<String>?>()
 
-    fun getProducts() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val result = productService.getMainProducts()
-            if (result.isSuccessful) {
-                result.body()?.let { productList ->
-                    productsLiveData.postValue(productList.products.orEmpty())
-                }
-            } else {
-                productsLiveData.postValue(null)
-            }
-        }
-    }
+    suspend fun getProducts(): Resource<List<Product>> =
+        withContext(Dispatchers.IO) {
+            try {
+                val response = productService.getMainProducts().body()
 
-    fun getSaleProducts() {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val result = productService.getSaleProducts()
-            if (result.isSuccessful) {
-                val products = result.body()?.products
-                if (products != null) {
-                    val saleProducts = products?.filter { it.saleState == true }
-                    saleProductsLiveData.postValue(saleProducts)
+                if (response?.status == 200) {
+                    Resource.Success(response.products.orEmpty())
                 } else {
-                    saleProductsLiveData.postValue(null)
+                    Resource.Fail(response?.message.orEmpty())
                 }
+            } catch (e: Exception) {
+                Resource.Error(e.message.orEmpty())
             }
         }
-    }
 
-    fun getDetailProducts(id: Int) {
-        job = CoroutineScope(Dispatchers.IO).launch {
-            val result = productService.detailProduct(id)
-            if (result.isSuccessful) {
-                result.body()?.let { detailProduct ->
-                    detailProductLiveData.postValue(detailProduct.product)
+    suspend fun getSaleProducts(): Resource<List<Product>> =
+        withContext(Dispatchers.IO) {
+            try {
+                val response = productService.getSaleProducts().body()
+                if (response?.status == 200) {
+                    Resource.Success(response.products.orEmpty())
+                } else {
+                    Resource.Fail(response?.message.orEmpty())
                 }
-            } else {
-                detailProductLiveData.postValue(null)
+            } catch (e: Exception) {
+                Resource.Error(e.message.orEmpty())
             }
+        }
+
+
+    suspend fun getDetailProducts(id: Int): Resource<DetailResponse> {
+        return try {
+            val response = productService.detailProduct(id).body()
+            if (response?.status == 200 && response.product != null) {
+                Resource.Success(response.product)
+            } else {
+                Resource.Fail(response?.message.orEmpty())
+            }
+        } catch (e: Exception) {
+            Resource.Error(e.message.orEmpty())
         }
     }
 
@@ -71,6 +72,7 @@ class ProductRepository(private val productService: ProductService) {
             }
         }
     }
+
     fun getProductsByCategory(category: String) {
         job = CoroutineScope(Dispatchers.IO).launch {
             val result = productService.getProductsByCategory(category)
@@ -79,7 +81,7 @@ class ProductRepository(private val productService: ProductService) {
                     categoryLiveData.postValue(byCategory.products.orEmpty())
                 }
             } else {
-                detailProductLiveData.postValue(null)
+                categoryLiveData.postValue(null)
             }
         }
     }

@@ -2,34 +2,46 @@ package com.nazlican.ecommerce.ui.productDetail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.nazlican.ecommerce.common.Resource
 import com.nazlican.ecommerce.data.model.AddToCart
+import com.nazlican.ecommerce.data.model.BaseResponse
 import com.nazlican.ecommerce.data.model.DetailResponse
 import com.nazlican.ecommerce.data.repo.CartRepository
 import com.nazlican.ecommerce.data.repo.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import org.checkerframework.checker.units.qual.A
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductDetailViewModel @Inject constructor(private val homeRepository: ProductRepository, private val cartRepository: CartRepository) : ViewModel(){
 
-    private var _detailProductLiveData = MutableLiveData<DetailResponse?>()
-    val detailProductLiveData : MutableLiveData<DetailResponse?> get() = _detailProductLiveData
+    private var _detailState = MutableLiveData<DetailState>()
+    val detailState : MutableLiveData<DetailState> get() = _detailState
 
-    private var _addToCartLiveData = MutableLiveData<AddToCart?>()
-    val addToCartLiveData : MutableLiveData<AddToCart?> get() = _addToCartLiveData
+    fun getDetailProduct(id:Int) = viewModelScope.launch{
+        _detailState.value = DetailState.Loading
 
-    init {
-        _detailProductLiveData = homeRepository.detailProductLiveData
-        _addToCartLiveData = cartRepository.addToCartLiveData
+        _detailState.value = when (val result = homeRepository.getDetailProducts(id)) {
+            is Resource.Success -> DetailState.SuccessState(result.data)
+            is Resource.Fail -> DetailState.EmptyScreen(result.failMessage)
+            is Resource.Error -> DetailState.ShowPopUp(result.errorMessage)
+        }
     }
-    fun getDetailProduct(id:Int){
-        homeRepository.getDetailProducts(id)
+    fun AddToCartProduct(addToCart: AddToCart) = viewModelScope.launch{
+        _detailState.value = DetailState.Loading
+
+        _detailState.value = when (val result = cartRepository.addToCart(addToCart)) {
+            is Resource.Success -> DetailState.SuccessAddToCartState(result.data)
+            is Resource.Fail -> DetailState.EmptyScreen(result.failMessage)
+            is Resource.Error -> DetailState.ShowPopUp(result.errorMessage)
+        }
     }
-
-    fun AddToCartProduct(addToCart: AddToCart){
-        cartRepository.addToCart(addToCart)
-    }
-
-
+}
+sealed interface DetailState {
+    object Loading: DetailState
+    data class SuccessState(val detailResponse: DetailResponse) :DetailState
+    data class SuccessAddToCartState(val baseResponse: BaseResponse) :DetailState
+    data class EmptyScreen(val failMessage:String):DetailState
+    data class ShowPopUp(val errorMessage:String):DetailState
 }

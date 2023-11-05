@@ -11,7 +11,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.data.model.AddToCart
 import com.nazlican.ecommerce.databinding.FragmentProductDetailBinding
-import com.nazlican.ecommerce.util.downloadFromUrl
+import com.nazlican.ecommerce.util.extensions.downloadFromUrl
+import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,29 +34,44 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
         binding.AddToCartbutton.setOnClickListener {
             viewModel.AddToCartProduct(AddToCart(userId, id))
-            addToCartProductObserve()
         }
     }
 
-    private fun detailProductObserve() {
-        viewModel.detailProductLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                binding.productDetailtv.text = it.title
-                binding.descriptionTv.text = it.description
-                binding.ratingBar.rating= it.rate?.toFloat() ?: 4.2f
-                binding.priceTv.text = it.price.toString()
-                binding.productDetailIv.downloadFromUrl(it.imageOne)
-            } else {
-                Snackbar.make(requireView(), "liste boş", Snackbar.LENGTH_LONG).show()
-            }
-        }
-    }
-    private fun addToCartProductObserve() {
-        viewModel.addToCartLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                findNavController().popBackStack()
-            } else {
-                Snackbar.make(requireView(), "Added to cart!", Snackbar.LENGTH_SHORT).show()
+    private fun detailProductObserve() = with(binding) {
+        viewModel.detailState.observe(viewLifecycleOwner) { state ->
+
+            when (state) {
+                DetailState.Loading -> {
+                    progressBar.visible()
+                    productDetailConstraintLayout.gone()
+                }
+
+                is DetailState.SuccessState -> {
+                    progressBar.gone()
+                    productDetailConstraintLayout.visible()
+                    productDetailtv.text = state.detailResponse.title
+                    descriptionTv.text = state.detailResponse.description
+                    ratingBar.rating = state.detailResponse.rate?.toFloat() ?: 4.2f
+                    priceTv.text = state.detailResponse.price.toString()
+                    productDetailIv.downloadFromUrl(state.detailResponse.imageOne)
+                }
+
+                is DetailState.SuccessAddToCartState -> {
+                    findNavController().popBackStack()
+                }
+
+                is DetailState.EmptyScreen -> {
+                    progressBar.gone()
+                    productDetailConstraintLayout.gone()
+                    ivEmpty.visible()
+                    tvEmpty.visible()
+                    tvEmpty.text = state.failMessage
+                }
+
+                is DetailState.ShowPopUp -> {
+                    progressBar.gone()
+                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                }
             }
         }
     }
