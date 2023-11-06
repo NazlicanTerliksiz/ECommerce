@@ -28,10 +28,12 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
         }
 
     }
-    fun deleteFromCart(deleteFromCart: DeleteFromCart, userId: String) = viewModelScope.launch {
+
+    fun deleteFromCart(deleteFromCart: DeleteFromCart) = viewModelScope.launch {
         _cartState.value = CartState.Loading
 
-        _cartState.value = when (val result = cartRepository.deleteFromCart(deleteFromCart, userId)) {
+        _cartState.value =
+            when (val result = cartRepository.deleteFromCart(deleteFromCart)) {
             is Resource.Success -> CartState.DeleteProductSuccessState(result.data)
             is Resource.Fail -> CartState.EmptyScreen(result.failMessage)
             is Resource.Error -> CartState.ShowPopUp(result.errorMessage)

@@ -26,10 +26,9 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
         cartProductAdapter = CartProductAdapter{
-            viewModel.deleteFromCart(DeleteFromCart(it),userId)
+            viewModel.deleteFromCart(DeleteFromCart(it),)
         }
         binding.cartProductRv.adapter = cartProductAdapter
-
         viewModel.getCartProduct(userId)
         cartProductObserve()
     }
@@ -49,12 +48,10 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 is CartState.DeleteProductSuccessState -> {
                     progressBar.gone()
                     Snackbar.make(requireView(), "Product deleted!", Snackbar.LENGTH_SHORT).show()
+                    viewModel.getCartProduct(FirebaseAuth.getInstance().currentUser!!.uid)
                 }
                 is CartState.EmptyScreen -> {
                     progressBar.gone()
-//                    ivEmpty.visible()
-//                    tvEmpty.visible()
-//                    tvEmpty.text = state.failMessage
                 }
 
                 is CartState.ShowPopUp -> {
