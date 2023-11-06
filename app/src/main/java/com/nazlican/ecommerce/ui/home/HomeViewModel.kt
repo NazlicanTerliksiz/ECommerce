@@ -18,28 +18,16 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
     private var _homeState = MutableLiveData<HomeState>()
     val homeState: LiveData<HomeState> get() = _homeState
 
-    private var _categoryLiveData = MutableLiveData<List<Product>?>()
-    val categoryLiveData: LiveData<List<Product>?> get() = _categoryLiveData
-
-    private var _categoryNameLiveData = MutableLiveData<List<String>?>()
-    val categoryNameLiveData: LiveData<List<String>?> get() = _categoryNameLiveData
-
-    init {
-        //_productsLiveData = productRepository.productsLiveData
-        //_saleProductsLiveData = productRepository.saleProductsLiveData
-        _categoryLiveData = productRepository.categoryLiveData
-        _categoryNameLiveData = productRepository.categoryNameLiveData
-    }
-
     fun getProducts() = viewModelScope.launch {
         _homeState.value = HomeState.Loading
 
-        _homeState.value = when(val result = productRepository.getProducts()) {
+        _homeState.value = when (val result = productRepository.getProducts()) {
             is Resource.Success -> HomeState.SuccessProductState(result.data)
             is Resource.Fail -> HomeState.EmptyScreen(result.failMessage)
             is Resource.Error -> HomeState.ShowPopUp(result.errorMessage)
         }
     }
+
     fun getSaleProducts() = viewModelScope.launch {
         _homeState.value = HomeState.Loading
 
@@ -49,20 +37,35 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
             is Resource.Error -> HomeState.ShowPopUp(result.errorMessage)
         }
     }
-    fun getProductsByCategory(category: String) {
-        //if (category == "All") return getProducts()
-        productRepository.getProductsByCategory(category)
+
+    fun getCategoryName() = viewModelScope.launch {
+        _homeState.value = HomeState.Loading
+
+        _homeState.value = when (val result = productRepository.getCategoryName()) {
+            is Resource.Success -> HomeState.SuccessCategoryNameState(result.data)
+            is Resource.Fail -> HomeState.EmptyScreen(result.failMessage)
+            is Resource.Error -> HomeState.ShowPopUp(result.errorMessage)
+        }
     }
 
-    fun getCategoryName() {
-        productRepository.getCategoryName()
-    }
+    fun getProductsByCategory(category: String) = viewModelScope.launch {
+            _homeState.value = HomeState.Loading
+
+            _homeState.value =
+                when (val result = productRepository.getProductsByCategory(category)) {
+                    is Resource.Success -> HomeState.SuccessCategoryProductState(result.data)
+                    is Resource.Fail -> HomeState.EmptyScreen(result.failMessage)
+                    is Resource.Error -> HomeState.ShowPopUp(result.errorMessage)
+                }
+        }
 }
 
 sealed interface HomeState {
     object Loading : HomeState
     data class SuccessProductState(val products: List<Product>) : HomeState
     data class SuccessSaleProductState(val products: List<Product>) : HomeState
+    data class SuccessCategoryNameState(val category: List<String>) : HomeState
+    data class SuccessCategoryProductState(val products: List<Product>) : HomeState
     data class EmptyScreen(val failMessage: String) : HomeState
     data class ShowPopUp(val errorMessage: String) : HomeState
 }
