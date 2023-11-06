@@ -30,18 +30,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.getSaleProducts()
         viewModel.getCategoryName()
         mainProductObserve()
-        categoryNameObserve()
-        productByCategoryObserve()
 
-
-        categoryAdapter = CategoryAdapter(::getCategory)
-        binding.categoryRv.adapter = categoryAdapter
 
         with(binding) {
             mainProductsAdapter = MainProductsAdapter(::homeToDetail)
             productRv.adapter = mainProductsAdapter
             saleProductsAdapter = SaleProductsAdapter(::homeToDetail)
             saleProductRv.adapter = saleProductsAdapter
+            categoryAdapter = CategoryAdapter(::getCategory)
+            binding.categoryRv.adapter = categoryAdapter
         }
     }
 
@@ -67,6 +64,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     Log.e("salemessage", state.products.toString())
                 }
 
+                is HomeState.SuccessCategoryNameState -> {
+                    progressBar.gone()
+                    productConstraintLayout.visible()
+                    val addCategory: MutableList<String> = mutableListOf()
+                    addCategory.add("All")
+                    addCategory.addAll(state.category)
+                    categoryAdapter.updateList(addCategory)
+                }
+
+                is HomeState.SuccessCategoryProductState -> {
+                    progressBar.gone()
+                    productConstraintLayout.visible()
+                    mainProductsAdapter.updateList(state.products)
+                }
+
                 is HomeState.EmptyScreen -> {
                     progressBar.gone()
                     productConstraintLayout.gone()
@@ -84,35 +96,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun categoryNameObserve() {
-        viewModel.categoryNameLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                val addCategory: MutableList<String> = mutableListOf()
-                addCategory.add("All")
-                addCategory.addAll(it)
-                categoryAdapter.updateList(addCategory)
-            }
-        }
-    }
-
-    private fun productByCategoryObserve() {
-        viewModel.categoryLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                mainProductsAdapter = MainProductsAdapter(::homeToDetail)
-                binding.productRv.adapter = mainProductsAdapter
-                mainProductsAdapter.notifyDataSetChanged()
-            } else {
-                Snackbar.make(requireView(), "liste boş", Snackbar.LENGTH_LONG).show()
-            }
-        }
-    }
-
     private fun homeToDetail(id: Int) {
         val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(id)
         findNavController().navigate(action)
     }
 
     private fun getCategory(category: String) {
+        if (category == "All") {
+            viewModel.getProducts()
+        }
         viewModel.getProductsByCategory(category)
     }
 
