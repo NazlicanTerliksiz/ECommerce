@@ -63,6 +63,7 @@
            android:numStars="5"
            android:progressTint="@color/yellow"
            android:secondaryProgressTint="#00000000"
+           style="@style/Widget.AppCompat.RatingBar.Small"
            android:stepSize="0.1"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"

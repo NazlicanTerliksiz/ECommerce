@@ -19,6 +19,7 @@ class SaleProductsAdapter(
             binding.apply {
                 saleProductTv.text = product.title
                 salePriceTv.text = product.price.toString()
+                ratingBar.rating = product.rate?.toFloat() ?: 4.2f
                 product.imageOne?.let { saleProductIv.downloadFromUrl(it) }
                 root.setOnClickListener {
                     onItemClickListener.invoke(product.id)

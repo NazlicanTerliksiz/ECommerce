@@ -39,8 +39,24 @@
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productIv"
-                android:layout_marginTop="@dimen/margin_32dp"
-                android:layout_marginBottom="@dimen/margin_32dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"/>
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:numStars="5"
+                android:progressTint="@color/yellow"
+                android:secondaryProgressTint="#00000000"
+                android:stepSize="0.1"
+                app:layout_constraintBottom_toTopOf="@+id/priceTv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/productTv" />
 
             <TextView
                 android:id="@+id/priceTv"
@@ -51,10 +67,10 @@
                 android:textAlignment="textStart"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/productTv"
+                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="@dimen/margin_32dp"
-                android:layout_marginBottom="@dimen/margin_32dp"/>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
