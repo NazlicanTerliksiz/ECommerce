@@ -7,36 +7,54 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.databinding.FragmentSignUpBinding
+import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
     private val binding by viewBinding(FragmentSignUpBinding::bind)
     private val viewModel: SignUpViewModel by viewModels()
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.initializeFirebase()
 
-        binding.apply {
-            signUpButton.setOnClickListener {
+        signUp()
+        signUpObserve()
+    }
+    private fun signUp() {
+        binding.signUpButton.setOnClickListener {
 
-                val email = binding.signUpEmail2.text.toString()
-                val password = binding.signUpPassword2.text.toString()
+            val email = binding.signUpEmail2.text.toString()
+            val password = binding.signUpPassword2.text.toString()
 
-                if (checkFields(email, password)) {
-                    viewModel.signUpToFirebase(email, password, {
-                        findNavController().popBackStack()
-                    }, { errorMessage ->
-                        Snackbar.make(requireView(), errorMessage, 2000).show()
-                    })
+            if (checkFields(email, password)) {
+                viewModel.registerToFirebase(email, password)
+            }
+        }
+    }
+    private fun signUpObserve() = with(binding) {
+        viewModel.registerState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                RegisterState.Loading -> progressBar.visible()
+
+                RegisterState.RegisterSuccessState -> {
+                    progressBar.gone()
+                    findNavController().popBackStack()
+                }
+
+                is RegisterState.RegisterFailState -> {
+                    Snackbar.make(requireView(), state.failMessage, 2000).show()
+                }
+
+                is RegisterState.RegisterErrorState -> {
+                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
             }
         }

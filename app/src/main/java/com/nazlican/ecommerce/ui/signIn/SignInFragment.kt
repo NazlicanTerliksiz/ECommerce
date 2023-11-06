@@ -10,8 +10,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.databinding.FragmentSignInBinding
+import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignInFragment : Fragment(R.layout.fragment_sign_in) {
 
     private val binding by viewBinding(FragmentSignInBinding::bind)
@@ -21,29 +25,49 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth = FirebaseAuth.getInstance()
 
-       auth.currentUser?.let {
+
+        initializeAuth()
+        signIn()
+        signInObserve()
+    }
+
+    private fun initializeAuth() {
+        auth = FirebaseAuth.getInstance()
+        auth.currentUser?.let {
             findNavController().navigate(R.id.signInToMainGraph)
         }
+    }
 
+    private fun signIn() {
+        binding.signInButton.setOnClickListener {
 
-        binding.apply {
-            signInButton.setOnClickListener {
+            val email = binding.signInEmail2.text.toString()
+            val password = binding.signInPassword2.text.toString()
 
-                val email = binding.signInEmail2.text.toString()
-                val password = binding.signInPassword2.text.toString()
-
-                if (checkFields(email, password)) {
-                    viewModel.loginToFirebase(email, password, {
-                        findNavController().navigate(R.id.signInToMainGraph)
-                    }, { errorMessage ->
-                        Snackbar.make(requireView(), errorMessage, 2000).show()
-                    })
-                }
+            if (checkFields(email, password)) {
+                viewModel.loginToFirebase(email, password)
             }
-            signInText.setOnClickListener {
-                findNavController().navigate(R.id.signInToSignUp)
+        }
+    }
+
+    private fun signInObserve() = with(binding) {
+        viewModel.logInState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                LogInState.Loading -> progressBar.visible()
+
+                LogInState.LoginSuccessState -> {
+                    progressBar.gone()
+                    findNavController().navigate(R.id.signInToMainGraph)
+                }
+
+                is LogInState.LoginFailState -> {
+                    Snackbar.make(requireView(), state.failMessage, 2000).show()
+                }
+
+                is LogInState.LoginErrorState -> {
+                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                }
             }
         }
     }
@@ -55,21 +79,25 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 binding.signInEmail2.requestFocus()
                 false
             }
+
             !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
                 binding.signInEmail2.error = "valid email required"
                 binding.signInEmail2.requestFocus()
                 false
             }
-            password.isEmpty() ->  {
+
+            password.isEmpty() -> {
                 binding.signInPassword2.error = "password can't be empty"
                 binding.signInPassword2.requestFocus()
                 false
             }
-            password.length<6 -> {
+
+            password.length < 6 -> {
                 binding.signInPassword2.error = "6 char password required"
                 binding.signInPassword2.requestFocus()
                 false
             }
+
             else -> true
         }
     }
