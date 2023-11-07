@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nazlican.ecommerce.common.Resource
-import com.nazlican.ecommerce.data.model.Product
+import com.nazlican.ecommerce.data.model.response.ProductListUI
 import com.nazlican.ecommerce.data.repo.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -62,10 +62,10 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
 
 sealed interface HomeState {
     object Loading : HomeState
-    data class SuccessProductState(val products: List<Product>) : HomeState
-    data class SuccessSaleProductState(val products: List<Product>) : HomeState
+    data class SuccessProductState(val products: List<ProductListUI>) : HomeState
+    data class SuccessSaleProductState(val products: List<ProductListUI>) : HomeState
     data class SuccessCategoryNameState(val category: List<String>) : HomeState
-    data class SuccessCategoryProductState(val products: List<Product>) : HomeState
+    data class SuccessCategoryProductState(val products: List<ProductListUI>) : HomeState
     data class EmptyScreen(val failMessage: String) : HomeState
     data class ShowPopUp(val errorMessage: String) : HomeState
 }

@@ -1,11 +1,11 @@
 package com.nazlican.ecommerce.data.source.remote
 
-import com.nazlican.ecommerce.data.model.AddToCart
-import com.nazlican.ecommerce.data.model.BaseResponse
-import com.nazlican.ecommerce.data.model.Categories
-import com.nazlican.ecommerce.data.model.DeleteFromCart
-import com.nazlican.ecommerce.data.model.Detail
-import com.nazlican.ecommerce.data.model.ProductsResponse
+import com.nazlican.ecommerce.data.model.request.AddToCart
+import com.nazlican.ecommerce.data.model.response.BaseResponse
+import com.nazlican.ecommerce.data.model.response.Categories
+import com.nazlican.ecommerce.data.model.request.DeleteFromCart
+import com.nazlican.ecommerce.data.model.response.Detail
+import com.nazlican.ecommerce.data.model.response.ProductsResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

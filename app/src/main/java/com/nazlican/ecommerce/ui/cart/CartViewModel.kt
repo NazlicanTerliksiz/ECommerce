@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nazlican.ecommerce.common.Resource
-import com.nazlican.ecommerce.data.model.BaseResponse
-import com.nazlican.ecommerce.data.model.DeleteFromCart
-import com.nazlican.ecommerce.data.model.Product
+import com.nazlican.ecommerce.data.model.response.BaseResponse
+import com.nazlican.ecommerce.data.model.request.DeleteFromCart
+import com.nazlican.ecommerce.data.model.response.ProductListUI
 import com.nazlican.ecommerce.data.repo.CartRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -43,7 +43,7 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
 
 sealed interface CartState {
     object Loading : CartState
-    data class CartProductSuccessState(val products: List<Product>) : CartState
+    data class CartProductSuccessState(val products: List<ProductListUI>) : CartState
     data class DeleteProductSuccessState(val baseResponse: BaseResponse) : CartState
     data class EmptyScreen(val failMessage: String) : CartState
     data class ShowPopUp(val errorMessage: String) : CartState

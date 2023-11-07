@@ -2,7 +2,7 @@ package com.nazlican.ecommerce.data.repo
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.nazlican.ecommerce.data.model.Product
+import com.nazlican.ecommerce.data.model.response.Product
 import com.nazlican.ecommerce.data.source.remote.ProductService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +14,7 @@ class SearchRepository(private val productService: ProductService) {
     private var job: Job? = null
     val searchProductLiveData = MutableLiveData<List<Product>?>()
 
-    fun searchFromProduct(query:String) {
+    fun searchFromProduct(query:String)  {
         job = CoroutineScope(Dispatchers.IO).launch {
             val result =productService.searchFromProduct(query)
             if (result.isSuccessful) {

@@ -1,4 +1,4 @@
-package com.nazlican.ecommerce.data.model
+package com.nazlican.ecommerce.data.model.response
 
 data class Product(
     val category: String?,

@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
-import com.nazlican.ecommerce.data.model.DeleteFromCart
+import com.nazlican.ecommerce.data.model.request.DeleteFromCart
 import com.nazlican.ecommerce.databinding.FragmentCartBinding
 import com.nazlican.ecommerce.util.extensions.gone
 import com.nazlican.ecommerce.util.extensions.visible

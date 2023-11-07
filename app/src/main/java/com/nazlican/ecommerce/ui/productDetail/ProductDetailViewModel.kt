@@ -4,9 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nazlican.ecommerce.common.Resource
-import com.nazlican.ecommerce.data.model.AddToCart
-import com.nazlican.ecommerce.data.model.BaseResponse
-import com.nazlican.ecommerce.data.model.DetailResponse
+import com.nazlican.ecommerce.data.model.request.AddToCart
+import com.nazlican.ecommerce.data.model.response.BaseResponse
+import com.nazlican.ecommerce.data.model.response.DetailResponse
 import com.nazlican.ecommerce.data.repo.CartRepository
 import com.nazlican.ecommerce.data.repo.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

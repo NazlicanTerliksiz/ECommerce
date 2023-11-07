@@ -3,7 +3,7 @@ package com.nazlican.ecommerce.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nazlican.ecommerce.data.model.Product
+import com.nazlican.ecommerce.data.model.response.Product
 import com.nazlican.ecommerce.databinding.ItemViewSearchProductsBinding
 import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 

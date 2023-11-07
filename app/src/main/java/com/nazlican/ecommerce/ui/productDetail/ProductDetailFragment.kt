@@ -9,7 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
-import com.nazlican.ecommerce.data.model.AddToCart
+import com.nazlican.ecommerce.data.model.request.AddToCart
 import com.nazlican.ecommerce.databinding.FragmentProductDetailBinding
 import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 import com.nazlican.ecommerce.util.extensions.gone

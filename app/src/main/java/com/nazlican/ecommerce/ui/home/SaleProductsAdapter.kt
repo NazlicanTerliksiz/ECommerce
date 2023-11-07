@@ -3,7 +3,7 @@ package com.nazlican.ecommerce.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nazlican.ecommerce.data.model.Product
+import com.nazlican.ecommerce.data.model.response.ProductListUI
 import com.nazlican.ecommerce.databinding.ItemViewSaleProductsBinding
 import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 
@@ -11,11 +11,11 @@ class SaleProductsAdapter(
     private val onItemClickListener: (Int) -> Unit
 ) :
     RecyclerView.Adapter<SaleProductsAdapter.RowHolder>() {
-    private val saleProductList = ArrayList<Product>()
+    private val saleProductList = ArrayList<ProductListUI>()
 
     inner class RowHolder(private val binding: ItemViewSaleProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: Product) {
+        fun bind(product: ProductListUI) {
             binding.apply {
                 saleProductTv.text = product.title
                 salePriceTv.text = product.price.toString()
@@ -42,7 +42,7 @@ class SaleProductsAdapter(
         val product = saleProductList[position]
         holder.bind(product)
     }
-    fun updateList(updateList:List<Product>){
+    fun updateList(updateList:List<ProductListUI>){
         saleProductList.clear()
         saleProductList.addAll(updateList)
         notifyDataSetChanged()

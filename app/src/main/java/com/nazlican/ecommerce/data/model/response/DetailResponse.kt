@@ -1,4 +1,4 @@
-package com.nazlican.ecommerce.data.model
+package com.nazlican.ecommerce.data.model.response
 
 data class DetailResponse(
     val category: String?,
@@ -14,4 +14,3 @@ data class DetailResponse(
     val saleState: Boolean?,
     val title: String?
 )
-

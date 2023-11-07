@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.nazlican.ecommerce.common.Resource
-import com.nazlican.ecommerce.data.model.User
+import com.nazlican.ecommerce.data.model.response.User
 import com.nazlican.ecommerce.data.repo.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
