@@ -23,8 +23,6 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.initializeFirebase()
-
         signUp()
         signUpObserve()
     }
@@ -47,6 +45,10 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                 RegisterState.RegisterSuccessState -> {
                     progressBar.gone()
                     findNavController().popBackStack()
+                }
+                RegisterState.AddUserInfoSuccessState -> {
+                    progressBar.gone()
+
                 }
 
                 is RegisterState.RegisterFailState -> {

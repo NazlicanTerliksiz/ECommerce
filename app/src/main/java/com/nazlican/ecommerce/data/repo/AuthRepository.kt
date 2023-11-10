@@ -1,13 +1,15 @@
 package com.nazlican.ecommerce.data.repo
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.nazlican.ecommerce.common.Resource
+import com.nazlican.ecommerce.data.model.response.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor (private val firebaseAuth: FirebaseAuth) {
+class AuthRepository @Inject constructor (private val firebaseAuth: FirebaseAuth, private val firebaseFirestore: FirebaseFirestore) {
     suspend fun loginToFirebase(email: String, password: String): Resource<Boolean> =
         withContext(Dispatchers.IO) {
             try {
@@ -33,5 +35,20 @@ class AuthRepository @Inject constructor (private val firebaseAuth: FirebaseAuth
                 Resource.Error(e.message.orEmpty())
             }
         }
+
+    suspend fun addUserInfo(email: String): Resource<Boolean> = withContext(Dispatchers.IO) {
+        try {
+            val uid = FirebaseAuth.getInstance().currentUser!!.uid
+            val user = User(
+                userId = uid,
+                email = email
+            )
+            firebaseFirestore.collection("users").document(uid).set(user).await()
+            Resource.Success(true)
+        } catch (e: Exception) {
+            Resource.Error(e.message.orEmpty())
+        }
+    }
+
 }
 
