@@ -52,6 +52,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 }
                 is CartState.EmptyScreen -> {
                     progressBar.gone()
+                    cartProductRv.gone()
                 }
 
                 is CartState.ShowPopUp -> {

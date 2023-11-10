@@ -24,8 +24,7 @@
            android:scaleType="centerCrop"
            android:src="@drawable/ic_launcher_background"
            app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toStartOf="parent"
-           app:layout_constraintTop_toTopOf="parent" />
+           app:layout_constraintStart_toStartOf="parent" />
 
        <TextView
            android:id="@+id/productDetailtv"
@@ -71,11 +70,23 @@
 
        <TextView
            android:id="@+id/priceTv"
-           android:layout_width="144dp"
+           android:layout_width="70dp"
            android:layout_height="40dp"
            android:layout_marginStart="32dp"
            android:layout_marginTop="@dimen/margin_8dp"
            android:text="@string/price"
+           android:textSize="@dimen/text_size_16sp"
+           app:layout_constraintEnd_toStartOf="@id/salePriceTv"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent" />
+
+       <TextView
+           android:id="@+id/salePriceTv"
+           android:layout_width="70dp"
+           android:layout_height="40dp"
+           android:layout_marginStart="32dp"
+           android:layout_marginTop="@dimen/margin_8dp"
+           android:text="@string/saleprice"
            android:textSize="@dimen/text_size_16sp"
            app:layout_constraintEnd_toStartOf="@id/AddToCartbutton"
            app:layout_constraintStart_toStartOf="parent"
@@ -92,10 +103,22 @@
            android:textColor="@color/darkcoffe"
            app:cornerRadius="8dp"
            app:layout_constraintEnd_toEndOf="parent"
-           app:layout_constraintStart_toEndOf="@id/priceTv"
+           app:layout_constraintStart_toEndOf="@id/salePriceTv"
            app:layout_constraintBottom_toBottomOf="parent"
            app:strokeColor="@color/darkcoffe"
            app:strokeWidth="1dp" />
+
+       <ImageView
+           android:id="@+id/back"
+           android:layout_width="35dp"
+           android:layout_height="35dp"
+           android:padding="@dimen/padding_8dp"
+           android:layout_margin="@dimen/margin_8dp"
+           android:src="@drawable/ic_arrow_back_"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           android:background="@drawable/favorite_card_corners"/>
+
    </androidx.constraintlayout.widget.ConstraintLayout>
     <ImageView
         android:id="@+id/iv_empty"
@@ -104,7 +127,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/tv_empty"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -119,7 +141,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_empty" />
 
@@ -136,6 +157,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/favoriteIv"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="@dimen/padding_8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/favorite_card_corners"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

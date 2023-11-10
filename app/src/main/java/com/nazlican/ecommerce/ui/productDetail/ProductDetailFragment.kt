@@ -24,6 +24,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private val viewModel: ProductDetailViewModel by viewModels()
     private val args: ProductDetailFragmentArgs by navArgs()
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -32,10 +33,16 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         detailProductObserve()
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
 
-        binding.AddToCartbutton.setOnClickListener {
-            viewModel.AddToCartProduct(AddToCart(userId, id))
+        with(binding) {
+            AddToCartbutton.setOnClickListener {
+                viewModel.AddToCartProduct(AddToCart(userId, id))
+            }
+            back.setOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
+
 
     private fun detailProductObserve() = with(binding) {
         viewModel.detailState.observe(viewLifecycleOwner) { state ->

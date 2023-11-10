@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nazlican.ecommerce.R
+import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.FragmentHomeBinding
 import com.nazlican.ecommerce.util.extensions.gone
 import com.nazlican.ecommerce.util.extensions.visible
@@ -33,9 +34,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
         with(binding) {
-            mainProductsAdapter = MainProductsAdapter(::homeToDetail)
+            mainProductsAdapter = MainProductsAdapter(::homeToDetail, ::homeToFavorite)
             productRv.adapter = mainProductsAdapter
-            saleProductsAdapter = SaleProductsAdapter(::homeToDetail)
+            saleProductsAdapter = SaleProductsAdapter(::homeToDetail, ::homeToFavorite)
             saleProductRv.adapter = saleProductsAdapter
             categoryAdapter = CategoryAdapter(::getCategory)
             binding.categoryRv.adapter = categoryAdapter
@@ -106,6 +107,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewModel.getProducts()
         }
         viewModel.getProductsByCategory(category)
+    }
+
+    private fun homeToFavorite(product: ProductUI){
+        viewModel.setFavoriteState(product)
     }
 
 }

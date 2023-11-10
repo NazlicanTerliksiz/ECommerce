@@ -31,7 +31,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.nazlican.ecommerce.ui.favorites.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/favoriteToDetail"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.nazlican.ecommerce.ui.profile.ProfileFragment"

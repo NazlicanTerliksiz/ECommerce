@@ -48,12 +48,12 @@
                     android:layout_marginStart="@dimen/margin_8dp"
                     android:layout_marginTop="@dimen/margin_8dp"
                     android:text="@string/product_name"
-                    app:layout_constraintBottom_toTopOf="@+id/cartProductPriceTv"
+                    app:layout_constraintBottom_toTopOf="@+id/priceTv"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/cartProductPriceTv"
+                    android:id="@+id/priceTv"
                     style="@style/h4_text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -64,6 +64,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cartProductNameTv" />
 
+                <TextView
+                    android:id="@+id/salePriceTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/saleprice"
+                    android:textSize="@dimen/text_size_16sp"
+                    android:textAlignment="textStart"
+                    app:layout_constraintStart_toEndOf="@id/priceTv"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/cartProductNameTv"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
+
                 <ImageView
                     android:id="@+id/deleteIv"
                     android:layout_width="@dimen/width_32dp"
@@ -73,6 +87,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginEnd="16dp" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
