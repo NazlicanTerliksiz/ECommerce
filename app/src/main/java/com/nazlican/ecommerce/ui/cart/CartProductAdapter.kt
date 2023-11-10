@@ -1,24 +1,42 @@
 package com.nazlican.ecommerce.ui.cart
 
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nazlican.ecommerce.data.model.response.ProductListUI
+import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.ItemViewCartProductBinding
 import com.nazlican.ecommerce.util.extensions.downloadFromUrl
-
 class CartProductAdapter(
     private val onItemClickListener: (Int) -> Unit
 ):
-    RecyclerView.Adapter<CartProductAdapter.RowHolder>() {
-    private val cartProductList = ArrayList<ProductListUI>()
+    RecyclerView.Adapter<CartProductAdapter.CartProductRowHolder>() {
+    private val cartProductList = ArrayList<ProductUI>()
 
-    inner class RowHolder(private val binding: ItemViewCartProductBinding) :
+    inner class CartProductRowHolder(private val binding: ItemViewCartProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(cartProduct: ProductListUI) {
+        fun bind(cartProduct: ProductUI) {
             binding.apply {
                 cartProductNameTv.text = cartProduct.title
-                cartProductPriceTv.text = cartProduct.price.toString()
+                if (cartProduct.saleState == true){
+                    if(cartProduct.salePrice != null) {
+                        salePriceTv.text = cartProduct.salePrice.toString()
+                        val originalPrice = cartProduct.price.toString()
+                        val spannableString = SpannableString(originalPrice)
+                        spannableString.setSpan(StrikethroughSpan(), 0, originalPrice.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        priceTv.text = spannableString
+                        priceTv.visibility = View.VISIBLE
+                    } else {
+                        priceTv.text = cartProduct.price.toString()
+                        priceTv.paintFlags = 0
+                    }
+                }else{
+                    priceTv.text = cartProduct.price.toString()
+                    salePriceTv.visibility = View.GONE
+                }
                 cartProductIv.downloadFromUrl(cartProduct.imageOne.orEmpty())
                 deleteIv.setOnClickListener {
                     onItemClickListener.invoke(cartProduct.id)
@@ -27,22 +45,22 @@ class CartProductAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartProductRowHolder {
         val binding =
             ItemViewCartProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RowHolder(binding)
+        return CartProductRowHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: RowHolder, position: Int) {
-        val cartProduct = cartProductList[position]
-        holder.bind(cartProduct)
+    override fun onBindViewHolder(holder: CartProductRowHolder, position: Int) {
+        val favoriteProduct = cartProductList[position]
+        holder.bind(favoriteProduct)
     }
 
     override fun getItemCount(): Int {
         return cartProductList.size
     }
 
-    fun updateList(updateList:List<ProductListUI>){
+    fun updateList(updateList:List<ProductUI>){
         cartProductList.clear()
         cartProductList.addAll(updateList)
         notifyDataSetChanged()
