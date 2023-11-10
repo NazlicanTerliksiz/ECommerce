@@ -9,8 +9,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.databinding.FragmentSearchBinding
+import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
@@ -20,19 +23,35 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       //binding.productRv.layoutManager = LinearLayoutManager(requireContext())
+        //binding.productRv.layoutManager = LinearLayoutManager(requireContext())
         searchProductAdapter = SearchProductsAdapter(::homeToDetail)
         binding.productRv.adapter = searchProductAdapter
         searchProductObserve()
         search()
     }
 
-    private fun searchProductObserve() {
-        viewModel.searchProductLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
-                searchProductAdapter.updateList(it)
-            } else {
-                Snackbar.make(requireView(), "liste boş", Snackbar.LENGTH_LONG).show()
+    private fun searchProductObserve() = with(binding) {
+        viewModel.searchState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+
+                SearchState.Loading -> progressBar.visible()
+
+                is SearchState.SuccessSearchState -> {
+                    progressBar.gone()
+                    searchProductAdapter.updateList(state.products)
+                }
+
+                is SearchState.EmptyScreen -> {
+                    progressBar.gone()
+                    ivEmpty.visible()
+                    tvEmpty.visible()
+                    tvEmpty.text = state.failMessage
+                }
+
+                is SearchState.ShowPopUp -> {
+                    progressBar.gone()
+                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                }
             }
         }
     }
@@ -50,7 +69,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                viewModel.searchProduct(newText)
+                if (newText != null && newText.length>3){
+                    viewModel.searchProduct(newText)
+                }else{
+                    searchProductAdapter.updateList(emptyList())
+                }
                 return true
             }
 
