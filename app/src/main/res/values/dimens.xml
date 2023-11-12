@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Margin Size -->
+    <dimen name="margin_180dp">180dp</dimen>
     <dimen name="margin_32dp">32dp</dimen>
+    <dimen name="margin_24dp">24dp</dimen>
+    <dimen name="margin_16dp">16dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="margin_4dp">4dp</dimen>
 
     <!-- Padding Size -->
+    <dimen name="padding_32dp">32dp</dimen>
+    <dimen name="padding_16dp">16dp</dimen>
     <dimen name="padding_8dp">8dp</dimen>
 
     <!-- Height Size -->
     <dimen name="height_150dp">150dp</dimen>
     <dimen name="height_32dp">32dp</dimen>
+    <dimen name="height_25dp">25dp</dimen>
     <dimen name="height_350dp">350dp</dimen>
     <dimen name="height_92dp">92dp</dimen>
 
     <!-- Width Size -->
     <dimen name="width_1dp">1dp</dimen>
     <dimen name="width_32dp">32dp</dimen>
+    <dimen name="width_25dp">25dp</dimen>
     <dimen name="width_92dp">92dp</dimen>
     <dimen name="width_150dp">150dp</dimen>
 
     <!-- Text Size -->
+    <dimen name="text_size_20sp">20sp</dimen>
     <dimen name="text_size_16sp">16sp</dimen>
     <dimen name="text_size_12sp">12sp</dimen>
 
     <!-- Radius Size -->
     <dimen name="radius_8dp">8dp</dimen>
+
+    <!--Stroke width -->
+    <dimen name="strokeWidth_1dp">1dp</dimen>
 
 </resources>

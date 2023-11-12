@@ -35,11 +35,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         with(binding) {
             mainProductsAdapter = MainProductsAdapter(::homeToDetail, ::homeToFavorite)
-            productRv.adapter = mainProductsAdapter
+            homeMainProductRv.adapter = mainProductsAdapter
             saleProductsAdapter = SaleProductsAdapter(::homeToDetail, ::homeToFavorite)
-            saleProductRv.adapter = saleProductsAdapter
+            homeSaleProductRv.adapter = saleProductsAdapter
             categoryAdapter = CategoryAdapter(::getCategory)
-            binding.categoryRv.adapter = categoryAdapter
+            binding.homeCategoryRv.adapter = categoryAdapter
         }
     }
 
@@ -47,26 +47,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel.homeState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 HomeState.Loading -> {
-                    progressBar.visible()
+                    homeProgressBar.visible()
                     productConstraintLayout.gone()
                 }
 
                 is HomeState.SuccessProductState -> {
-                    progressBar.gone()
+                    homeProgressBar.gone()
                     productConstraintLayout.visible()
                     mainProductsAdapter.updateList(state.products)
                     Log.e("message", state.products.toString())
                 }
 
                 is HomeState.SuccessSaleProductState -> {
-                    progressBar.gone()
+                    homeProgressBar.gone()
                     productConstraintLayout.visible()
                     saleProductsAdapter.updateList(state.products)
                     Log.e("salemessage", state.products.toString())
                 }
 
                 is HomeState.SuccessCategoryNameState -> {
-                    progressBar.gone()
+                    homeProgressBar.gone()
                     productConstraintLayout.visible()
                     val addCategory: MutableList<String> = mutableListOf()
                     addCategory.add("All")
@@ -75,21 +75,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
 
                 is HomeState.SuccessCategoryProductState -> {
-                    progressBar.gone()
+                    homeProgressBar.gone()
                     productConstraintLayout.visible()
                     mainProductsAdapter.updateList(state.products)
                 }
 
                 is HomeState.EmptyScreen -> {
-                    progressBar.gone()
+                    homeProgressBar.gone()
                     productConstraintLayout.gone()
-                    ivEmpty.visible()
-                    tvEmpty.visible()
-                    tvEmpty.text = state.failMessage
+                    homeEmptyIv.visible()
+                    homeEmptyTv.visible()
+                    homeEmptyTv.text = state.failMessage
                 }
 
                 is HomeState.ShowPopUp -> {
-                    progressBar.gone()
+                    homeProgressBar.gone()
                     productConstraintLayout.gone()
                     Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
@@ -98,7 +98,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun homeToDetail(id: Int) {
-        val action = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(id)
+        val action = HomeFragmentDirections.homeToDetail(id)
         findNavController().navigate(action)
     }
 

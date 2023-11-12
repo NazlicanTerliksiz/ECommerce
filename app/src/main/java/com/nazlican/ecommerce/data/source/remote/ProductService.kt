@@ -1,6 +1,7 @@
 package com.nazlican.ecommerce.data.source.remote
 
 import com.nazlican.ecommerce.data.model.request.AddToCart
+import com.nazlican.ecommerce.data.model.request.ClearCart
 import com.nazlican.ecommerce.data.model.response.BaseResponse
 import com.nazlican.ecommerce.data.model.response.Categories
 import com.nazlican.ecommerce.data.model.request.DeleteFromCart
@@ -44,8 +45,14 @@ interface ProductService {
         @Body deleteFromCart: DeleteFromCart
     ): Response<BaseResponse>
 
+    @POST("clear_cart.php")
+    suspend fun clearCart(
+        @Body clearBagBody: ClearCart
+    ): Response<BaseResponse>
+
     @GET("search_product.php")
     suspend fun searchFromProduct(
         @Query("query") query: String
     ): Response<ProductsResponse>
+
 }

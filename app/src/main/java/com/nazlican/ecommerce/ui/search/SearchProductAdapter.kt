@@ -12,7 +12,7 @@ import com.nazlican.ecommerce.databinding.ItemViewSearchProductsBinding
 import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 
 class SearchProductsAdapter(
-    private val onItemClickListener: (Int) -> Unit
+    private val onDetailClickListener: (Int) -> Unit
 ) :
     RecyclerView.Adapter<SearchProductsAdapter.RowHolder>() {
     private val searchProductList = ArrayList<ProductUI>()
@@ -21,9 +21,11 @@ class SearchProductsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductUI) {
             binding.apply {
+
                 searchProductTv.text = product.title
-                ratingBar.rating = product.rate?.toFloat() ?: 4.2f
-                searchProductTv.text = product.title
+                ratingBar.rating = product.rate.toFloat()
+                product.imageOne.let { searchProductIv.downloadFromUrl(it) }
+
                 if (product.saleState == true){
                     if(product.salePrice != null) {
                         salePriceTv.text = product.salePrice.toString()
@@ -40,9 +42,9 @@ class SearchProductsAdapter(
                     searchPriceTv.text = product.price.toString()
                     salePriceTv.visibility = View.GONE
                 }
-                product.imageOne.let { searchProductIv.downloadFromUrl(it) }
+
                 root.setOnClickListener {
-                    onItemClickListener.invoke(product.id)
+                    onDetailClickListener.invoke(product.id)
                 }
             }
         }

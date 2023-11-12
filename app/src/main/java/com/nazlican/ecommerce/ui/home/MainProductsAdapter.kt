@@ -23,7 +23,10 @@ class MainProductsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductUI) {
             binding.apply {
+
+                product.imageOne.let { productIv.downloadFromUrl(it) }
                 productTv.text = product.title
+                productRatingBar.rating = product.rate.toFloat()
 
                 if (product.saleState == true) {
                     if (product.salePrice != null) {
@@ -46,23 +49,20 @@ class MainProductsAdapter(
                     priceTv.text = product.price.toString()
                     salePriceTv.visibility = View.GONE
                 }
-                ratingBar.rating = product.rate.toFloat() ?: 4.2f
-                product.imageOne.let { productIv.downloadFromUrl(it) }
-
-                favoriteIv.setBackgroundResource(
-                    if (product.isFav){
-                        R.drawable.ic_fav_selected
-                    }
-                    else R.drawable.ic_fav_unselected
-                )
 
                 root.setOnClickListener {
                     onItemClickListener.invoke(product.id)
                     salePriceTv.visibility = View.GONE
                 }
+
                 favoriteIv.setOnClickListener {
                     onFavClick(product)
                 }
+
+                favoriteIv.setBackgroundResource(
+                    if (product.isFav) R.drawable.ic_fav_selected
+                    else R.drawable.ic_fav_unselected
+                )
             }
         }
     }

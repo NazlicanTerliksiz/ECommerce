@@ -23,7 +23,7 @@ RecyclerView.Adapter<CategoryAdapter.RowHolder>() {
             binding.apply {
                 categoryName.text = category
                 if (position == selectedPosition) {
-                    categoryName.setTextColor(ContextCompat.getColor(itemView.context, R.color.darkcoffe))
+                    categoryName.setTextColor(ContextCompat.getColor(itemView.context, R.color.darkBrown))
                 } else {
                     categoryName.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey)) // veya istediğiniz bir renk
                 }

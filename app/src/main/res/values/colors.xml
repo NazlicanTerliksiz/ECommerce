@@ -4,10 +4,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="mintGreen">#879771</color>
     <color name="darkGreen">#303d2d</color>
-    <color name="coffe">#9D5F37</color>
-    <color name="darkcoffe">#895330</color>
-    <color name="bej">#F4EFE9</color>
-    <color name="darkbej">#F4E9D3</color>
+    <color name="brown">#9D5F37</color>
+    <color name="darkBrown">#895330</color>
+    <color name="beige">#F4EFE9</color>
+    <color name="darkBeige">#F4E9D3</color>
     <color name="yellow">#F3E418</color>
     <color name="grey">#3E3E3D</color>
+    <color name="red">#FF0000</color>
 </resources>

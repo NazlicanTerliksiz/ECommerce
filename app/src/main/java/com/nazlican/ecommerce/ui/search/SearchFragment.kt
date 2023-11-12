@@ -25,7 +25,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         //binding.productRv.layoutManager = LinearLayoutManager(requireContext())
         searchProductAdapter = SearchProductsAdapter(::homeToDetail)
-        binding.productRv.adapter = searchProductAdapter
+        binding.searchProductRv.adapter = searchProductAdapter
         searchProductObserve()
         search()
     }
@@ -34,22 +34,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         viewModel.searchState.observe(viewLifecycleOwner) { state ->
             when (state) {
 
-                SearchState.Loading -> progressBar.visible()
+                SearchState.Loading -> searchProgressBar.visible()
 
                 is SearchState.SuccessSearchState -> {
-                    progressBar.gone()
+                    searchProgressBar.gone()
                     searchProductAdapter.updateList(state.products)
                 }
 
                 is SearchState.EmptyScreen -> {
-                    progressBar.gone()
-                    ivEmpty.visible()
-                    tvEmpty.visible()
-                    tvEmpty.text = state.failMessage
+                    searchProgressBar.gone()
+                    searchEmptyIv.visible()
+                    searchEmptyTv.visible()
+                    searchEmptyTv.text = state.failMessage
                 }
 
                 is SearchState.ShowPopUp -> {
-                    progressBar.gone()
+                    searchProgressBar.gone()
                     Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
             }
@@ -57,7 +57,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun homeToDetail(id: Int) {
-        val action = SearchFragmentDirections.actionSearchFragmentToProductDetailFragment(id)
+        val action = SearchFragmentDirections.searchToDetail(id)
         findNavController().navigate(action)
     }
 

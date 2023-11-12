@@ -23,12 +23,21 @@ class SaleProductsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: ProductUI) {
             binding.apply {
-                saleProductTv.text = product.title
-                if(product.salePrice != null) {
+
+                product.imageOne.let { saleProductIv.downloadFromUrl(it) }
+                saleProductNameTv.text = product.title
+                saleProductRatingBar.rating = product.rate.toFloat()
+
+                if (product.salePrice != null) {
                     salePriceTv.text = product.salePrice.toString()
                     val originalPrice = product.price.toString()
                     val spannableString = SpannableString(originalPrice)
-                    spannableString.setSpan(StrikethroughSpan(), 0, originalPrice.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    spannableString.setSpan(
+                        StrikethroughSpan(),
+                        0,
+                        originalPrice.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
                     priceTv.text = spannableString
                     priceTv.visibility = View.VISIBLE
                 } else {
@@ -36,20 +45,17 @@ class SaleProductsAdapter(
                     priceTv.paintFlags = 0
                 }
 
-                ratingBar.rating = product.rate?.toFloat() ?: 4.2f
-                product.imageOne?.let { saleProductIv.downloadFromUrl(it) }
+                root.setOnClickListener {
+                    onItemClickListener.invoke(product.id)
+                }
+                favoriteIv.setOnClickListener {
+                    onFavClick(product)
+                }
 
                 favoriteIv.setBackgroundResource(
                     if (product.isFav) R.drawable.ic_fav_selected
                     else R.drawable.ic_fav_unselected
                 )
-
-                root.setOnClickListener {
-                    onItemClickListener.invoke(product.id)
-               }
-                favoriteIv.setOnClickListener {
-                    onFavClick(product)
-                }
             }
         }
     }
@@ -68,7 +74,8 @@ class SaleProductsAdapter(
         val product = saleProductList[position]
         holder.bind(product)
     }
-    fun updateList(updateList:List<ProductUI>){
+
+    fun updateList(updateList: List<ProductUI>) {
         saleProductList.clear()
         saleProductList.addAll(updateList)
         notifyDataSetChanged()

@@ -7,8 +7,10 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nazlican.ecommerce.R
+import com.nazlican.ecommerce.data.model.request.AddToCart
 import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.FragmentFavoritesBinding
+import com.nazlican.ecommerce.ui.cart.CartViewModel
 import com.nazlican.ecommerce.util.extensions.gone
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
@@ -26,10 +28,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
         viewModel.getFavorites()
 
-        with(binding){
+        with(binding) {
             favoritesAdapter = FavoritesAdapter(::homeToDetail, ::deleteFromFavorites)
             favoritesProductRv.adapter = favoritesAdapter
         }
+
         favoriteProductObserve()
     }
 
@@ -37,24 +40,24 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         viewModel.favoriteState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 FavoriteState.Loading -> {
-                    progressBar.visible()
+                    favoriteProgressBar.visible()
                 }
 
                 is FavoriteState.SuccessFavoriteState -> {
-                    progressBar.gone()
-                   favoritesAdapter.updateList(state.products)
+                    favoriteProgressBar.gone()
+                    favoritesAdapter.updateList(state.products)
                 }
 
                 is FavoriteState.EmptyScreen -> {
-                    progressBar.gone()
-                    ivEmpty.visible()
-                    tvEmpty.visible()
+                    favoriteProgressBar.gone()
+                    favoriteEmptyIv.visible()
+                    favoriteEmptyTv.visible()
                     favoritesProductRv.gone()
-                    tvEmpty.text = state.failMessage
+                    favoriteEmptyTv.text = state.failMessage
                 }
 
                 is FavoriteState.ShowPopUp -> {
-                    progressBar.gone()
+                    favoriteProgressBar.gone()
                     Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
             }
@@ -66,10 +69,9 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         findNavController().navigate(action)
     }
 
-    private fun deleteFromFavorites(product: ProductUI){
+    private fun deleteFromFavorites(product: ProductUI) {
         viewModel.deleteFromFavorites(product)
     }
-
 
 }
 

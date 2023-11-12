@@ -9,7 +9,10 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor (private val firebaseAuth: FirebaseAuth, private val firebaseFirestore: FirebaseFirestore) {
+class AuthRepository @Inject constructor(
+    private val firebaseAuth: FirebaseAuth,
+    private val firebaseFirestore: FirebaseFirestore
+) {
     suspend fun loginToFirebase(email: String, password: String): Resource<Boolean> =
         withContext(Dispatchers.IO) {
             try {
@@ -26,7 +29,8 @@ class AuthRepository @Inject constructor (private val firebaseAuth: FirebaseAuth
     suspend fun registerToFirebase(email: String, password: String): Resource<Boolean> =
         withContext(Dispatchers.IO) {
             try {
-                val authSignUp = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+                val authSignUp =
+                    firebaseAuth.createUserWithEmailAndPassword(email, password).await()
                 if (authSignUp.user != null) {
                     Resource.Success(true)
                 } else

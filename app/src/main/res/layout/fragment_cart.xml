@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bej"
+    android:background="@color/beige"
     tools:context=".ui.cart.CartFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/cartToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/beige"
+        android:textAlignment="center"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="My Cart"
+        app:titleTextColor="@color/brown" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartProductRv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cartProductToolbar"
+        app:layout_constraintTop_toBottomOf="@+id/cartToolbar"
         tools:listitem="@layout/item_view_cart_product" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/cartProductToolbar"
-        android:layout_width="match_parent"
-        app:title="My Cart"
-        app:titleTextColor="@color/coffe"
-        android:textAlignment="center"
-        android:layout_height="wrap_content"
-        android:background="@color/bej"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toTopOf="@+id/cartProductRv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
-        android:id="@+id/iv_empty"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:id="@+id/cartEmptyIv"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/tv_empty"
+        app:layout_constraintBottom_toTopOf="@+id/cartEmptyTv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cartToolbar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/ic_warning" />
+        app:srcCompat="@drawable/empty_cart_cake" />
 
     <TextView
-        android:id="@+id/tv_empty"
+        android:id="@+id/cartEmptyTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_16sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_empty" />
+        app:layout_constraintTop_toBottomOf="@+id/cartEmptyIv" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/cartProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -71,6 +71,51 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/cartClearAllCartIv"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="@dimen/margin_16dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/beige"
+        android:paddingTop="@dimen/padding_8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/cartRroductsTotalPriceTv"
+            android:layout_width="110dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/margin_8dp"
+            android:layout_marginStart="@dimen/margin_16dp"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:text="@string/total_price"
+            android:textSize="@dimen/text_size_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/cartPayNowButton"
+            android:layout_width="160dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/margin_8dp"
+            android:backgroundTint="@color/darkBeige"
+            android:text="@string/pay_now"
+            android:textColor="@color/darkBrown"
+            app:cornerRadius="@dimen/radius_8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:strokeColor="@color/darkBrown"
+            app:strokeWidth="@dimen/strokeWidth_1dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

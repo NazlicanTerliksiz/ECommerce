@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.payment.PaymentFragment"
+    android:background="@color/beige">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/paymentToolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="Payment"
+        app:titleTextColor="@color/darkBrown"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/paymentNameEt"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_32dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="@dimen/margin_32dp"
+            android:background="@drawable/corners_product_item"
+            android:hint="Name"
+            android:inputType="text"
+            android:padding="@dimen/padding_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/paymentToolBar" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/paymentCartNumberEt"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="@dimen/margin_32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/margin_32dp"
+            android:background="@drawable/corners_product_item"
+            android:hint="cart Number"
+            android:inputType="number"
+            android:maxLength="16"
+            android:padding="@dimen/padding_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paymentNameEt" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/paymentMonthEt"
+            android:layout_width="80dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/corners_product_item"
+            android:hint="Month"
+            android:inputType="number"
+            android:maxLength="2"
+            android:padding="@dimen/padding_8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paymentCartNumberEt" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/paymentYearEt"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/corners_product_item"
+            android:hint="Year"
+            android:inputType="number"
+            android:maxLength="4"
+            android:padding="@dimen/padding_8dp"
+            app:layout_constraintStart_toEndOf="@+id/paymentMonthEt"
+            app:layout_constraintTop_toBottomOf="@+id/paymentCartNumberEt" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/paymentCvvEt"
+            android:layout_width="100dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/corners_product_item"
+            android:hint="Cvv"
+            android:inputType="number"
+            android:maxLength="3"
+            android:padding="@dimen/padding_8dp"
+            app:layout_constraintStart_toEndOf="@+id/paymentYearEt"
+            app:layout_constraintTop_toBottomOf="@+id/paymentCartNumberEt" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/paymentAddressEt"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="@dimen/margin_32dp"
+            android:background="@drawable/corners_product_item"
+            android:gravity="start"
+            android:hint="Address"
+            android:inputType="text"
+            android:padding="@dimen/padding_8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paymentCvvEt" />
+
+        <Button
+            android:id="@+id/paymentButton"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="@dimen/margin_32dp"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="@color/beige"
+            android:drawableLeft="@drawable/ic_cake"
+            android:text="Pay Now"
+            android:textAllCaps="false"
+            android:textColor="@color/brown"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paymentAddressEt"
+            app:strokeColor="@color/brown"
+            app:strokeWidth="@dimen/width_1dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

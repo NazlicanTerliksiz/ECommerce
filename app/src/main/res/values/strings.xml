@@ -7,4 +7,9 @@
     <string name="product_name">Product Name</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="saleprice">salePrice</string>
+    <string name="total_price">Total Price</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="titile">titile</string>
+    <string name="category">category</string>
+    <string name="category_name">category Name</string>
 </resources>

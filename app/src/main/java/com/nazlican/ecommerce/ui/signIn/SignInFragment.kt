@@ -25,8 +25,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         initializeAuth()
         signIn()
         signInObserve()
@@ -40,13 +38,12 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     }
 
     private fun signIn() {
-        binding.signInButton.setOnClickListener {
-
-            val email = binding.signInEmail2.text.toString()
-            val password = binding.signInPassword2.text.toString()
-
-            if (checkFields(email, password)) {
-                viewModel.loginToFirebase(email, password)
+        with(binding) {
+            binding.signInButton.setOnClickListener {
+                viewModel.loginToFirebase(
+                    signInEmail2.text.toString(),
+                    signInPassword2.text.toString()
+                )
             }
         }
     }
@@ -54,51 +51,17 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
     private fun signInObserve() = with(binding) {
         viewModel.logInState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                LogInState.Loading -> progressBar.visible()
+                LogInState.Loading -> signInProgressBar.visible()
 
                 LogInState.LoginSuccessState -> {
-                    progressBar.gone()
+                    signInProgressBar.gone()
                     findNavController().navigate(R.id.signInToMainGraph)
                 }
 
-                is LogInState.LoginFailState -> {
-                    Snackbar.make(requireView(), state.failMessage, 2000).show()
-                }
-
-                is LogInState.LoginErrorState -> {
+                is LogInState.ShowPopUp -> {
                     Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
             }
-        }
-    }
-
-    private fun checkFields(email: String, password: String): Boolean {
-        return when {
-            email.isEmpty() -> {
-                binding.signInEmail2.error = "mail can't be empty"
-                binding.signInEmail2.requestFocus()
-                false
-            }
-
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                binding.signInEmail2.error = "valid email required"
-                binding.signInEmail2.requestFocus()
-                false
-            }
-
-            password.isEmpty() -> {
-                binding.signInPassword2.error = "password can't be empty"
-                binding.signInPassword2.requestFocus()
-                false
-            }
-
-            password.length < 6 -> {
-                binding.signInPassword2.error = "6 char password required"
-                binding.signInPassword2.requestFocus()
-                false
-            }
-
-            else -> true
         }
     }
 }

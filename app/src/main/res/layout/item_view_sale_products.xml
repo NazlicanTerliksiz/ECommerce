@@ -4,33 +4,33 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_8dp"
-    android:background="@drawable/card_corners"
+    android:background="@drawable/corners_product_item"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/bej">
+        android:layout_margin="@dimen/margin_16dp"
+        android:background="@color/beige">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bej">
+            android:background="@color/beige">
 
             <ImageView
                 android:id="@+id/saleProductIv"
-                android:layout_width="@dimen/width_150dp"
+                android:layout_width="150dp"
                 android:layout_height="170dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background"
                 android:layout_marginBottom="@dimen/margin_32dp"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginTop="@dimen/margin_4dp"/>
 
             <TextView
-                android:id="@+id/saleProductTv"
+                android:id="@+id/saleProductNameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/product"
@@ -39,11 +39,11 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/saleProductIv"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/margin_8dp"
                 android:layout_marginBottom="@dimen/margin_32dp"/>
 
             <RatingBar
-                android:id="@+id/ratingBar"
+                android:id="@+id/saleProductRatingBar"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 android:stepSize="0.1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/saleProductTv" />
+                app:layout_constraintTop_toBottomOf="@id/saleProductNameTv" />
 
             <TextView
                 android:id="@+id/priceTv"
@@ -64,10 +64,10 @@
                 android:textSize="@dimen/text_size_16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                app:layout_constraintTop_toBottomOf="@+id/saleProductRatingBar"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginBottom="@dimen/margin_4dp"/>
 
             <TextView
                 android:id="@+id/salePriceTv"
@@ -77,22 +77,22 @@
                 android:textSize="@dimen/text_size_16sp"
                 android:textAlignment="textStart"
                 app:layout_constraintStart_toEndOf="@id/priceTv"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                android:layout_marginStart="@dimen/margin_8dp"
+                app:layout_constraintTop_toBottomOf="@+id/saleProductRatingBar"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_16dp"/>
 
             <ImageView
                 android:id="@+id/favoriteIv"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:padding="@dimen/padding_8dp"
-                android:background="@drawable/favorite_card_corners"/>
+                android:background="@drawable/corner_favorite_item"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

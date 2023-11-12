@@ -10,7 +10,7 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_productDetailFragment"
+            android:id="@+id/homeToDetail"
             app:destination="@id/productDetailFragment" />
     </fragment>
     <fragment
@@ -19,14 +19,21 @@
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_searchFragment_to_productDetailFragment"
+            android:id="@+id/searchToDetail"
             app:destination="@id/productDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.nazlican.ecommerce.ui.cart.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/cartToPayment"
+            app:destination="@id/paymentFragment" />
+        <action
+            android:id="@+id/cartToDetail"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.nazlican.ecommerce.ui.favorites.FavoritesFragment"
@@ -49,5 +56,23 @@
         <argument
             android:name="id"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.nazlican.ecommerce.ui.payment.PaymentFragment"
+        android:label="fragment_payment"
+        tools:layout="@layout/fragment_payment" >
+        <action
+            android:id="@+id/paymentToSuccessScreen"
+            app:destination="@id/successScreenToHome" />
+    </fragment>
+    <fragment
+        android:id="@+id/successScreenToHome"
+        android:name="com.nazlican.ecommerce.ui.payment.PaymentSuccessFragment"
+        android:label="fragment_payment_success"
+        tools:layout="@layout/fragment_payment_success" >
+        <action
+            android:id="@+id/successScreenToHome"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

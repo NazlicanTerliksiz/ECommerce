@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_8dp"
-    android:background="@drawable/card_corners"
+    android:background="@drawable/corners_product_item"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:background="@color/bej">
+        android:layout_margin="@dimen/margin_16dp"
+        android:background="@color/beige">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-           android:background="@color/bej">
+           android:background="@color/beige">
 
             <ImageView
                 android:id="@+id/productIv"
@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_launcher_background"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/margin_8dp"
                 android:layout_marginBottom="@dimen/margin_32dp"/>
 
             <TextView
@@ -37,20 +37,20 @@
                 android:text="@string/product"
                 android:textSize="@dimen/text_size_16sp"
                 android:textAlignment="textStart"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/margin_8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productIv"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_8dp"/>
 
             <RatingBar
-                android:id="@+id/ratingBar"
+                android:id="@+id/productRatingBar"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_8dp"
                 android:numStars="5"
                 android:progressTint="@color/yellow"
                 android:secondaryProgressTint="#00000000"
@@ -67,11 +67,11 @@
                 android:textSize="@dimen/text_size_16sp"
                 android:textAlignment="textStart"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                android:layout_marginStart="@dimen/margin_8dp"
+                app:layout_constraintTop_toBottomOf="@+id/productRatingBar"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:layout_marginBottom="@dimen/margin_16dp"/>
 
             <TextView
                 android:id="@+id/salePriceTv"
@@ -81,17 +81,17 @@
                 android:textSize="@dimen/text_size_16sp"
                 android:textAlignment="textStart"
                 app:layout_constraintStart_toEndOf="@id/priceTv"
-                android:layout_marginStart="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                android:layout_marginStart="@dimen/margin_8dp"
+                app:layout_constraintTop_toBottomOf="@+id/productRatingBar"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginTop="@dimen/margin_16dp"
+                android:layout_marginBottom="@dimen/margin_16dp"/>
 
             <ImageView
                 android:id="@+id/favoriteIv"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:padding="8dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:padding="@dimen/padding_8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 

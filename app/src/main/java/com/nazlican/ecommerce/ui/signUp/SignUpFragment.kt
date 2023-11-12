@@ -28,62 +28,31 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
     }
     private fun signUp() {
         binding.signUpButton.setOnClickListener {
-
-            val email = binding.signUpEmail2.text.toString()
-            val password = binding.signUpPassword2.text.toString()
-
-            if (checkFields(email, password)) {
-                viewModel.registerToFirebase(email, password)
+            with(binding) {
+                viewModel.registerToFirebase(
+                    signUpEmail2.text.toString(),
+                    signUpPassword2.text.toString()
+                )
             }
         }
     }
     private fun signUpObserve() = with(binding) {
         viewModel.registerState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                RegisterState.Loading -> progressBar.visible()
+                RegisterState.Loading -> signUpProgressBar.visible()
 
                 RegisterState.RegisterSuccessState -> {
-                    progressBar.gone()
+                    signUpProgressBar.gone()
                     findNavController().popBackStack()
                 }
                 RegisterState.AddUserInfoSuccessState -> {
-                    progressBar.gone()
+                    signUpProgressBar.gone()
 
                 }
-
-                is RegisterState.RegisterFailState -> {
-                    Snackbar.make(requireView(), state.failMessage, 2000).show()
-                }
-
-                is RegisterState.RegisterErrorState -> {
+                is RegisterState.ShowPopUp -> {
                     Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
             }
-        }
-    }
-    private fun checkFields(email: String, password: String): Boolean {
-        return when {
-            email.isEmpty() -> {
-                binding.signUpEmail2.error = "mail can't be empty"
-                binding.signUpEmail2.requestFocus()
-                false
-            }
-            !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
-                binding.signUpEmail2.error = "valid email required"
-                binding.signUpEmail2.requestFocus()
-                false
-            }
-            password.isEmpty() ->  {
-                binding.signUpPassword2.error = "password can't be empty"
-                binding.signUpPassword2.requestFocus()
-                false
-            }
-            password.length<6 -> {
-                binding.signUpPassword2.error = "6 char password required"
-                binding.signUpPassword2.requestFocus()
-                false
-            }
-            else -> true
         }
     }
 }

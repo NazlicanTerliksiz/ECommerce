@@ -25,7 +25,7 @@ class FavoritesRepository @Inject constructor(private val productDao: ProductDao
                 val products = productDao.getProducts()
 
                 if (products.isEmpty()) {
-                    Resource.Fail("Products not found")
+                    Resource.Fail("There are no products in your favorites")
                 }else {
                     Resource.Success(products.mapProductEntityToProductUI())
                 }

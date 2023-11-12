@@ -23,9 +23,9 @@
                 android:background="@color/beige">
 
                 <ImageView
-                    android:id="@+id/cartProductIv"
+                    android:id="@+id/favoriteProductIv"
                     android:layout_width="@dimen/width_92dp"
-                    android:layout_height="@dimen/height_92dp"
+                    android:layout_height="100dp"
                     android:layout_margin="@dimen/margin_8dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -42,16 +42,29 @@
                 android:background="@color/beige">
 
                 <TextView
-                    android:id="@+id/cartProductNameTv"
+                    android:id="@+id/favoriteProductNameTv"
                     style="@style/h3_text_style"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8dp"
-                    android:layout_marginTop="@dimen/margin_8dp"
                     android:text="@string/product_name"
-                    app:layout_constraintBottom_toTopOf="@+id/priceTv"
+                    app:layout_constraintBottom_toTopOf="@+id/ratingBar"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="16dp"
+                    android:progressTint="@color/yellow"
+                    android:secondaryProgressTint="#00000000"
+                    android:stepSize="0.1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/favoriteProductNameTv" />
 
                 <TextView
                     android:id="@+id/priceTv"
@@ -59,11 +72,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8dp"
-                    android:layout_marginBottom="@dimen/margin_8dp"
+                    android:layout_marginTop="8dp"
                     android:text="@string/price"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cartProductNameTv" />
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
                 <TextView
                     android:id="@+id/salePriceTv"
@@ -71,23 +84,38 @@
                     android:layout_height="wrap_content"
                     android:text="@string/saleprice"
                     android:textSize="@dimen/text_size_16sp"
-                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/priceTv"
-                    android:layout_marginStart="@dimen/margin_8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/cartProductNameTv"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginTop="@dimen/margin_16dp"
-                    android:layout_marginBottom="@dimen/margin_16dp"/>
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/ratingBar"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"/>
 
                 <ImageView
-                    android:id="@+id/cartDeleteIv"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:layout_marginEnd="@dimen/margin_4dp"
-                    android:layout_marginBottom="@dimen/margin_4dp"
+                    android:id="@+id/favoriteIv"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_fav_selected" />
+
+                <Button
+                    android:id="@+id/addToCartbutton"
+                    android:layout_width="140dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="@dimen/margin_8dp"
+                    android:layout_marginEnd="4dp"
+                    android:backgroundTint="@color/darkBeige"
+                    android:text="@string/add_to_cart"
+                    android:textColor="@color/darkBrown"
+                    app:cornerRadius="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_delete" />
+                    app:strokeColor="@color/darkBrown"
+                    app:strokeWidth="1dp"
+                    app:layout_constraintTop_toBottomOf="@id/salePriceTv" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

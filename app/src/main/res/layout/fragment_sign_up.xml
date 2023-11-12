@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bej"
+    android:background="@color/beige"
     tools:context=".ui.signUp.SignUpFragment">
 
     <ImageView
@@ -26,21 +26,21 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="@dimen/margin_32dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/button_card_corners"
+        android:background="@drawable/corners_button_items"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpImage"
-        app:startIconDrawable="@drawable/email"
+        app:startIconDrawable="@drawable/ic_email"
         android:padding="5dp"
-        app:startIconTint="@color/coffe">
+        app:startIconTint="@color/brown">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUpEmail2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bej"
+            android:background="@color/beige"
             android:hint="E-mail"
-            android:textColorHint="@color/coffe" />
+            android:textColorHint="@color/brown" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -50,21 +50,21 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/button_card_corners"
+        android:background="@drawable/corners_button_items"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpEmail"
-        app:startIconDrawable="@drawable/lock"
+        app:startIconDrawable="@drawable/ic_lock"
         android:padding="5dp"
-        app:startIconTint="@color/coffe">
+        app:startIconTint="@color/brown">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signUpPassword2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bej"
+            android:background="@color/beige"
             android:hint="Password"
-            android:textColorHint="@color/coffe"
+            android:textColorHint="@color/brown"
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -75,46 +75,20 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="@dimen/margin_32dp"
         android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/bej"
-        android:drawableLeft="@drawable/baseline_cake_24"
+        android:backgroundTint="@color/beige"
+        android:drawableLeft="@drawable/ic_cake"
         android:text="Sing Up"
         android:textAllCaps="false"
-        android:textColor="@color/coffe"
+        android:textColor="@color/brown"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpPassword"
-        app:strokeColor="@color/coffe"
+        app:strokeColor="@color/brown"
         app:strokeWidth="@dimen/width_1dp" />
 
-    <ImageView
-        android:id="@+id/iv_empty"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/tv_empty"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/ic_warning" />
-
-    <TextView
-        android:id="@+id/tv_empty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textSize="20sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_empty" />
-
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/signUpProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

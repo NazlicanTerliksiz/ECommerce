@@ -49,18 +49,19 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
             when (state) {
                 DetailState.Loading -> {
-                    progressBar.visible()
+                    detailProgressBar.visible()
                     productDetailConstraintLayout.gone()
                 }
 
                 is DetailState.SuccessState -> {
-                    progressBar.gone()
+                    detailProgressBar.gone()
                     productDetailConstraintLayout.visible()
-                    productDetailtv.text = state.detailResponse.title
-                    descriptionTv.text = state.detailResponse.description
-                    ratingBar.rating = state.detailResponse.rate?.toFloat() ?: 4.2f
-                    priceTv.text = state.detailResponse.price.toString()
-                    productDetailIv.downloadFromUrl(state.detailResponse.imageOne)
+                    detailProductTitleTv.text = state.detailResponse.title
+                    detailProductCategoryNameTv.text = state.detailResponse.category
+                    detailProductDescriptionTv.text = state.detailResponse.description
+                    detailProductRatingBar.rating = state.detailResponse.rate?.toFloat() ?: 4.2f
+                    detailProductPriceTv.text = state.detailResponse.price.toString()
+                    detailProductIv.downloadFromUrl(state.detailResponse.imageOne)
                 }
 
                 is DetailState.SuccessAddToCartState -> {
@@ -68,15 +69,15 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 }
 
                 is DetailState.EmptyScreen -> {
-                    progressBar.gone()
+                    detailProgressBar.gone()
                     productDetailConstraintLayout.gone()
-                    ivEmpty.visible()
-                    tvEmpty.visible()
-                    tvEmpty.text = state.failMessage
+                    detailEmptyIv.visible()
+                    detailEmptyTv.visible()
+                    detailEmptyTv.text = state.failMessage
                 }
 
                 is DetailState.ShowPopUp -> {
-                    progressBar.gone()
+                    detailProgressBar.gone()
                     Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
             }

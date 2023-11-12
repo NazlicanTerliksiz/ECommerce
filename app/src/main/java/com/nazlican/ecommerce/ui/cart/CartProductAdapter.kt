@@ -1,5 +1,6 @@
 package com.nazlican.ecommerce.ui.cart
 
+import android.annotation.SuppressLint
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
@@ -11,7 +12,8 @@ import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.ItemViewCartProductBinding
 import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 class CartProductAdapter(
-    private val onItemClickListener: (Int) -> Unit
+    private val onDetailClickListener: (Int) -> Unit,
+    private val onDeleteClickListener: (Int) -> Unit
 ):
     RecyclerView.Adapter<CartProductAdapter.CartProductRowHolder>() {
     private val cartProductList = ArrayList<ProductUI>()
@@ -20,7 +22,10 @@ class CartProductAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cartProduct: ProductUI) {
             binding.apply {
+
+                cartProductIv.downloadFromUrl(cartProduct.imageOne)
                 cartProductNameTv.text = cartProduct.title
+
                 if (cartProduct.saleState == true){
                     if(cartProduct.salePrice != null) {
                         salePriceTv.text = cartProduct.salePrice.toString()
@@ -33,13 +38,17 @@ class CartProductAdapter(
                         priceTv.text = cartProduct.price.toString()
                         priceTv.paintFlags = 0
                     }
+
                 }else{
                     priceTv.text = cartProduct.price.toString()
                     salePriceTv.visibility = View.GONE
                 }
-                cartProductIv.downloadFromUrl(cartProduct.imageOne.orEmpty())
-                deleteIv.setOnClickListener {
-                    onItemClickListener.invoke(cartProduct.id)
+
+                root.setOnClickListener{
+                    onDetailClickListener.invoke(cartProduct.id)
+                }
+                cartDeleteIv.setOnClickListener {
+                    onDeleteClickListener.invoke(cartProduct.id)
                 }
             }
         }

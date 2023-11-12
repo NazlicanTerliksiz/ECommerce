@@ -4,11 +4,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
+import com.nazlican.ecommerce.data.model.request.ClearCart
 import com.nazlican.ecommerce.data.model.request.DeleteFromCart
 import com.nazlican.ecommerce.databinding.FragmentCartBinding
+import com.nazlican.ecommerce.ui.search.SearchFragmentDirections
 import com.nazlican.ecommerce.util.extensions.gone
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
@@ -25,41 +28,60 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         super.onViewCreated(view, savedInstanceState)
 
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        cartProductAdapter = CartProductAdapter{
-            viewModel.deleteFromCart(DeleteFromCart(it),)
+        cartProductAdapter = CartProductAdapter(::homeToDetail){
+            viewModel.deleteFromCart(DeleteFromCart(it,userId))
         }
         binding.cartProductRv.adapter = cartProductAdapter
         viewModel.getCartProduct(userId)
         cartProductObserve()
+
+        binding.cartClearAllCartIv.setOnClickListener {
+            viewModel.clearCart(ClearCart(userId))
+        }
+        binding.cartPayNowButton.setOnClickListener {
+            findNavController().navigate(R.id.cartToPayment)
+        }
     }
 
     private fun cartProductObserve() = with(binding) {
         viewModel.cartState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 CartState.Loading -> {
-                    progressBar.visible()
+                    cartProgressBar.visible()
                 }
 
                 is CartState.CartProductSuccessState -> {
-                    progressBar.gone()
+                    cartProgressBar.gone()
                     cartProductAdapter.updateList(state.products)
                 }
 
                 is CartState.DeleteProductSuccessState -> {
-                    progressBar.gone()
+                    cartProgressBar.gone()
                     Snackbar.make(requireView(), "Product deleted!", Snackbar.LENGTH_SHORT).show()
                     viewModel.getCartProduct(FirebaseAuth.getInstance().currentUser!!.uid)
                 }
+                is CartState.ClearCartSuccessState -> {
+                    cartProgressBar.gone()
+                    Snackbar.make(requireView(), "Product All deleted!", Snackbar.LENGTH_SHORT).show()
+                    viewModel.getCartProduct(FirebaseAuth.getInstance().currentUser!!.uid)
+                }
                 is CartState.EmptyScreen -> {
-                    progressBar.gone()
+                    cartProgressBar.gone()
+                    cartEmptyIv.visible()
+                    cartEmptyTv.visible()
+                    cartEmptyTv.text = state.failMessage
                     cartProductRv.gone()
                 }
 
                 is CartState.ShowPopUp -> {
-                    progressBar.gone()
+                    cartProgressBar.gone()
                     Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
             }
         }
+    }
+    private fun homeToDetail(id: Int) {
+        val action = CartFragmentDirections.cartToDetail(id)
+        findNavController().navigate(action)
     }
 }
