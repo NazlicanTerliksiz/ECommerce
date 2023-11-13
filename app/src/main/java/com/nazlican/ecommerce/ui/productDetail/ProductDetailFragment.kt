@@ -1,6 +1,8 @@
 package com.nazlican.ecommerce.ui.productDetail
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
@@ -9,32 +11,39 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.CompositePageTransformer
+import androidx.viewpager2.widget.MarginPageTransformer
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.data.model.request.AddToCart
+import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.FragmentProductDetailBinding
-import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 import com.nazlican.ecommerce.util.extensions.gone
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-
+import kotlin.math.abs
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     private val binding by viewBinding(FragmentProductDetailBinding::bind)
     private val viewModel: ProductDetailViewModel by viewModels()
     private val args: ProductDetailFragmentArgs by navArgs()
-
+    private lateinit var viewPager2: ViewPager2
+    private lateinit var handler: Handler
+    private lateinit var viewPagerAdapter: ViewPagerAdapter
+    private lateinit var imageList: ArrayList<String>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val id = args.id
         viewModel.getDetailProduct(id)
-        detailProductObserve()
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        viewPager2= binding.detailProductViewPager
 
         with(binding) {
             AddToCartbutton.setOnClickListener {
@@ -44,6 +53,18 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 findNavController().popBackStack()
             }
         }
+
+        setUpTransformer()
+        detailProductObserve()
+
+        viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                handler.removeCallbacks(runnable)
+            }
+        })
+
+
     }
     private fun detailProductObserve() = with(binding) {
         viewModel.detailState.observe(viewLifecycleOwner) { state ->
@@ -62,7 +83,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     detailProductDescriptionTv.text = state.detailResponse.description
                     detailProductRatingBar.rating = state.detailResponse.rate.toFloat()
                     priceTv.text = state.detailResponse.price.toString()
-                    detailProductIv.downloadFromUrl(state.detailResponse.imageOne)
+
+                   init(state.detailResponse)
 
                     if (state.detailResponse.saleState == true) {
                         if (state.detailResponse.salePrice != null) {
@@ -113,6 +135,39 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     Snackbar.make(requireView(), state.errorMessage, 1000).show()
                 }
             }
+        }
+    }
+
+    private val runnable = Runnable {
+        viewPager2.currentItem = viewPager2.currentItem + 1
+    }
+    private fun setUpTransformer() {
+        val transformer = CompositePageTransformer()
+        transformer.addTransformer(MarginPageTransformer(50))
+        transformer.addTransformer { page, position ->
+            val r = 1 - abs(position)
+            page.scaleY = 0.85f + r * 0.14f
+        }
+        viewPager2.setPageTransformer(transformer)
+    }
+    private fun init(product:ProductUI) {
+        //viewPager2 = binding.detailProductViewPager
+        handler = Handler(Looper.myLooper()!!)
+
+        imageList = ArrayList()
+        with(imageList) {
+            add(product.imageOne)
+            add(product.imageThree)
+            add(product.imageTwo)
+        }
+        viewPagerAdapter = ViewPagerAdapter(imageList, viewPager2)
+
+        with(viewPager2) {
+            adapter = viewPagerAdapter
+            offscreenPageLimit = 3
+            clipToPadding = false
+            clipChildren = false
+            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
         }
     }
 }
