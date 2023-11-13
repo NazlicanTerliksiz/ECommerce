@@ -11,6 +11,9 @@ data class ProductEntity(
     @ColumnInfo(name = "productId")
     val productId: Int?,
 
+    @ColumnInfo(name = "userId")
+    val userId: String?,
+
     @ColumnInfo(name = "title")
     val title: String?,
 

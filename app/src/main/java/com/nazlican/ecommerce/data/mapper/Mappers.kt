@@ -1,10 +1,11 @@
 package com.nazlican.ecommerce.data.mapper
 
+import com.nazlican.ecommerce.data.model.response.DetailResponse
 import com.nazlican.ecommerce.data.model.response.Product
 import com.nazlican.ecommerce.data.model.response.ProductEntity
 import com.nazlican.ecommerce.data.model.response.ProductUI
 
-fun Product.mapToProductUI(favorites: List<Int>) =
+fun DetailResponse.mapToProductUI(favorites: List<Int>) =
         ProductUI(
             category = category.orEmpty(),
             count = count ?: 0,
@@ -40,9 +41,10 @@ fun List<Product>.mapProductToProductUI(favorites: List<Int>) =
         )
     }
 
-fun ProductUI.mapToProductEntity() =
+fun ProductUI.mapToProductEntity(userId:String) =
     ProductEntity(
         productId = id,
+        userId = userId,
         title = title,
         price = price,
         imageOne = imageOne,

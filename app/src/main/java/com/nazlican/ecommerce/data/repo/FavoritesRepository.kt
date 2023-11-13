@@ -1,5 +1,6 @@
 package com.nazlican.ecommerce.data.repo
 
+import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.common.Resource
 import com.nazlican.ecommerce.data.mapper.mapProductEntityToProductUI
 import com.nazlican.ecommerce.data.mapper.mapToProductEntity
@@ -11,18 +12,19 @@ import javax.inject.Inject
 
 class FavoritesRepository @Inject constructor(private val productDao: ProductDao) {
 
-    suspend fun addToFavorites(productListUI : ProductUI){
-        productDao.addProduct(productListUI.mapToProductEntity())
+    suspend fun addToFavorites(productListUI : ProductUI, userId:String){
+        productDao.addProduct(productListUI.mapToProductEntity(userId))
     }
 
-    suspend fun deleteFromFavorites(productUI : ProductUI){
-        productDao.deleteProduct(productUI.mapToProductEntity())
+    suspend fun deleteFromFavorites(productUI : ProductUI, userId:String){
+        productDao.deleteProduct(productUI.mapToProductEntity(userId))
     }
 
-    suspend fun getFavorites(): Resource<List<ProductUI>> =
+    suspend fun getFavorites(userId:String): Resource<List<ProductUI>> =
         withContext(Dispatchers.IO) {
             try {
-                val products = productDao.getProducts()
+                val userId = FirebaseAuth.getInstance().currentUser!!.uid
+                val products = productDao.getProducts(userId)
 
                 if (products.isEmpty()) {
                     Resource.Fail("There are no products in your favorites")

@@ -1,6 +1,9 @@
 package com.nazlican.ecommerce.ui.productDetail
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StrikethroughSpan
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -42,8 +45,6 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
             }
         }
     }
-
-
     private fun detailProductObserve() = with(binding) {
         viewModel.detailState.observe(viewLifecycleOwner) { state ->
 
@@ -59,9 +60,40 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     detailProductTitleTv.text = state.detailResponse.title
                     detailProductCategoryNameTv.text = state.detailResponse.category
                     detailProductDescriptionTv.text = state.detailResponse.description
-                    detailProductRatingBar.rating = state.detailResponse.rate?.toFloat() ?: 4.2f
-                    detailProductPriceTv.text = state.detailResponse.price.toString()
+                    detailProductRatingBar.rating = state.detailResponse.rate.toFloat()
+                    priceTv.text = state.detailResponse.price.toString()
                     detailProductIv.downloadFromUrl(state.detailResponse.imageOne)
+
+                    if (state.detailResponse.saleState == true) {
+                        if (state.detailResponse.salePrice != null) {
+                            salePriceTv.text = state.detailResponse.salePrice.toString()
+                            val originalPrice = state.detailResponse.price.toString()
+                            val spannableString = SpannableString(originalPrice)
+                            spannableString.setSpan(
+                                StrikethroughSpan(),
+                                0,
+                                originalPrice.length,
+                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
+                            priceTv.text = spannableString
+                            priceTv.visibility = View.VISIBLE
+                        } else {
+                            priceTv.text = state.detailResponse.price.toString()
+                            priceTv.paintFlags = 0
+                        }
+                    } else {
+                        priceTv.text = state.detailResponse.price.toString()
+                        salePriceTv.visibility = View.GONE
+                    }
+
+                    favoriteIv.setBackgroundResource(
+                        if (state.detailResponse.isFav) R.drawable.ic_fav_selected
+                        else R.drawable.ic_fav_unselected
+                    )
+
+                    favoriteIv.setOnClickListener {
+                        viewModel.setFavoriteState(state.detailResponse)
+                    }
                 }
 
                 is DetailState.SuccessAddToCartState -> {
