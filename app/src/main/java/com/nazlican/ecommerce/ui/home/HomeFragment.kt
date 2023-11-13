@@ -48,26 +48,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             when (state) {
                 HomeState.Loading -> {
                     homeProgressBar.visible()
-                    productConstraintLayout.gone()
                 }
 
                 is HomeState.SuccessProductState -> {
                     homeProgressBar.gone()
-                    productConstraintLayout.visible()
+                    homeEmptyIv.gone()
+                    homeEmptyTv.gone()
                     mainProductsAdapter.updateList(state.products)
                     Log.e("message", state.products.toString())
                 }
 
                 is HomeState.SuccessSaleProductState -> {
                     homeProgressBar.gone()
-                    productConstraintLayout.visible()
+                    homeEmptyIv.gone()
+                    homeEmptyTv.gone()
                     saleProductsAdapter.updateList(state.products)
                     Log.e("salemessage", state.products.toString())
                 }
 
                 is HomeState.SuccessCategoryNameState -> {
                     homeProgressBar.gone()
-                    productConstraintLayout.visible()
+                    homeEmptyIv.gone()
+                    homeEmptyTv.gone()
                     val addCategory: MutableList<String> = mutableListOf()
                     addCategory.add("All")
                     addCategory.addAll(state.category)
@@ -76,13 +78,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 is HomeState.SuccessCategoryProductState -> {
                     homeProgressBar.gone()
-                    productConstraintLayout.visible()
+                    homeEmptyIv.gone()
+                    homeEmptyTv.gone()
                     mainProductsAdapter.updateList(state.products)
                 }
 
                 is HomeState.EmptyScreen -> {
                     homeProgressBar.gone()
-                    productConstraintLayout.gone()
                     homeEmptyIv.visible()
                     homeEmptyTv.visible()
                     homeEmptyTv.text = state.failMessage

@@ -19,32 +19,32 @@ class SearchProductsAdapter(
 
     inner class RowHolder(private val binding: ItemViewSearchProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: ProductUI) {
+        fun bind(productUI: ProductUI) {
             binding.apply {
 
-                searchProductTv.text = product.title
-                ratingBar.rating = product.rate.toFloat()
-                product.imageOne.let { searchProductIv.downloadFromUrl(it) }
+                searchProductTv.text = productUI.title
+                ratingBar.rating = productUI.rate.toFloat()
+                productUI.imageOne.let { searchProductIv.downloadFromUrl(it) }
 
-                if (product.saleState == true){
-                    if(product.salePrice != null) {
-                        salePriceTv.text = product.salePrice.toString()
-                        val originalPrice = product.price.toString()
+                if (productUI.saleState == true){
+                    if(productUI.salePrice != null) {
+                        salePriceTv.text = productUI.salePrice.toString()
+                        val originalPrice = productUI.price.toString()
                         val spannableString = SpannableString(originalPrice)
                         spannableString.setSpan(StrikethroughSpan(), 0, originalPrice.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                         searchPriceTv.text = spannableString
                         searchPriceTv.visibility = View.VISIBLE
                     } else {
-                        searchPriceTv.text = product.price.toString()
+                        searchPriceTv.text = productUI.price.toString()
                         searchPriceTv.paintFlags = 0
                     }
                 }else{
-                    searchPriceTv.text = product.price.toString()
+                    searchPriceTv.text = productUI.price.toString()
                     salePriceTv.visibility = View.GONE
                 }
 
                 root.setOnClickListener {
-                    onDetailClickListener.invoke(product.id)
+                    onDetailClickListener.invoke(productUI.id)
                 }
             }
         }

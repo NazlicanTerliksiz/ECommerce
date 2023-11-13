@@ -10,7 +10,7 @@ data class DetailResponse(
     val imageTwo: String?,
     val price: Double?,
     val rate: Double?,
-    val salePrice: Int?,
+    val salePrice: Double?,
     val saleState: Boolean?,
     val title: String?
 )

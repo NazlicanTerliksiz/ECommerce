@@ -21,17 +21,17 @@ class MainProductsAdapter(
 
     inner class RowHolder(private val binding: ItemViewProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: ProductUI) {
+        fun bind(productUI: ProductUI) {
             binding.apply {
 
-                product.imageOne.let { productIv.downloadFromUrl(it) }
-                productTv.text = product.title
-                productRatingBar.rating = product.rate.toFloat()
+                productUI.imageOne.let { productIv.downloadFromUrl(it) }
+                productTv.text = productUI.title
+                productRatingBar.rating = productUI.rate.toFloat()
 
-                if (product.saleState == true) {
-                    if (product.salePrice != null) {
-                        salePriceTv.text = product.salePrice.toString()
-                        val originalPrice = product.price.toString()
+                if (productUI.saleState == true) {
+                    if (productUI.salePrice != null) {
+                        salePriceTv.text = productUI.salePrice.toString()
+                        val originalPrice = productUI.price.toString()
                         val spannableString = SpannableString(originalPrice)
                         spannableString.setSpan(
                             StrikethroughSpan(),
@@ -42,25 +42,25 @@ class MainProductsAdapter(
                         priceTv.text = spannableString
                         priceTv.visibility = View.VISIBLE
                     } else {
-                        priceTv.text = product.price.toString()
+                        priceTv.text = productUI.price.toString()
                         priceTv.paintFlags = 0
                     }
                 } else {
-                    priceTv.text = product.price.toString()
+                    priceTv.text = productUI.price.toString()
                     salePriceTv.visibility = View.GONE
                 }
 
                 root.setOnClickListener {
-                    onItemClickListener.invoke(product.id)
+                    onItemClickListener.invoke(productUI.id)
                     salePriceTv.visibility = View.GONE
                 }
 
                 favoriteIv.setOnClickListener {
-                    onFavClick(product)
+                    onFavClick(productUI)
                 }
 
                 favoriteIv.setBackgroundResource(
-                    if (product.isFav) R.drawable.ic_fav_selected
+                    if (productUI.isFav) R.drawable.ic_fav_selected
                     else R.drawable.ic_fav_unselected
                 )
             }

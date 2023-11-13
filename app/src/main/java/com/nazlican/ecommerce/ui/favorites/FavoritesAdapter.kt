@@ -6,10 +6,8 @@ import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ExpandableListView.OnChildClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.nazlican.ecommerce.data.model.response.ProductUI
-import com.nazlican.ecommerce.databinding.ItemViewCartProductBinding
 import com.nazlican.ecommerce.databinding.ItemViewFavoriteProductBinding
 import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 
@@ -22,37 +20,37 @@ class FavoritesAdapter(
 
     inner class FavoriteProductRowHolder(private val binding: ItemViewFavoriteProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(favoriteProduct: ProductUI) {
+        fun bind(productUI: ProductUI) {
             binding.apply {
 
-                favoriteProductIv.downloadFromUrl(favoriteProduct.imageOne)
-                favoriteProductNameTv.text = favoriteProduct.title
-                ratingBar.rating = favoriteProduct.rate.toFloat()
+                favoriteProductIv.downloadFromUrl(productUI.imageOne)
+                favoriteProductNameTv.text = productUI.title
+                ratingBar.rating = productUI.rate.toFloat()
 
-                if (favoriteProduct.saleState == true){
-                    if(favoriteProduct.salePrice != null) {
-                        salePriceTv.text = favoriteProduct.salePrice.toString()
-                        ratingBar.rating = favoriteProduct.rate.toFloat()
-                        val originalPrice = favoriteProduct.price.toString()
+                if (productUI.saleState == true){
+                    if(productUI.salePrice != null) {
+                        salePriceTv.text = productUI.salePrice.toString()
+                        ratingBar.rating = productUI.rate.toFloat()
+                        val originalPrice = productUI.price.toString()
                         val spannableString = SpannableString(originalPrice)
                         spannableString.setSpan(StrikethroughSpan(), 0, originalPrice.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                         priceTv.text = spannableString
                         priceTv.visibility = View.VISIBLE
                     } else {
-                        priceTv.text = favoriteProduct.price.toString()
+                        priceTv.text = productUI.price.toString()
                         priceTv.paintFlags = 0
                     }
                 }else{
-                    priceTv.text = favoriteProduct.price.toString()
+                    priceTv.text = productUI.price.toString()
                     salePriceTv.visibility = View.GONE
                 }
 
                 root.setOnClickListener{
-                    onDetailClickListener(favoriteProduct.id)
+                    onDetailClickListener(productUI.id)
                 }
 
                 favoriteIv.setOnClickListener {
-                    onDeleteClickListener.invoke(favoriteProduct)
+                    onDeleteClickListener.invoke(productUI)
                 }
             }
         }

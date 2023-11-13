@@ -1,5 +1,6 @@
 package com.nazlican.ecommerce.data.repo
 
+import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.data.model.request.AddToCart
 import com.nazlican.ecommerce.common.Resource
 import com.nazlican.ecommerce.data.mapper.mapProductToProductUI
@@ -17,7 +18,8 @@ class CartRepository(private val productService: ProductService, private val pro
     suspend fun cartProducts(userId: String): Resource<List<ProductUI>> =
         withContext(Dispatchers.IO) {
             try {
-                val favorites = productDao.getProductIds()
+                val userId = FirebaseAuth.getInstance().currentUser!!.uid
+                val favorites = productDao.getProductIds(userId)
                 val response = productService.getCartProducts(userId).body()
 
                 if (response?.status == 200) {

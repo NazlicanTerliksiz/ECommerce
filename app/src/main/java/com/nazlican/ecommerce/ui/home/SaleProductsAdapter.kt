@@ -21,16 +21,16 @@ class SaleProductsAdapter(
 
     inner class RowHolder(private val binding: ItemViewSaleProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(product: ProductUI) {
+        fun bind(productUI: ProductUI) {
             binding.apply {
 
-                product.imageOne.let { saleProductIv.downloadFromUrl(it) }
-                saleProductNameTv.text = product.title
-                saleProductRatingBar.rating = product.rate.toFloat()
+                productUI.imageOne.let { saleProductIv.downloadFromUrl(it) }
+                saleProductNameTv.text = productUI.title
+                saleProductRatingBar.rating = productUI.rate.toFloat()
 
-                if (product.salePrice != null) {
-                    salePriceTv.text = product.salePrice.toString()
-                    val originalPrice = product.price.toString()
+                if (productUI.salePrice != null) {
+                    salePriceTv.text = productUI.salePrice.toString()
+                    val originalPrice = productUI.price.toString()
                     val spannableString = SpannableString(originalPrice)
                     spannableString.setSpan(
                         StrikethroughSpan(),
@@ -41,19 +41,19 @@ class SaleProductsAdapter(
                     priceTv.text = spannableString
                     priceTv.visibility = View.VISIBLE
                 } else {
-                    priceTv.text = product.price.toString()
+                    priceTv.text = productUI.price.toString()
                     priceTv.paintFlags = 0
                 }
 
                 root.setOnClickListener {
-                    onItemClickListener.invoke(product.id)
+                    onItemClickListener.invoke(productUI.id)
                 }
                 favoriteIv.setOnClickListener {
-                    onFavClick(product)
+                    onFavClick(productUI)
                 }
 
                 favoriteIv.setBackgroundResource(
-                    if (product.isFav) R.drawable.ic_fav_selected
+                    if (productUI.isFav) R.drawable.ic_fav_selected
                     else R.drawable.ic_fav_unselected
                 )
             }

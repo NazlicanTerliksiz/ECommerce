@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/detailProductPriceTv"
+                android:id="@+id/priceTv"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="@dimen/margin_32dp"
@@ -105,7 +105,7 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
-                android:id="@+id/detailProductSalePriceTv"
+                android:id="@+id/salePriceTv"
                 android:layout_width="70dp"
                 android:layout_height="40dp"
                 android:layout_margin="@dimen/margin_8dp"
@@ -114,7 +114,7 @@
                 android:text="@string/saleprice"
                 android:textSize="@dimen/text_size_16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/detailProductPriceTv" />
+                app:layout_constraintStart_toEndOf="@id/priceTv" />
 
             <Button
                 android:id="@+id/AddToCartbutton"
@@ -143,12 +143,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/detailToFavoriteIv"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:id="@+id/favoriteIv"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginTop="@dimen/margin_8dp"
             android:layout_marginEnd="@dimen/margin_8dp"
-            android:background="@drawable/corner_favorite_item"
             android:padding="@dimen/padding_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

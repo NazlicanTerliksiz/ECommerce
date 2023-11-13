@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.common.Resource
 import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.data.repo.FavoritesRepository
@@ -61,10 +62,11 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
         }
 
     fun setFavoriteState(product: ProductUI) = viewModelScope.launch{
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
         if(product.isFav){
-            favoritesRepository.deleteFromFavorites(product)
+            favoritesRepository.deleteFromFavorites(product, userId)
         }else {
-            favoritesRepository.addToFavorites(product)
+            favoritesRepository.addToFavorites(product, userId)
         }
         getProducts()
     }

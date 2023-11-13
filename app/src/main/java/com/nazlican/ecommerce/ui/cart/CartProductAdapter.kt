@@ -1,6 +1,5 @@
 package com.nazlican.ecommerce.ui.cart
 
-import android.annotation.SuppressLint
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
@@ -20,35 +19,35 @@ class CartProductAdapter(
 
     inner class CartProductRowHolder(private val binding: ItemViewCartProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(cartProduct: ProductUI) {
+        fun bind(productUI: ProductUI) {
             binding.apply {
 
-                cartProductIv.downloadFromUrl(cartProduct.imageOne)
-                cartProductNameTv.text = cartProduct.title
+                cartProductIv.downloadFromUrl(productUI.imageOne)
+                cartProductNameTv.text = productUI.title
 
-                if (cartProduct.saleState == true){
-                    if(cartProduct.salePrice != null) {
-                        salePriceTv.text = cartProduct.salePrice.toString()
-                        val originalPrice = cartProduct.price.toString()
+                if (productUI.saleState == true){
+                    if(productUI.salePrice != null) {
+                        salePriceTv.text = productUI.salePrice.toString()
+                        val originalPrice = productUI.price.toString()
                         val spannableString = SpannableString(originalPrice)
                         spannableString.setSpan(StrikethroughSpan(), 0, originalPrice.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                         priceTv.text = spannableString
                         priceTv.visibility = View.VISIBLE
                     } else {
-                        priceTv.text = cartProduct.price.toString()
+                        priceTv.text = productUI.price.toString()
                         priceTv.paintFlags = 0
                     }
 
                 }else{
-                    priceTv.text = cartProduct.price.toString()
+                    priceTv.text = productUI.price.toString()
                     salePriceTv.visibility = View.GONE
                 }
 
                 root.setOnClickListener{
-                    onDetailClickListener.invoke(cartProduct.id)
+                    onDetailClickListener.invoke(productUI.id)
                 }
                 cartDeleteIv.setOnClickListener {
-                    onDeleteClickListener.invoke(cartProduct.id)
+                    onDeleteClickListener.invoke(productUI.id)
                 }
             }
         }
