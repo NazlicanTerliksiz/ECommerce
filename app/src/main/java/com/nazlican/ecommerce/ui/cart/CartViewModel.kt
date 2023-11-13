@@ -50,6 +50,16 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
                 is Resource.Error -> CartState.ShowPopUp(result.errorMessage)
             }
     }
+    fun totalPrice(products: List<ProductUI>) : Double {
+        var totalPrice = 0.0
+        for(i in products.indices){
+            if (products[i].saleState){
+                totalPrice+=products[i].salePrice
+            }else
+                totalPrice+=products[i].price
+        }
+        return totalPrice
+    }
 }
 
 sealed interface CartState {

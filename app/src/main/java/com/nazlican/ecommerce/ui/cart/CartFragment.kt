@@ -11,7 +11,6 @@ import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.data.model.request.ClearCart
 import com.nazlican.ecommerce.data.model.request.DeleteFromCart
 import com.nazlican.ecommerce.databinding.FragmentCartBinding
-import com.nazlican.ecommerce.ui.search.SearchFragmentDirections
 import com.nazlican.ecommerce.util.extensions.gone
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
@@ -53,6 +52,8 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 is CartState.CartProductSuccessState -> {
                     cartProgressBar.gone()
                     cartProductAdapter.updateList(state.products)
+                    val totalPrice =viewModel.totalPrice(state.products)
+                    binding.cartRroductsTotalPriceTv.text = "Total price : $totalPrice ₺"
                 }
 
                 is CartState.DeleteProductSuccessState -> {
