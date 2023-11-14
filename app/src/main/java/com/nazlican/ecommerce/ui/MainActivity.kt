@@ -3,7 +3,6 @@ package com.nazlican.ecommerce.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.nazlican.ecommerce.R
@@ -18,11 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(3000)
-        installSplashScreen()
         setContentView(binding.root)
-
-
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.auth_nav_graph) as NavHostFragment
@@ -31,16 +26,15 @@ class MainActivity : AppCompatActivity() {
             binding.bottomNav,
             navController
         )
-
-        navController.addOnDestinationChangedListener {_,destination,_ ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.homeFragment -> binding.bottomNav.visibility = View.VISIBLE
-                R.id.searchFragment -> binding.bottomNav.visibility = View.VISIBLE
-                R.id.cartFragment -> binding.bottomNav.visibility = View.VISIBLE
-                R.id.favoritesFragment -> binding.bottomNav.visibility = View.VISIBLE
+                R.id.homeFragment,
+                R.id.searchFragment,
+                R.id.cartFragment,
+                R.id.favoritesFragment,
                 R.id.profileFragment -> binding.bottomNav.visibility = View.VISIBLE
 
-                else ->binding.bottomNav.visibility = View.GONE
+                else -> binding.bottomNav.visibility = View.GONE
             }
         }
     }

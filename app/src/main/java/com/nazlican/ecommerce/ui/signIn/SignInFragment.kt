@@ -1,7 +1,6 @@
 package com.nazlican.ecommerce.ui.signIn
 
 import android.os.Bundle
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
@@ -28,6 +27,10 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
         initializeAuth()
         signIn()
         signInObserve()
+
+        binding.signInToSignUpTv.setOnClickListener {
+            findNavController().navigate(R.id.signInToSignUp)
+        }
     }
 
     private fun initializeAuth() {
