@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class PaymentViewModel : ViewModel() {
+class PaymentViewModel  : ViewModel() {
 
     private val _paymentState: MutableLiveData<PaymentState> = MutableLiveData()
     val paymentState: LiveData<PaymentState> get() = _paymentState
@@ -43,8 +43,18 @@ class PaymentViewModel : ViewModel() {
                 false
             }
 
+            year.length < 4 -> {
+                _paymentState.value = PaymentState.ShowPopUp("year 4 char required")
+                false
+            }
+
             cvv.isEmpty() -> {
                 _paymentState.value = PaymentState.ShowPopUp("cvv can't be empty")
+                false
+            }
+
+            cvv.length < 3 -> {
+                _paymentState.value = PaymentState.ShowPopUp("cvv 3 char required")
                 false
             }
 
