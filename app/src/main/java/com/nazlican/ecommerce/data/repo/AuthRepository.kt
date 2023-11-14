@@ -40,7 +40,7 @@ class AuthRepository @Inject constructor(
             }
         }
 
-    suspend fun addUserInfo(email: String): Resource<Boolean> = withContext(Dispatchers.IO) {
+   /* suspend fun addUserInfo(email: String): Resource<Boolean> = withContext(Dispatchers.IO) {
         try {
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
             val user = User(
@@ -51,6 +51,19 @@ class AuthRepository @Inject constructor(
             Resource.Success(true)
         } catch (e: Exception) {
             Resource.Error(e.message.orEmpty())
+        }
+    }*/
+
+    fun addUserInfo(email: String,onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        val user = User(
+            userId = uid,
+            email = email
+        )
+        firebaseFirestore.collection("users").document("${uid}").set(user).addOnSuccessListener {
+            onSuccess.invoke()
+        }.addOnFailureListener {
+            onFailure.invoke(it.localizedMessage.orEmpty())
         }
     }
 

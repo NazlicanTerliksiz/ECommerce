@@ -24,16 +24,35 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchProductObserve()
+        db = FirebaseFirestore.getInstance()
+        listenUsers()
 
         binding.logOut.setOnClickListener {
             findNavController().setGraph(R.navigation.auth_nav_graph)
             val firebaseAuth = FirebaseAuth.getInstance()
             firebaseAuth.signOut()
         }
+
+        /*searchProductObserve()
+
+        binding.logOut.setOnClickListener {
+            findNavController().setGraph(R.navigation.auth_nav_graph)
+            val firebaseAuth = FirebaseAuth.getInstance()
+            firebaseAuth.signOut()
+        }*/
     }
 
-    private fun searchProductObserve() = with(binding) {
+    private fun listenUsers(){
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
+        db.collection("users").document("${uid}").get().addOnSuccessListener {
+            if(it!=null){
+                val userEmail = it.get("email") as String
+                binding.EmailInfoText.text = userEmail
+            }
+        }
+    }
+
+   /* private fun searchProductObserve() = with(binding) {
         viewModel.storeState.observe(viewLifecycleOwner) { state ->
             when (state) {
 
@@ -59,5 +78,5 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 }
             }
         }
-    }
+    }*/
 }

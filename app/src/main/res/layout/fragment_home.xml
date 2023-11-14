@@ -16,25 +16,59 @@
             android:id="@+id/productConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/beige"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@color/beige"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/homeToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/beige"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:titleTextColor="@color/brown" />
+
+            <TextView
+                android:id="@+id/toolBarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/amour"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/margin_8dp"
+                android:textColor="@color/darkBrown"
+                android:textSize="@dimen/text_size_20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/discountedProductsTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16dp"
+                android:text="Discounted Products"
+                android:textColor="@color/darkBrown"
+                android:textSize="@dimen/text_size_16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/homeToolBar" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/homeSaleProductRv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16dp"
                 android:background="@color/beige"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/homeCategoryRv"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/discountedProductsTv"
                 tools:listitem="@layout/item_view_sale_products" />
 
             <androidx.recyclerview.widget.RecyclerView

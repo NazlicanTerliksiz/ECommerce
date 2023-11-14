@@ -31,6 +31,10 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
             }
         }
 
+        binding.back.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
         paymentObserve()
     }
 

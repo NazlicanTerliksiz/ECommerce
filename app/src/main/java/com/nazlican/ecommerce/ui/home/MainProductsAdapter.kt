@@ -30,8 +30,8 @@ class MainProductsAdapter(
 
                 if (productUI.saleState == true) {
                     if (productUI.salePrice != null) {
-                        salePriceTv.text = productUI.salePrice.toString()
-                        val originalPrice = productUI.price.toString()
+                        salePriceTv.text = "${productUI.salePrice.toString()} ₺"
+                        val originalPrice = "${productUI.price.toString()} ₺"
                         val spannableString = SpannableString(originalPrice)
                         spannableString.setSpan(
                             StrikethroughSpan(),
@@ -42,11 +42,11 @@ class MainProductsAdapter(
                         priceTv.text = spannableString
                         priceTv.visibility = View.VISIBLE
                     } else {
-                        priceTv.text = productUI.price.toString()
+                        priceTv.text = "${productUI.price.toString()} ₺"
                         priceTv.paintFlags = 0
                     }
                 } else {
-                    priceTv.text = productUI.price.toString()
+                    priceTv.text = "${productUI.price.toString()} ₺"
                     salePriceTv.visibility = View.GONE
                 }
 

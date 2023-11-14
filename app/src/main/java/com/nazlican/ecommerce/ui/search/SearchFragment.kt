@@ -28,6 +28,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.searchProductRv.adapter = searchProductAdapter
         searchProductObserve()
         search()
+
     }
 
     private fun searchProductObserve() = with(binding) {

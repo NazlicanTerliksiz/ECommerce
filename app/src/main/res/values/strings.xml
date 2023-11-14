@@ -12,4 +12,8 @@
     <string name="titile">titile</string>
     <string name="category">category</string>
     <string name="category_name">category Name</string>
+    <string name="my_cart">My Cart</string>
+    <string name="amour">AMOUR</string>
+    <string name="my_profile">My Profile</string>
+    <string name="search">Search</string>
 </resources>

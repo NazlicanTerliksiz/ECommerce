@@ -4,14 +4,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_8dp"
+    android:layout_margin="@dimen/margin_4dp"
     android:background="@drawable/corners_product_item"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_16dp"
+        android:layout_margin="12dp"
         android:background="@color/beige">
 
         <androidx.constraintlayout.widget.ConstraintLayout
