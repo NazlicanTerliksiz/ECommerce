@@ -36,6 +36,14 @@ class FavoriteViewModel @Inject constructor(private val favoritesRepository: Fav
         _favoriteState.value = FavoriteState.Loading
         getFavorites()
     }
+
+    fun clearAllFavorites() {
+        viewModelScope.launch {
+            favoritesRepository.clearAllFavorites(userId)
+            _favoriteState.value = FavoriteState.Loading
+        }
+        getFavorites()
+    }
 }
 
 sealed interface FavoriteState {

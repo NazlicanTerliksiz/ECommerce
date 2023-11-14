@@ -7,10 +7,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.nazlican.ecommerce.R
-import com.nazlican.ecommerce.data.model.request.AddToCart
 import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.FragmentFavoritesBinding
-import com.nazlican.ecommerce.ui.cart.CartViewModel
 import com.nazlican.ecommerce.util.extensions.gone
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
@@ -31,6 +29,10 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         with(binding) {
             favoritesAdapter = FavoritesAdapter(::homeToDetail, ::deleteFromFavorites)
             favoritesProductRv.adapter = favoritesAdapter
+
+            clearAllFavoritesIv.setOnClickListener {
+                viewModel.clearAllFavorites()
+            }
         }
 
         favoriteProductObserve()

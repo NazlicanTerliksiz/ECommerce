@@ -1,6 +1,5 @@
 package com.nazlican.ecommerce.data.repo
 
-import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.common.Resource
 import com.nazlican.ecommerce.data.mapper.mapProductEntityToProductUI
 import com.nazlican.ecommerce.data.mapper.mapToProductEntity
@@ -23,7 +22,6 @@ class FavoritesRepository @Inject constructor(private val productDao: ProductDao
     suspend fun getFavorites(userId:String): Resource<List<ProductUI>> =
         withContext(Dispatchers.IO) {
             try {
-                val userId = FirebaseAuth.getInstance().currentUser!!.uid
                 val products = productDao.getProducts(userId)
 
                 if (products.isEmpty()) {
@@ -35,5 +33,8 @@ class FavoritesRepository @Inject constructor(private val productDao: ProductDao
                 Resource.Error(e.message.orEmpty())
             }
         }
+    suspend fun clearAllFavorites(userId:String){
+        productDao.clearAllFavorites(userId)
+    }
 
 }
