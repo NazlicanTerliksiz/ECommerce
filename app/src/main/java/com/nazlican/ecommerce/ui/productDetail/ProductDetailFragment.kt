@@ -47,7 +47,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
         with(binding) {
             AddToCartbutton.setOnClickListener {
-                viewModel.AddToCartProduct(AddToCart(userId, id))
+                viewModel.addToCartProduct(AddToCart(userId, id))
             }
             back.setOnClickListener {
                 findNavController().popBackStack()
@@ -86,23 +86,18 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
                    init(state.detailResponse)
 
-                    if (state.detailResponse.saleState == true) {
-                        if (state.detailResponse.salePrice != null) {
-                            salePriceTv.text = state.detailResponse.salePrice.toString()
-                            val originalPrice = state.detailResponse.price.toString()
-                            val spannableString = SpannableString(originalPrice)
-                            spannableString.setSpan(
-                                StrikethroughSpan(),
-                                0,
-                                originalPrice.length,
-                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                            )
-                            priceTv.text = spannableString
-                            priceTv.visibility = View.VISIBLE
-                        } else {
-                            priceTv.text = state.detailResponse.price.toString()
-                            priceTv.paintFlags = 0
-                        }
+                    if (state.detailResponse.saleState) {
+                        salePriceTv.text = state.detailResponse.salePrice.toString()
+                        val originalPrice = state.detailResponse.price.toString()
+                        val spannableString = SpannableString(originalPrice)
+                        spannableString.setSpan(
+                            StrikethroughSpan(),
+                            0,
+                            originalPrice.length,
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        priceTv.text = spannableString
+                        priceTv.visibility = View.VISIBLE
                     } else {
                         priceTv.text = state.detailResponse.price.toString()
                         salePriceTv.visibility = View.GONE

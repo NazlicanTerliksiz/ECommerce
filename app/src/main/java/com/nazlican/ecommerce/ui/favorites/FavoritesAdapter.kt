@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nazlican.ecommerce.data.model.request.AddToCart
 import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.ItemViewFavoriteProductBinding
 import com.nazlican.ecommerce.util.extensions.downloadFromUrl
@@ -14,6 +15,7 @@ import com.nazlican.ecommerce.util.extensions.downloadFromUrl
 class FavoritesAdapter(
     private val onDetailClickListener: (Int) -> Unit,
     private val onDeleteClickListener: (ProductUI) -> Unit,
+    private val onAddToCartClickListener: (AddToCart) -> Unit
 ):
     RecyclerView.Adapter<FavoritesAdapter.FavoriteProductRowHolder>() {
     private val favoriteProductList = ArrayList<ProductUI>()
@@ -27,19 +29,14 @@ class FavoritesAdapter(
                 favoriteProductNameTv.text = productUI.title
                 ratingBar.rating = productUI.rate.toFloat()
 
-                if (productUI.saleState == true){
-                    if(productUI.salePrice != null) {
-                        salePriceTv.text = "${productUI.salePrice.toString()} ₺"
-                        ratingBar.rating = productUI.rate.toFloat()
-                        val originalPrice = "${productUI.price.toString()} ₺"
-                        val spannableString = SpannableString(originalPrice)
-                        spannableString.setSpan(StrikethroughSpan(), 0, originalPrice.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                        priceTv.text = spannableString
-                        priceTv.visibility = View.VISIBLE
-                    } else {
-                        priceTv.text = "${productUI.price.toString()} ₺"
-                        priceTv.paintFlags = 0
-                    }
+                if (productUI.saleState){
+                    salePriceTv.text = "${productUI.salePrice.toString()} ₺"
+                    ratingBar.rating = productUI.rate.toFloat()
+                    val originalPrice = "${productUI.price.toString()} ₺"
+                    val spannableString = SpannableString(originalPrice)
+                    spannableString.setSpan(StrikethroughSpan(), 0, originalPrice.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    priceTv.text = spannableString
+                    priceTv.visibility = View.VISIBLE
                 }else{
                     priceTv.text = "${productUI.price.toString()} ₺"
                     salePriceTv.visibility = View.GONE
@@ -51,6 +48,9 @@ class FavoritesAdapter(
 
                 favoriteIv.setOnClickListener {
                     onDeleteClickListener.invoke(productUI)
+                }
+                addToCartbutton.setOnClickListener {
+                    onAddToCartClickListener.invoke(AddToCart(productUI.userId, productUI.id))
                 }
             }
         }

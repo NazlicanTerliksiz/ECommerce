@@ -8,10 +8,11 @@ import com.nazlican.ecommerce.data.model.response.ProductUI
 fun DetailResponse.mapToProductUI(favorites: List<Int>) =
         ProductUI(
             category = category.orEmpty(),
+            userId = userId.orEmpty(),
             count = count ?: 0,
             description =description.orEmpty(),
             id = id ?:1,
-            imageOne = imageOne.orEmpty(),
+            imageOne = imageOne,
             imageThree = imageThree.orEmpty(),
             imageTwo = imageTwo.orEmpty(),
             price = price ?: 0.0,
@@ -25,7 +26,8 @@ fun DetailResponse.mapToProductUI(favorites: List<Int>) =
 fun List<Product>.mapProductToProductUI(favorites: List<Int>) =
     this.map {
         ProductUI(
-            id = it.id ?:1,
+            id = it.id,
+            userId = it.userId.orEmpty(),
             imageOne = it.imageOne.orEmpty(),
             imageTwo = it.imageTwo.orEmpty(),
             imageThree = it.imageThree.orEmpty(),
@@ -62,6 +64,7 @@ fun List<ProductEntity>.mapProductEntityToProductUI() =
     map {
         ProductUI(
             id = it.productId ?: 1,
+            userId = it.userId.orEmpty(),
             title = it.title.orEmpty(),
             price = it.price ?: 0.0,
             imageOne = it.imageOne.orEmpty(),

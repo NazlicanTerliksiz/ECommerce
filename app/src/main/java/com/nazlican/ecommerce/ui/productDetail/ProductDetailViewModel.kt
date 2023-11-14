@@ -35,7 +35,7 @@ class ProductDetailViewModel @Inject constructor(
         }
     }
 
-    fun AddToCartProduct(addToCart: AddToCart) = viewModelScope.launch {
+    fun addToCartProduct(addToCart: AddToCart) = viewModelScope.launch {
         _detailState.value = DetailState.Loading
 
         _detailState.value = when (val result = cartRepository.addToCart(addToCart)) {
