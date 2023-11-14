@@ -12,6 +12,7 @@ import com.nazlican.ecommerce.data.model.request.ClearCart
 import com.nazlican.ecommerce.data.model.request.DeleteFromCart
 import com.nazlican.ecommerce.databinding.FragmentCartBinding
 import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.snackbar
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,9 +28,11 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         super.onViewCreated(view, savedInstanceState)
 
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        cartProductAdapter = CartProductAdapter(::homeToDetail){
-            viewModel.deleteFromCart(DeleteFromCart(it,userId))
+
+        cartProductAdapter = CartProductAdapter(::homeToDetail) {
+            viewModel.deleteFromCart(DeleteFromCart(it, userId))
         }
+
         binding.cartProductRv.adapter = cartProductAdapter
         viewModel.getCartProduct(userId)
         cartProductObserve()
@@ -37,6 +40,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         binding.cartClearAllCartIv.setOnClickListener {
             viewModel.clearCart(ClearCart(userId))
         }
+
         binding.cartPayNowButton.setOnClickListener {
             findNavController().navigate(R.id.cartToPayment)
         }
@@ -52,20 +56,23 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 is CartState.CartProductSuccessState -> {
                     cartProgressBar.gone()
                     cartProductAdapter.updateList(state.products)
-                    val totalPrice =viewModel.totalPrice(state.products)
+                    val totalPrice = viewModel.totalPrice(state.products)
                     binding.cartRroductsTotalPriceTv.text = "Total price : $totalPrice ₺"
                 }
 
                 is CartState.DeleteProductSuccessState -> {
                     cartProgressBar.gone()
+                    view?.snackbar("Product deleted!")
                     Snackbar.make(requireView(), "Product deleted!", Snackbar.LENGTH_SHORT).show()
                     viewModel.getCartProduct(FirebaseAuth.getInstance().currentUser!!.uid)
                 }
+
                 is CartState.ClearCartSuccessState -> {
                     cartProgressBar.gone()
-                    Snackbar.make(requireView(), "Product All deleted!", Snackbar.LENGTH_SHORT).show()
+                    view?.snackbar("Product All deleted!")
                     viewModel.getCartProduct(FirebaseAuth.getInstance().currentUser!!.uid)
                 }
+
                 is CartState.EmptyScreen -> {
                     cartProgressBar.gone()
                     cartEmptyIv.visible()
@@ -81,6 +88,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             }
         }
     }
+
     private fun homeToDetail(id: Int) {
         val action = CartFragmentDirections.cartToDetail(id)
         findNavController().navigate(action)

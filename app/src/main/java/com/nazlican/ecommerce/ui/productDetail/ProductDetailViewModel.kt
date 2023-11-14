@@ -44,11 +44,12 @@ class ProductDetailViewModel @Inject constructor(
             is Resource.Error -> DetailState.ShowPopUp(result.errorMessage)
         }
     }
-    fun setFavoriteState(product: ProductUI) = viewModelScope.launch{
+
+    fun setFavoriteState(product: ProductUI) = viewModelScope.launch {
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        if(product.isFav){
+        if (product.isFav) {
             favoritesRepository.deleteFromFavorites(product, userId)
-        }else {
+        } else {
             favoritesRepository.addToFavorites(product, userId)
         }
         getDetailProduct(product.id)

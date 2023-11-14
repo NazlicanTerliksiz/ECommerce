@@ -16,10 +16,10 @@ class MainProductsAdapter(
     private val onItemClickListener: (Int) -> Unit,
     private val onFavClick: (ProductUI) -> Unit
 ) :
-    RecyclerView.Adapter<MainProductsAdapter.RowHolder>() {
+    RecyclerView.Adapter<MainProductsAdapter.MainProductRowHolder>() {
     private val productList = ArrayList<ProductUI>()
 
-    inner class RowHolder(private val binding: ItemViewProductsBinding) :
+    inner class MainProductRowHolder(private val binding: ItemViewProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(productUI: ProductUI) {
             binding.apply {
@@ -28,23 +28,18 @@ class MainProductsAdapter(
                 productTv.text = productUI.title
                 productRatingBar.rating = productUI.rate.toFloat()
 
-                if (productUI.saleState == true) {
-                    if (productUI.salePrice != null) {
-                        salePriceTv.text = "${productUI.salePrice.toString()} ₺"
-                        val originalPrice = "${productUI.price.toString()} ₺"
-                        val spannableString = SpannableString(originalPrice)
-                        spannableString.setSpan(
-                            StrikethroughSpan(),
-                            0,
-                            originalPrice.length,
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                        priceTv.text = spannableString
-                        priceTv.visibility = View.VISIBLE
-                    } else {
-                        priceTv.text = "${productUI.price.toString()} ₺"
-                        priceTv.paintFlags = 0
-                    }
+                if (productUI.saleState) {
+                    salePriceTv.text = "${productUI.salePrice.toString()} ₺"
+                    val originalPrice = "${productUI.price.toString()} ₺"
+                    val spannableString = SpannableString(originalPrice)
+                    spannableString.setSpan(
+                        StrikethroughSpan(),
+                        0,
+                        originalPrice.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    priceTv.text = spannableString
+                    priceTv.visibility = View.VISIBLE
                 } else {
                     priceTv.text = "${productUI.price.toString()} ₺"
                     salePriceTv.visibility = View.GONE
@@ -67,17 +62,17 @@ class MainProductsAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainProductRowHolder {
         val binding =
             ItemViewProductsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RowHolder(binding)
+        return MainProductRowHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return productList.size
     }
 
-    override fun onBindViewHolder(holder: RowHolder, position: Int) {
+    override fun onBindViewHolder(holder: MainProductRowHolder, position: Int) {
         val product = productList[position]
         holder.bind(product)
 

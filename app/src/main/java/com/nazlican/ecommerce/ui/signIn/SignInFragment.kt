@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.databinding.FragmentSignInBinding
 import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.snackbar
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,7 +62,7 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                 }
 
                 is LogInState.ShowPopUp -> {
-                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                    view?.snackbar(state.errorMessage)
                 }
             }
         }

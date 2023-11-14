@@ -5,13 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.data.model.request.AddToCart
 import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.FragmentFavoritesBinding
 import com.nazlican.ecommerce.ui.productDetail.ProductDetailViewModel
 import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.snackbar
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,15 +30,14 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         favoriteViewModel.getFavorites()
 
         with(binding) {
-            favoritesAdapter = FavoritesAdapter(::homeToDetail, ::deleteFromFavorites, ::addToCartFromFavorite)
+            favoritesAdapter =
+                FavoritesAdapter(::homeToDetail, ::deleteFromFavorites, ::addToCartFromFavorite)
             favoritesProductRv.adapter = favoritesAdapter
 
             clearAllFavoritesIv.setOnClickListener {
                 favoriteViewModel.clearAllFavorites()
             }
-
         }
-
         favoriteProductObserve()
     }
 
@@ -64,7 +63,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
                 is FavoriteState.ShowPopUp -> {
                     favoriteProgressBar.gone()
-                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                    view?.snackbar(state.errorMessage)
                 }
             }
         }
@@ -78,11 +77,11 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     private fun deleteFromFavorites(product: ProductUI) {
         favoriteViewModel.deleteFromFavorites(product)
     }
-    private fun addToCartFromFavorite(addToCart: AddToCart){
-        productDetailViewModel.addToCartProduct(addToCart)
-        Snackbar.make(requireView(), "product added to cart", 1000).show()
-    }
 
+    private fun addToCartFromFavorite(addToCart: AddToCart) {
+        productDetailViewModel.addToCartProduct(addToCart)
+        view?.snackbar("product added to cart")
+    }
 }
 
 

@@ -14,14 +14,14 @@ class ViewPagerAdapter(
 
     inner class ViewPagerViewHolder(private val binding: ItemViewViewPagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun bind (imageUrl: String){
-                binding.viewPagerImageView.downloadFromUrl(imageUrl)
-            }
-
+        fun bind(imageUrl: String) {
+            binding.viewPagerImageView.downloadFromUrl(imageUrl)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
-        val binding = ItemViewViewPagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemViewViewPagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewPagerViewHolder(binding)
     }
 
@@ -32,12 +32,12 @@ class ViewPagerAdapter(
     override fun onBindViewHolder(holder: ViewPagerViewHolder, position: Int) {
         val image = imageList[position]
         holder.bind(image)
-        if (position==imageList.size-1){
+        if (position == imageList.size - 1) {
             viewPager.post(runnable)
         }
     }
 
-    private val runnable = Runnable{
+    private val runnable = Runnable {
         imageList.addAll(imageList)
         notifyDataSetChanged()
     }

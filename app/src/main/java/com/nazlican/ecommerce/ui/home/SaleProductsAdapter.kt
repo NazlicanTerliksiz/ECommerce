@@ -16,10 +16,10 @@ class SaleProductsAdapter(
     private val onItemClickListener: (Int) -> Unit,
     private val onFavClick: (ProductUI) -> Unit
 ) :
-    RecyclerView.Adapter<SaleProductsAdapter.RowHolder>() {
+    RecyclerView.Adapter<SaleProductsAdapter.SaleProductRowHolder>() {
     private val saleProductList = ArrayList<ProductUI>()
 
-    inner class RowHolder(private val binding: ItemViewSaleProductsBinding) :
+    inner class SaleProductRowHolder(private val binding: ItemViewSaleProductsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(productUI: ProductUI) {
             binding.apply {
@@ -60,17 +60,17 @@ class SaleProductsAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SaleProductRowHolder {
         val binding =
             ItemViewSaleProductsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RowHolder(binding)
+        return SaleProductRowHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return saleProductList.size
     }
 
-    override fun onBindViewHolder(holder: RowHolder, position: Int) {
+    override fun onBindViewHolder(holder: SaleProductRowHolder, position: Int) {
         val product = saleProductList[position]
         holder.bind(product)
     }

@@ -12,15 +12,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchFragmentViewModel @Inject constructor(private val searchRepository: SearchRepository):ViewModel() {
+class SearchFragmentViewModel @Inject constructor(private val searchRepository: SearchRepository) :
+    ViewModel() {
 
     private var _searchState = MutableLiveData<SearchState>()
     val searchState: LiveData<SearchState> get() = _searchState
 
-    fun searchProduct(query:String) = viewModelScope.launch{
+    fun searchProduct(query: String) = viewModelScope.launch {
         _searchState.value = SearchState.Loading
 
-        _searchState.value = when (val result =searchRepository.searchFromProduct(query)) {
+        _searchState.value = when (val result = searchRepository.searchFromProduct(query)) {
             is Resource.Success -> SearchState.SuccessSearchState(result.data)
             is Resource.Fail -> SearchState.EmptyScreen(result.failMessage)
             is Resource.Error -> SearchState.ShowPopUp(result.errorMessage)

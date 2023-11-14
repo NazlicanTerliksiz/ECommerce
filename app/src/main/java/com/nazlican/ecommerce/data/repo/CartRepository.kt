@@ -12,7 +12,10 @@ import com.nazlican.ecommerce.data.source.remote.ProductService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class CartRepository(private val productService: ProductService, private val productDao: ProductDao) {
+class CartRepository(
+    private val productService: ProductService,
+    private val productDao: ProductDao
+) {
 
     suspend fun cartProducts(userId: String): Resource<List<ProductUI>> =
         withContext(Dispatchers.IO) {
@@ -59,6 +62,7 @@ class CartRepository(private val productService: ProductService, private val pro
                 Resource.Error(e.message.orEmpty())
             }
         }
+
     suspend fun clearCart(clearCart: ClearCart): Resource<BaseResponse> =
         withContext(Dispatchers.IO) {
             try {

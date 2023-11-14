@@ -16,7 +16,7 @@ class FavoritesAdapter(
     private val onDetailClickListener: (Int) -> Unit,
     private val onDeleteClickListener: (ProductUI) -> Unit,
     private val onAddToCartClickListener: (AddToCart) -> Unit
-):
+) :
     RecyclerView.Adapter<FavoritesAdapter.FavoriteProductRowHolder>() {
     private val favoriteProductList = ArrayList<ProductUI>()
 
@@ -29,26 +29,32 @@ class FavoritesAdapter(
                 favoriteProductNameTv.text = productUI.title
                 ratingBar.rating = productUI.rate.toFloat()
 
-                if (productUI.saleState){
+                if (productUI.saleState) {
                     salePriceTv.text = "${productUI.salePrice.toString()} ₺"
                     ratingBar.rating = productUI.rate.toFloat()
                     val originalPrice = "${productUI.price.toString()} ₺"
                     val spannableString = SpannableString(originalPrice)
-                    spannableString.setSpan(StrikethroughSpan(), 0, originalPrice.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    spannableString.setSpan(
+                        StrikethroughSpan(),
+                        0,
+                        originalPrice.length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
                     priceTv.text = spannableString
                     priceTv.visibility = View.VISIBLE
-                }else{
+                } else {
                     priceTv.text = "${productUI.price.toString()} ₺"
                     salePriceTv.visibility = View.GONE
                 }
 
-                root.setOnClickListener{
+                root.setOnClickListener {
                     onDetailClickListener(productUI.id)
                 }
 
                 favoriteIv.setOnClickListener {
                     onDeleteClickListener.invoke(productUI)
                 }
+
                 addToCartbutton.setOnClickListener {
                     onAddToCartClickListener.invoke(AddToCart(productUI.userId, productUI.id))
                 }
@@ -58,7 +64,11 @@ class FavoritesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteProductRowHolder {
         val binding =
-            ItemViewFavoriteProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemViewFavoriteProductBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         return FavoriteProductRowHolder(binding)
     }
 
@@ -71,7 +81,7 @@ class FavoritesAdapter(
         return favoriteProductList.size
     }
 
-    fun updateList(updateList:List<ProductUI>){
+    fun updateList(updateList: List<ProductUI>) {
         favoriteProductList.clear()
         favoriteProductList.addAll(updateList)
         notifyDataSetChanged()

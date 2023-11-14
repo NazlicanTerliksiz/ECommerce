@@ -27,7 +27,6 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
             is Resource.Fail -> CartState.EmptyScreen(result.failMessage)
             is Resource.Error -> CartState.ShowPopUp(result.errorMessage)
         }
-
     }
 
     fun deleteFromCart(deleteFromCart: DeleteFromCart) = viewModelScope.launch {
@@ -35,11 +34,12 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
 
         _cartState.value =
             when (val result = cartRepository.deleteFromCart(deleteFromCart)) {
-            is Resource.Success -> CartState.DeleteProductSuccessState(result.data)
-            is Resource.Fail -> CartState.EmptyScreen(result.failMessage)
-            is Resource.Error -> CartState.ShowPopUp(result.errorMessage)
-        }
+                is Resource.Success -> CartState.DeleteProductSuccessState(result.data)
+                is Resource.Fail -> CartState.EmptyScreen(result.failMessage)
+                is Resource.Error -> CartState.ShowPopUp(result.errorMessage)
+            }
     }
+
     fun clearCart(clearCart: ClearCart) = viewModelScope.launch {
         _cartState.value = CartState.Loading
 
@@ -50,13 +50,14 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
                 is Resource.Error -> CartState.ShowPopUp(result.errorMessage)
             }
     }
-    fun totalPrice(products: List<ProductUI>) : Double {
+
+    fun totalPrice(products: List<ProductUI>): Double {
         var totalPrice = 0.0
-        for(i in products.indices){
-            if (products[i].saleState){
-                totalPrice+=products[i].salePrice
-            }else
-                totalPrice+=products[i].price
+        for (i in products.indices) {
+            if (products[i].saleState) {
+                totalPrice += products[i].salePrice
+            } else
+                totalPrice += products[i].price
         }
         return totalPrice
     }

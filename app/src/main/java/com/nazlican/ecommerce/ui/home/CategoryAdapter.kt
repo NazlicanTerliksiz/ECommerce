@@ -11,12 +11,12 @@ class CategoryAdapter (
 
     private val onItemClickListener: (String) -> Unit
 ) :
-RecyclerView.Adapter<CategoryAdapter.RowHolder>() {
+RecyclerView.Adapter<CategoryAdapter.CategoryRowHolder>() {
 
     private val categoryList = ArrayList<String>()
     private var selectedPosition: Int = RecyclerView.NO_POSITION
 
-    inner class RowHolder(private val binding: ItemViewCategoriesBinding) :
+    inner class CategoryRowHolder(private val binding: ItemViewCategoriesBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(category: String, position: Int) {
@@ -25,7 +25,7 @@ RecyclerView.Adapter<CategoryAdapter.RowHolder>() {
                 if (position == selectedPosition) {
                     categoryName.setTextColor(ContextCompat.getColor(itemView.context, R.color.darkBrown))
                 } else {
-                    categoryName.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey)) // veya istediğiniz bir renk
+                    categoryName.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey))
                 }
                 itemView.setOnClickListener {
                     onItemClickListener.invoke(category)
@@ -38,14 +38,14 @@ RecyclerView.Adapter<CategoryAdapter.RowHolder>() {
         }
     }
 
-    override fun onBindViewHolder(holder: RowHolder, position: Int) {
+    override fun onBindViewHolder(holder: CategoryRowHolder, position: Int) {
         val category = categoryList[position]
         holder.bind(category, position)
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RowHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryRowHolder {
         val binding =
             ItemViewCategoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return RowHolder(binding)
+        return CategoryRowHolder(binding)
     }
 
     override fun getItemCount(): Int {

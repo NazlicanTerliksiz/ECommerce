@@ -10,7 +10,10 @@ import com.nazlican.ecommerce.data.source.remote.ProductService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ProductRepository(private val productService: ProductService, private val productDao: ProductDao) {
+class ProductRepository(
+    private val productService: ProductService,
+    private val productDao: ProductDao
+) {
 
     val userId = FirebaseAuth.getInstance().currentUser!!.uid
     suspend fun getProducts(): Resource<List<ProductUI>> =

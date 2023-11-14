@@ -7,13 +7,8 @@
     android:background="@color/beige"
     tools:context=".ui.home.HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/beige">
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/productConstraintLayout"
+            android:id="@+id/homeConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/beige"
@@ -52,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16dp"
                 android:text="Discounted Products"
-                android:textColor="@color/darkBrown"
                 android:textSize="@dimen/text_size_16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -98,16 +92,14 @@
                 app:spanCount="2"
                 tools:listitem="@layout/item_view_products" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
             <ImageView
                 android:id="@+id/homeEmptyIv"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/homeEmptyTv"
+                app:layout_constraintTop_toBottomOf="@id/homeToolBar"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
@@ -125,19 +117,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/homeEmptyIv" />
 
-        <ProgressBar
-            android:id="@+id/homeProgressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_180dp"
-            android:layout_marginTop="350dp"
-            android:layout_marginEnd="@dimen/margin_180dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            <ProgressBar
+                android:id="@+id/homeProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_180dp"
+                android:layout_marginTop="500dp"
+                android:layout_marginEnd="@dimen/margin_180dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/homeToolBar"
+                tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

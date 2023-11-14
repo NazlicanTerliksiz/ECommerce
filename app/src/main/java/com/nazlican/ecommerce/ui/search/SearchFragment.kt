@@ -20,10 +20,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val binding by viewBinding(FragmentSearchBinding::bind)
     private val viewModel: SearchFragmentViewModel by viewModels()
     private lateinit var searchProductAdapter: SearchProductsAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //binding.productRv.layoutManager = LinearLayoutManager(requireContext())
         searchProductAdapter = SearchProductsAdapter(::homeToDetail)
         binding.searchProductRv.adapter = searchProductAdapter
         searchProductObserve()
@@ -70,14 +70,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if (newText != null && newText.length>3){
+                if (newText != null && newText.length > 3) {
                     viewModel.searchProduct(newText)
-                }else{
+                } else {
                     searchProductAdapter.updateList(emptyList())
                 }
                 return true
             }
-
         })
     }
 }

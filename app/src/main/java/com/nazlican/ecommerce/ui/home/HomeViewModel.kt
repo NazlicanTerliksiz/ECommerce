@@ -14,7 +14,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val productRepository: ProductRepository, private val favoritesRepository: FavoritesRepository) :
+class HomeViewModel @Inject constructor(
+    private val productRepository: ProductRepository,
+    private val favoritesRepository: FavoritesRepository
+) :
     ViewModel() {
 
     private var _homeState = MutableLiveData<HomeState>()
@@ -51,21 +54,21 @@ class HomeViewModel @Inject constructor(private val productRepository: ProductRe
     }
 
     fun getProductsByCategory(category: String) = viewModelScope.launch {
-            _homeState.value = HomeState.Loading
+        _homeState.value = HomeState.Loading
 
-            _homeState.value =
-                when (val result = productRepository.getProductsByCategory(category)) {
-                    is Resource.Success -> HomeState.SuccessCategoryProductState(result.data)
-                    is Resource.Fail -> HomeState.EmptyScreen(result.failMessage)
-                    is Resource.Error -> HomeState.ShowPopUp(result.errorMessage)
-                }
-        }
+        _homeState.value =
+            when (val result = productRepository.getProductsByCategory(category)) {
+                is Resource.Success -> HomeState.SuccessCategoryProductState(result.data)
+                is Resource.Fail -> HomeState.EmptyScreen(result.failMessage)
+                is Resource.Error -> HomeState.ShowPopUp(result.errorMessage)
+            }
+    }
 
-    fun setFavoriteState(product: ProductUI) = viewModelScope.launch{
+    fun setFavoriteState(product: ProductUI) = viewModelScope.launch {
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        if(product.isFav){
+        if (product.isFav) {
             favoritesRepository.deleteFromFavorites(product, userId)
-        }else {
+        } else {
             favoritesRepository.addToFavorites(product, userId)
         }
         getProducts()

@@ -15,17 +15,18 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.data.model.request.AddToCart
 import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.FragmentProductDetailBinding
 import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.snackbar
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.abs
+
 @AndroidEntryPoint
 class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
@@ -43,7 +44,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         val id = args.id
         viewModel.getDetailProduct(id)
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        viewPager2= binding.detailProductViewPager
+        viewPager2 = binding.detailProductViewPager
 
         with(binding) {
             AddToCartbutton.setOnClickListener {
@@ -66,6 +67,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
 
     }
+
     private fun detailProductObserve() = with(binding) {
         viewModel.detailState.observe(viewLifecycleOwner) { state ->
 
@@ -84,7 +86,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     detailProductRatingBar.rating = state.detailResponse.rate.toFloat()
                     priceTv.text = state.detailResponse.price.toString()
 
-                   init(state.detailResponse)
+                    init(state.detailResponse)
 
                     if (state.detailResponse.saleState) {
                         salePriceTv.text = state.detailResponse.salePrice.toString()
@@ -127,7 +129,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
                 is DetailState.ShowPopUp -> {
                     detailProgressBar.gone()
-                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                    view?.snackbar(state.errorMessage)
                 }
             }
         }
@@ -136,6 +138,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
     private val runnable = Runnable {
         viewPager2.currentItem = viewPager2.currentItem + 1
     }
+
     private fun setUpTransformer() {
         val transformer = CompositePageTransformer()
         transformer.addTransformer(MarginPageTransformer(50))
@@ -145,7 +148,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         }
         viewPager2.setPageTransformer(transformer)
     }
-    private fun init(product:ProductUI) {
+
+    private fun init(product: ProductUI) {
         //viewPager2 = binding.detailProductViewPager
         handler = Handler(Looper.myLooper()!!)
 

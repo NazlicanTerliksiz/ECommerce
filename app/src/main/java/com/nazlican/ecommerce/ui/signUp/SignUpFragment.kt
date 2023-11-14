@@ -1,15 +1,14 @@
 package com.nazlican.ecommerce.ui.signUp
 
 import android.os.Bundle
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.databinding.FragmentSignUpBinding
 import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.snackbar
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +24,12 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
 
         signUp()
         signUpObserve()
+
+        binding.signUpToSignInTv.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
+
     private fun signUp() {
         binding.signUpButton.setOnClickListener {
             with(binding) {
@@ -36,6 +40,7 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             }
         }
     }
+
     private fun signUpObserve() = with(binding) {
         viewModel.registerState.observe(viewLifecycleOwner) { state ->
             when (state) {
@@ -45,12 +50,14 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
                     signUpProgressBar.gone()
                     findNavController().popBackStack()
                 }
+
                 RegisterState.AddUserInfoSuccessState -> {
                     signUpProgressBar.gone()
 
                 }
+
                 is RegisterState.ShowPopUp -> {
-                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                    view?.snackbar(state.errorMessage)
                 }
             }
         }

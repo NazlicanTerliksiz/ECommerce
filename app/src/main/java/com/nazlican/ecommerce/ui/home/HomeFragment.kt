@@ -1,16 +1,15 @@
 package com.nazlican.ecommerce.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.data.model.response.ProductUI
 import com.nazlican.ecommerce.databinding.FragmentHomeBinding
 import com.nazlican.ecommerce.util.extensions.gone
+import com.nazlican.ecommerce.util.extensions.snackbar
 import com.nazlican.ecommerce.util.extensions.visible
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,9 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is HomeState.SuccessProductState -> {
                     homeProgressBar.gone()
                     homeEmptyIv.gone()
-                    homeEmptyTv.gone()
                     mainProductsAdapter.updateList(state.products)
-                    Log.e("message", state.products.toString())
                 }
 
                 is HomeState.SuccessSaleProductState -> {
@@ -63,7 +60,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     homeEmptyIv.gone()
                     homeEmptyTv.gone()
                     saleProductsAdapter.updateList(state.products)
-                    Log.e("salemessage", state.products.toString())
                 }
 
                 is HomeState.SuccessCategoryNameState -> {
@@ -92,8 +88,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 is HomeState.ShowPopUp -> {
                     homeProgressBar.gone()
-                    productConstraintLayout.gone()
-                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                    view?.snackbar(state.errorMessage)
                 }
             }
         }

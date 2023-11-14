@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class PaymentViewModel  : ViewModel() {
+class PaymentViewModel : ViewModel() {
 
     private val _paymentState: MutableLiveData<PaymentState> = MutableLiveData()
     val paymentState: LiveData<PaymentState> get() = _paymentState

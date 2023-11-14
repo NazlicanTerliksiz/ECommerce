@@ -9,10 +9,13 @@ import com.nazlican.ecommerce.data.source.remote.ProductService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SearchRepository(private val productService: ProductService, private val productDao: ProductDao) {
+class SearchRepository(
+    private val productService: ProductService,
+    private val productDao: ProductDao
+) {
 
     suspend fun searchFromProduct(query: String): Resource<List<ProductUI>> =
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             try {
                 val userId = FirebaseAuth.getInstance().currentUser!!.uid
                 val favorites = productDao.getProductIds(userId)

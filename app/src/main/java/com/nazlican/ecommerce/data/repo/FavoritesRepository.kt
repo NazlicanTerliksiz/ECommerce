@@ -11,29 +11,30 @@ import javax.inject.Inject
 
 class FavoritesRepository @Inject constructor(private val productDao: ProductDao) {
 
-    suspend fun addToFavorites(productListUI : ProductUI, userId:String){
+    suspend fun addToFavorites(productListUI: ProductUI, userId: String) {
         productDao.addProduct(productListUI.mapToProductEntity(userId))
     }
 
-    suspend fun deleteFromFavorites(productUI : ProductUI, userId:String){
+    suspend fun deleteFromFavorites(productUI: ProductUI, userId: String) {
         productDao.deleteProduct(productUI.mapToProductEntity(userId))
     }
 
-    suspend fun getFavorites(userId:String): Resource<List<ProductUI>> =
+    suspend fun getFavorites(userId: String): Resource<List<ProductUI>> =
         withContext(Dispatchers.IO) {
             try {
                 val products = productDao.getProducts(userId)
 
                 if (products.isEmpty()) {
                     Resource.Fail("There are no products in your favorites")
-                }else {
+                } else {
                     Resource.Success(products.mapProductEntityToProductUI())
                 }
             } catch (e: Exception) {
                 Resource.Error(e.message.orEmpty())
             }
         }
-    suspend fun clearAllFavorites(userId:String){
+
+    suspend fun clearAllFavorites(userId: String) {
         productDao.clearAllFavorites(userId)
     }
 

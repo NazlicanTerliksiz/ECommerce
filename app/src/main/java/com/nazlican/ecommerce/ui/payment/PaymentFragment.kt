@@ -5,13 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.nazlican.ecommerce.R
 import com.nazlican.ecommerce.data.model.request.ClearCart
 import com.nazlican.ecommerce.databinding.FragmentPaymentBinding
 import com.nazlican.ecommerce.ui.cart.CartViewModel
-
+import com.nazlican.ecommerce.util.extensions.snackbar
 import com.nazlican.sisterslabproject.common.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +20,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
     private val binding by viewBinding(FragmentPaymentBinding::bind)
     private val paymentViewModel: PaymentViewModel by viewModels()
     private val cartViewModel: CartViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,7 +53,7 @@ class PaymentFragment : Fragment(R.layout.fragment_payment) {
                 }
 
                 is PaymentState.ShowPopUp -> {
-                    Snackbar.make(requireView(), state.errorMessage, 1000).show()
+                    view?.snackbar(state.errorMessage)
                 }
             }
         }
