@@ -2,6 +2,7 @@ package com.nazlican.ecommerce.data.model.response
 
 data class DetailResponse(
     val category: String?,
+    val userId : String?,
     val count: Int?,
     val description: String?,
     val id: Int?,
