@@ -18,13 +18,13 @@ class SignUpViewModel @Inject constructor(private val authRepository: AuthReposi
     private val _registerState: MutableLiveData<RegisterState> = MutableLiveData()
     val registerState: LiveData<RegisterState> get() = _registerState
 
-    fun registerToFirebase(email: String, password: String) {
+    fun registerToFirebase(email: String, password: String, name:String, surname:String) {
         viewModelScope.launch {
             if (checkFields(email, password)) {
                 _registerState.value = RegisterState.Loading
 
                 _registerState.value =
-                    when (val result = authRepository.registerToFirebase(email, password)) {
+                    when (val result = authRepository.registerToFirebase(email, password, name, surname )) {
                         is Resource.Success -> RegisterState.RegisterSuccessState
                         is Resource.Fail -> RegisterState.ShowPopUp(result.failMessage)
                         is Resource.Error -> RegisterState.ShowPopUp(result.errorMessage)

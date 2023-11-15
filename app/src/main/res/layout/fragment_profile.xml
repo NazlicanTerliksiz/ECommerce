@@ -19,30 +19,58 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/EmailInfoText"
-        android:layout_width="236dp"
+        android:id="@+id/emailInfoText"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_margin="16dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="56dp"
         android:text="TextView"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/logOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/nameInfoText"
         app:layout_constraintStart_toEndOf="@+id/profileIv"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/logOut"
-        android:layout_width="236dp"
+        android:id="@+id/nameInfoText"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_margin="16dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginBottom="56dp"
+        android:layout_marginStart="16dp"
+        android:textAlignment="center"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileIv" />
+
+    <TextView
+        android:id="@+id/surnameInfoText"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="39dp"
+        android:textAlignment="center"
+        android:layout_marginBottom="56dp"
+        android:layout_marginStart="16dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameInfoText" />
+
+    <TextView
+        android:id="@+id/logOut"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_margin="16dp"
+        android:textAlignment="center"
         android:text="Log Out"
         android:textSize="16sp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="@dimen/margin_32dp"
-        app:layout_constraintTop_toBottomOf="@+id/profileIv"
+        app:layout_constraintTop_toBottomOf="@+id/surnameInfoText"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView

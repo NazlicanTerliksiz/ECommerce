@@ -60,7 +60,6 @@ class SignInFragment : Fragment(R.layout.fragment_sign_in) {
                     signInProgressBar.gone()
                     findNavController().navigate(R.id.signInToMainGraph)
                 }
-
                 is LogInState.ShowPopUp -> {
                     view?.snackbar(state.errorMessage)
                 }

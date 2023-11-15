@@ -1,5 +1,8 @@
 package com.nazlican.ecommerce.di
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.nazlican.ecommerce.data.repo.AuthRepository
 import com.nazlican.ecommerce.data.repo.CartRepository
 import com.nazlican.ecommerce.data.repo.ProductRepository
 import com.nazlican.ecommerce.data.repo.SearchRepository
@@ -26,5 +29,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideSearchRepository(productService: ProductService, productDao: ProductDao) = SearchRepository(productService, productDao)
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(firebaseAuth: FirebaseAuth, firebaseFirestore: FirebaseFirestore) =
+        AuthRepository(firebaseAuth, firebaseFirestore)
 
 }

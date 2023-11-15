@@ -35,7 +35,9 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             with(binding) {
                 viewModel.registerToFirebase(
                     signUpEmail2.text.toString(),
-                    signUpPassword2.text.toString()
+                    signUpPassword2.text.toString(),
+                    signUpName2.text.toString(),
+                    signUpSurname2.text.toString()
                 )
             }
         }
