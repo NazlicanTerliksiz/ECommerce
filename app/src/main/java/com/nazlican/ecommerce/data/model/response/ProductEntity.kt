@@ -46,4 +46,7 @@ data class ProductEntity(
 
     @ColumnInfo(name = "imageTwo")
     val imageTwo: String?,
+
+    @ColumnInfo(name = "isfav")
+    val isfav: Boolean?,
     )

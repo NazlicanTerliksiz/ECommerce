@@ -18,13 +18,14 @@ class SignUpViewModel @Inject constructor(private val authRepository: AuthReposi
     private val _registerState: MutableLiveData<RegisterState> = MutableLiveData()
     val registerState: LiveData<RegisterState> get() = _registerState
 
-    fun registerToFirebase(email: String, password: String, name:String, surname:String) {
+    fun registerToFirebase(email: String, password: String, name: String, surname: String) {
         viewModelScope.launch {
-            if (checkFields(email, password)) {
+            if (checkFields(email, password, name, surname)) {
                 _registerState.value = RegisterState.Loading
 
                 _registerState.value =
-                    when (val result = authRepository.registerToFirebase(email, password, name, surname )) {
+                    when (val result =
+                        authRepository.registerToFirebase(email, password, name, surname)) {
                         is Resource.Success -> RegisterState.RegisterSuccessState
                         is Resource.Fail -> RegisterState.ShowPopUp(result.failMessage)
                         is Resource.Error -> RegisterState.ShowPopUp(result.errorMessage)
@@ -33,8 +34,24 @@ class SignUpViewModel @Inject constructor(private val authRepository: AuthReposi
         }
     }
 
-    private fun checkFields(email: String, password: String): Boolean {
+    private fun checkFields(
+        email: String,
+        password: String,
+        name: String,
+        surname: String
+    ): Boolean {
         return when {
+
+            name.isEmpty() -> {
+                _registerState.value = RegisterState.ShowPopUp("name can't be empty")
+                false
+            }
+
+            surname.isEmpty() -> {
+                _registerState.value = RegisterState.ShowPopUp("surname can't be empty")
+                false
+            }
+
             email.isEmpty() -> {
                 _registerState.value = RegisterState.ShowPopUp("mail can't be empty")
                 false

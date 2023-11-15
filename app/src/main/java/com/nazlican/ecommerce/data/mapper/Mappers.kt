@@ -57,7 +57,8 @@ fun ProductUI.mapToProductEntity(userId:String) =
         description = description,
         count = count,
         category = category,
-        rate = rate
+        rate = rate,
+        isfav = isFav
     )
 
 fun List<ProductEntity>.mapProductEntityToProductUI() =
@@ -75,6 +76,7 @@ fun List<ProductEntity>.mapProductEntityToProductUI() =
             description = it.description.orEmpty(),
             count = it.count ?: 0,
             category = it.category.orEmpty(),
-            rate = it.rate ?: 0.0
+            rate = it.rate ?: 0.0,
+            isFav = it.isfav ?: false
         )
     }
