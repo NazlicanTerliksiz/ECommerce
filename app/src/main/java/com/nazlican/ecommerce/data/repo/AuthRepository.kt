@@ -13,59 +13,54 @@ class AuthRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseFirestore: FirebaseFirestore
 ) {
+    fun getUserId(): String = firebaseAuth.currentUser?.uid.orEmpty()
+
     suspend fun loginToFirebase(email: String, password: String): Resource<Boolean> =
         withContext(Dispatchers.IO) {
             try {
+
                 val authSignIn = firebaseAuth.signInWithEmailAndPassword(email, password).await()
                 if (authSignIn.user != null) {
                     Resource.Success(true)
                 } else
-                    Resource.Success(false)
+                    Resource.Error("An error occurred")
             } catch (e: Exception) {
                 Resource.Error(e.message.orEmpty())
             }
         }
 
-    suspend fun registerToFirebase(email: String, password: String): Resource<Boolean> =
+    suspend fun registerToFirebase(email: String, password: String, name: String, surname:String): Resource<Boolean> =
         withContext(Dispatchers.IO) {
             try {
                 val authSignUp =
                     firebaseAuth.createUserWithEmailAndPassword(email, password).await()
                 if (authSignUp.user != null) {
+
+                    val uid = FirebaseAuth.getInstance().currentUser!!.uid
+                    val user = User(
+                        userId = uid,
+                        email = email,
+                        name = name,
+                        surname = surname
+                    )
+                    firebaseFirestore.collection("users").document(uid).set(user).await()
+
                     Resource.Success(true)
                 } else
-                    Resource.Success(false)
+                    Resource.Error("An error occured")
             } catch (e: Exception) {
                 Resource.Error(e.message.orEmpty())
             }
         }
 
-   /* suspend fun addUserInfo(email: String): Resource<Boolean> = withContext(Dispatchers.IO) {
-        try {
-            val uid = FirebaseAuth.getInstance().currentUser!!.uid
-            val user = User(
-                userId = uid,
-                email = email
-            )
-            firebaseFirestore.collection("users").document(uid).set(user).await()
-            Resource.Success(true)
-        } catch (e: Exception) {
-            Resource.Error(e.message.orEmpty())
-        }
-    }*/
+    suspend fun getUser(): User {
+        val user = firebaseFirestore.collection("users").document(getUserId()).get().await()
 
-    fun addUserInfo(email: String,onSuccess: () -> Unit, onFailure: (String) -> Unit) {
-        val uid = FirebaseAuth.getInstance().currentUser!!.uid
-        val user = User(
-            userId = uid,
-            email = email
+        return User(
+            name = user.getString("name") ?: "",
+            surname = user.getString("surname") ?: "",
+            email = user.getString("email") ?: ""
         )
-        firebaseFirestore.collection("users").document("${uid}").set(user).addOnSuccessListener {
-            onSuccess.invoke()
-        }.addOnFailureListener {
-            onFailure.invoke(it.localizedMessage.orEmpty())
-        }
     }
-
 }
 

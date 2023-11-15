@@ -28,34 +28,34 @@ class SaleProductsAdapter(
                 saleProductNameTv.text = productUI.title
                 saleProductRatingBar.rating = productUI.rate.toFloat()
 
-                if (productUI.salePrice != null) {
-                    salePriceTv.text = "${productUI.salePrice.toString()} ₺"
-                    val originalPrice = "${productUI.price.toString()} ₺"
-                    val spannableString = SpannableString(originalPrice)
-                    spannableString.setSpan(
-                        StrikethroughSpan(),
-                        0,
-                        originalPrice.length,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    if (productUI.salePrice != null) {
+                        salePriceTv.text = "${productUI.salePrice} ₺"
+                        val originalPrice = "${productUI.price} ₺"
+                        val spannableString = SpannableString(originalPrice)
+                        spannableString.setSpan(
+                            StrikethroughSpan(),
+                            0,
+                            originalPrice.length,
+                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        priceTv.text = spannableString
+                        priceTv.visibility = View.VISIBLE
+                    } else {
+                        priceTv.text = "${productUI.price} ₺"
+                        priceTv.paintFlags = 0
+                    }
+
+                    root.setOnClickListener {
+                        onItemClickListener.invoke(productUI.id)
+                    }
+                    favoriteIv.setOnClickListener {
+                        onFavClick(productUI)
+                    }
+
+                    favoriteIv.setBackgroundResource(
+                        if (productUI.isFav) R.drawable.ic_fav_selected
+                        else R.drawable.ic_fav_unselected
                     )
-                    priceTv.text = spannableString
-                    priceTv.visibility = View.VISIBLE
-                } else {
-                    priceTv.text = "${productUI.price.toString()} ₺"
-                    priceTv.paintFlags = 0
-                }
-
-                root.setOnClickListener {
-                    onItemClickListener.invoke(productUI.id)
-                }
-                favoriteIv.setOnClickListener {
-                    onFavClick(productUI)
-                }
-
-                favoriteIv.setBackgroundResource(
-                    if (productUI.isFav) R.drawable.ic_fav_selected
-                    else R.drawable.ic_fav_unselected
-                )
             }
         }
     }

@@ -40,7 +40,7 @@ class ProductDetailViewModel @Inject constructor(
 
         _detailState.value = when (val result = cartRepository.addToCart(addToCart)) {
             is Resource.Success -> DetailState.SuccessAddToCartState(result.data)
-            is Resource.Fail -> DetailState.EmptyScreen(result.failMessage)
+            is Resource.Fail -> DetailState.ShowPopUp(result.failMessage)
             is Resource.Error -> DetailState.ShowPopUp(result.errorMessage)
         }
     }

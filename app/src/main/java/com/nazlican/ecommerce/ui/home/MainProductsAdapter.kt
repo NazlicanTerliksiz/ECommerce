@@ -29,8 +29,8 @@ class MainProductsAdapter(
                 productRatingBar.rating = productUI.rate.toFloat()
 
                 if (productUI.saleState) {
-                    salePriceTv.text = "${productUI.salePrice.toString()} ₺"
-                    val originalPrice = "${productUI.price.toString()} ₺"
+                    salePriceTv.text = "${productUI.salePrice} ₺"
+                    val originalPrice = "${productUI.price} ₺"
                     val spannableString = SpannableString(originalPrice)
                     spannableString.setSpan(
                         StrikethroughSpan(),
@@ -41,7 +41,7 @@ class MainProductsAdapter(
                     priceTv.text = spannableString
                     priceTv.visibility = View.VISIBLE
                 } else {
-                    priceTv.text = "${productUI.price.toString()} ₺"
+                    priceTv.text = "${productUI.price} ₺"
                     salePriceTv.visibility = View.GONE
                 }
 

@@ -72,6 +72,7 @@ class HomeViewModel @Inject constructor(
             favoritesRepository.addToFavorites(product, userId)
         }
         getProducts()
+        getSaleProducts()
     }
 }
 

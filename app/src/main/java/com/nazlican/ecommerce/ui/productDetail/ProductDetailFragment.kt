@@ -72,10 +72,7 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
         viewModel.detailState.observe(viewLifecycleOwner) { state ->
 
             when (state) {
-                DetailState.Loading -> {
-                    detailProgressBar.visible()
-                    productDetailConstraintLayout.gone()
-                }
+                DetailState.Loading -> detailProgressBar.visible()
 
                 is DetailState.SuccessState -> {
                     detailProgressBar.gone()
