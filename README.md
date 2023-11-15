@@ -2,7 +2,7 @@
 
 Android Programming training with Kotlin training graduation project organized by Up School
 
-Project Presentation : https://www.canva.com/design/DAFqHIfF4vo/L8z2ldJ0zxCrT1yzHHDGMw/view?utm_content=DAFqHIfF4vo&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink
+Project Presentation : https://www.canva.com/design/DAFqHIfF4vo/jp51RmbUK5ynTGdji0YbFw/edit?utm_content=DAFqHIfF4vo&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 
 Technologies
 
