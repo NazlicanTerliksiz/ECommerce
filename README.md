@@ -19,8 +19,7 @@ Technologies
 - View Pager
 - Chucker
 
-# Authentication Screens
-| Splash Screen             | Login In Screen           | Register Screen             | Profil Screen             |
+| Splash Screen             | Login Screen              | Register Screen           | Profil Screen             |
 | ------------------------- | ------------------------- | ------------------------- | ------------------------- |
 |![Screenshot 2023-11-15 193714](https://github.com/NazlicanTerliksiz/ECommerce/assets/103425386/cea8731d-67da-4100-a3ac-1980c6827018)|![Screenshot 2023-11-15 194031](https://github.com/NazlicanTerliksiz/ECommerce/assets/103425386/f538e50d-c24b-4710-b1b0-1d1fcf63a88c)|![Screenshot 2023-11-15 193637](https://github.com/NazlicanTerliksiz/ECommerce/assets/103425386/cf33c14b-3653-4e6e-a606-113a4e684326)|![Screenshot 2023-11-15 180528](https://github.com/NazlicanTerliksiz/ECommerce/assets/103425386/6ddc67ea-9caf-4fb8-b848-2734ba484f2e)
 
